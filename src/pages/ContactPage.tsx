@@ -1,5 +1,5 @@
 import { type FormEvent, useRef, useState } from 'react';
-import { Mail, MessageCircle } from 'lucide-react';
+import { Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
@@ -13,6 +13,17 @@ const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi Aqib Ops, I want to discuss 
 const HUMAN_CHECK_VALUE = 'AQIB';
 const MIN_FORM_COMPLETION_MS = 2500;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function XBrandIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+      <path
+        fill="currentColor"
+        d="M18.901 1.153h3.68l-8.04 9.188L24 22.847h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.61 20.644h2.039L6.486 3.24H4.298z"
+      />
+    </svg>
+  );
+}
 
 export function ContactPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -215,16 +226,18 @@ export function ContactPage() {
                   href="https://www.linkedin.com/in/aqibops"
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
                 >
+                  <Linkedin className="h-3.5 w-3.5" />
                   LinkedIn
                 </a>
                 <a
                   href="https://x.com/AqibOps"
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
                 >
+                  <XBrandIcon className="h-3.5 w-3.5" />
                   X
                 </a>
               </div>
