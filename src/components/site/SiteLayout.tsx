@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 import { ScrollToTop } from './ScrollToTop';
+import { WhatsAppChatButton } from './WhatsAppChatButton';
 
 export function SiteLayout() {
   const contentRef = useRef<HTMLElement>(null);
@@ -26,6 +27,7 @@ export function SiteLayout() {
       <main ref={contentRef}>
         <Outlet />
       </main>
+      <WhatsAppChatButton />
       <SiteFooter />
     </div>
   );

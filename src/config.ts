@@ -349,7 +349,7 @@ export interface FooterConfig {
 export const footerConfig: FooterConfig = {
   logoText: "AQIB OPS",
   contactLabel: "Get in Touch",
-  email: "hello@aqibops.studio",
+  email: "AqibOpscontact@gmail.com",
   locationText: "Remote-first\nServing clients worldwide",
   navigationLabel: "Navigation",
   navLinks: [
@@ -362,7 +362,7 @@ export const footerConfig: FooterConfig = {
   socialLinks: [
     { iconName: "Twitter", href: "https://twitter.com/aqibops", label: "Twitter" },
     { iconName: "Linkedin", href: "https://linkedin.com/in/aqibops", label: "LinkedIn" },
-    { iconName: "Mail", href: "mailto:hello@aqibops.studio", label: "Email" },
+    { iconName: "Mail", href: "mailto:AqibOpscontact@gmail.com", label: "Email" },
   ],
   tagline: "Built with n8n, Make,\nand too much coffee.",
   copyright: "(c) 2026 Aqib Ops Studio. All rights reserved.",

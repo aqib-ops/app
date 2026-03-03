@@ -18,7 +18,7 @@ const footerLinks = {
 const socialLinks: { label: string; href: string; icon: LucideIcon }[] = [
   { label: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
   { label: 'Twitter', href: 'https://x.com', icon: Twitter },
-  { label: 'Email', href: 'mailto:hello@aqibops.studio', icon: Mail },
+  { label: 'Email', href: 'mailto:AqibOpscontact@gmail.com', icon: Mail },
 ];
 
 export function SiteFooter() {

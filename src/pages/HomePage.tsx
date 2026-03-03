@@ -197,7 +197,7 @@ export function HomePage() {
         <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:86px_86px]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,8,10,0.38)_68%,rgba(5,8,10,0.68)_100%)]" />
 
-        <div className="container-site flex min-h-[calc(100svh-104px)] items-center justify-center py-16 md:py-24">
+        <div className="container-site flex min-h-[calc(100svh-104px)] items-start justify-center pt-10 pb-16 md:pt-14 md:pb-24">
           <div className="w-full max-w-6xl text-center">
             <div className="flex flex-wrap items-center justify-center gap-2 text-sm" data-animate="fade">
               <span className="rounded-full border border-white/[0.16] bg-white/[0.08] px-3 py-1.5 text-white/[0.86]">

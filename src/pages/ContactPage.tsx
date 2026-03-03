@@ -1,10 +1,16 @@
-import { type FormEvent, useRef } from 'react';
-import { Mail, Phone } from 'lucide-react';
+import { type FormEvent, useRef, useState } from 'react';
+import { Mail, MessageCircle } from 'lucide-react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
+import { buildWhatsAppLink, whatsappDisplayNumber } from '../lib/whatsapp';
+
+const N8N_WEBHOOK_URL = 'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
+const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi Aqib Ops, I want to discuss my project.');
 
 export function ContactPage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   usePageMeta(
     'Contact | Aqib Ops',
@@ -12,31 +18,60 @@ export function ContactPage() {
   );
   usePageReveal(pageRef);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
     const name = String(formData.get('name') ?? '').trim();
     const email = String(formData.get('email') ?? '').trim();
     const business = String(formData.get('business') ?? '').trim();
     const details = String(formData.get('details') ?? '').trim();
+    const termsAccepted = true;
 
-    const subject = business ? `Automation Inquiry - ${business}` : 'Automation Inquiry';
-    const body = [
-      `Name: ${name || '-'}`,
-      `Email: ${email || '-'}`,
-      `Business: ${business || '-'}`,
-      '',
-      'Project Details:',
-      details || '-',
-    ].join('\n');
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    window.location.href = `mailto:hello@aqibops.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          businessOrWebsite: business,
+          details,
+          termsAccepted,
+          submittedAt: new Date().toISOString(),
+          source: 'aqib-ops-contact-page',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed with status ${response.status}`);
+      }
+
+      form.reset();
+      setSubmitStatus({
+        type: 'success',
+        message: 'Great, your message is received. We will be in touch with you shortly.',
+      });
+    } catch (error) {
+      console.error('Contact form webhook submission failed:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Submission failed. Please try again or contact us on WhatsApp.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div ref={pageRef}>
-      <section className="section-dark border-b border-white/10">
+      <section className="section-dark -mt-20 border-b border-white/10 pt-20">
         <div className="container-site py-20 md:py-28">
           <p className="eyebrow" data-animate="fade-up">Contact</p>
           <h1 className="display-title mt-4 max-w-3xl text-white" data-animate="fade-up">
@@ -56,18 +91,20 @@ export function ContactPage() {
               <p className="eyebrow text-black/[0.45]">Direct</p>
               <div className="mt-5 space-y-4">
                 <a
-                  href="mailto:hello@aqibops.studio"
+                  href="mailto:AqibOpscontact@gmail.com"
                   className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85]"
                 >
                   <Mail className="h-5 w-5 text-[var(--mint-deep)]" />
-                  hello@aqibops.studio
+                  AqibOpscontact@gmail.com
                 </a>
                 <a
-                  href="tel:+923001234567"
+                  href={CONTACT_WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85]"
                 >
-                  <Phone className="h-5 w-5 text-[var(--mint-deep)]" />
-                  +92 300 1234567
+                  <MessageCircle className="h-5 w-5 text-[var(--mint-deep)]" />
+                  WhatsApp: {whatsappDisplayNumber}
                 </a>
               </div>
               <p className="mt-6 text-sm text-black/60">
@@ -121,9 +158,21 @@ export function ContactPage() {
                 />
               </label>
 
-              <button type="submit" className="btn-solid mt-6 w-full justify-center sm:w-auto">
-                Send Brief
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-solid mt-6 w-full justify-center disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Brief'}
               </button>
+              <p className="mt-3 text-xs text-black/[0.62]">
+                By sending brief, you agree to our terms and services.
+              </p>
+              {submitStatus && (
+                <p className={`mt-4 text-sm ${submitStatus.type === 'success' ? 'text-[var(--mint-deep)]' : 'text-red-600'}`}>
+                  {submitStatus.message}
+                </p>
+              )}
             </form>
           </div>
         </div>

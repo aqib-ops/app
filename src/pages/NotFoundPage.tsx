@@ -11,7 +11,7 @@ export function NotFoundPage() {
 
   return (
     <div ref={pageRef}>
-      <section className="section-dark">
+      <section className="section-dark -mt-20 pt-20">
         <div className="container-site py-24 md:py-32">
           <p className="eyebrow" data-animate="fade-up">404</p>
           <h1 className="display-title mt-4 text-white" data-animate="fade-up">This page does not exist.</h1>

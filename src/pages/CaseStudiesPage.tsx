@@ -42,7 +42,7 @@ export function CaseStudiesPage() {
 
   return (
     <div ref={pageRef}>
-      <section className="section-dark border-b border-white/10">
+      <section className="section-dark -mt-20 border-b border-white/10 pt-20">
         <div className="container-site py-20 md:py-28">
           <p className="eyebrow" data-animate="fade-up">Case Studies</p>
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
