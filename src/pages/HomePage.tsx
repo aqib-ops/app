@@ -89,8 +89,20 @@ export function HomePage() {
   const activeAi = aiPrompts[activeAiIndex];
 
   usePageMeta(
-    'Aqib Ops | Automation Infrastructure for Real-Time Agents',
-    'Aqib Ops builds production-ready automation systems for support, sales, and e-commerce teams.'
+    'Aqib Ops | Workflow Automation Services for Sales, Support, and Operations',
+    'Aqib Ops builds production-ready workflow automation with n8n and Make.com for sales ops, support automation, AI agent orchestration, and e-commerce operations.',
+    {
+      keywords: [
+        'workflow automation services',
+        'n8n automation expert',
+        'make.com consultant',
+        'sales automation agency',
+        'support workflow automation',
+        'ai agent orchestration',
+      ],
+      path: '/',
+      image: '/hero-portrait.jpg',
+    }
   );
 
   usePageReveal(pageRef);

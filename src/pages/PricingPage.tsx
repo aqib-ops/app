@@ -36,8 +36,18 @@ export function PricingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Pricing | Aqib Ops',
-    'Minimal workflow-first pricing: discovery first, scoped quote second, then implementation.'
+    'Pricing | Aqib Ops Workflow Automation Consulting',
+    'Workflow-first pricing for automation consulting: discovery, architecture scoping, and implementation quote based on your business operations.',
+    {
+      keywords: [
+        'workflow automation pricing',
+        'n8n consultant pricing',
+        'automation discovery call',
+        'operations automation quote',
+      ],
+      path: '/pricing',
+      image: '/capability-scheduling.jpg',
+    }
   );
   usePageReveal(pageRef);
 

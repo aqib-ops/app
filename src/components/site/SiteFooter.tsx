@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Linkedin, Mail, Twitter, type LucideIcon } from 'lucide-react';
+import { Linkedin, Mail, MessageCircle, Twitter, type LucideIcon } from 'lucide-react';
+import { buildWhatsAppLink, whatsappDisplayNumber } from '../../lib/whatsapp';
 
 const footerLinks = {
   company: [
@@ -9,15 +10,16 @@ const footerLinks = {
     { label: 'Contact', to: '/contact' },
   ],
   resources: [
-    { label: 'Workflow Discovery', to: '/contact' },
-    { label: 'Automation Blueprint', to: '/contact' },
-    { label: 'Migration Support', to: '/contact' },
+    { label: 'Terms & Conditions', to: '/terms-and-conditions' },
+    { label: 'Privacy Policy', to: '/privacy-policy' },
+    { label: 'Book Discovery', to: '/contact' },
   ],
 };
 
 const socialLinks: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-  { label: 'Twitter', href: 'https://x.com', icon: Twitter },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aqibops', icon: Linkedin },
+  { label: 'X', href: 'https://x.com/AqibOps', icon: Twitter },
+  { label: 'WhatsApp', href: buildWhatsAppLink('Hi Aqib Ops, I want to discuss workflow automation for my business.'), icon: MessageCircle },
   { label: 'Email', href: 'mailto:AqibOpscontact@gmail.com', icon: Mail },
 ];
 
@@ -96,7 +98,10 @@ export function SiteFooter() {
               </a>
             ))}
           </div>
-          <p className="text-sm text-black/[0.55]">(c) {year} Aqib Ops. All rights reserved.</p>
+          <div className="text-sm text-black/[0.55]">
+            <p>(c) {year} Aqib Ops. All rights reserved.</p>
+            <p className="mt-1">WhatsApp: {whatsappDisplayNumber}</p>
+          </div>
         </div>
 
         <div className="mt-12 overflow-hidden rounded-3xl border border-black/[0.12] bg-[#0a0f12] p-6 md:p-10">

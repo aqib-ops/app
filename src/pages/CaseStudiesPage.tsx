@@ -12,6 +12,13 @@ const caseStudies = [
     image: '/project-shopify.jpg',
     summary:
       'Connected Shopify orders to Slack and fulfillment boards with conditional alerting for high-value orders.',
+    tags: [
+      'n8n automation',
+      'Shopify automation',
+      'ecommerce workflow automation',
+      'order notification workflow',
+      'Slack integration',
+    ],
   },
   {
     title: 'Lead Qualification Pipeline',
@@ -20,6 +27,13 @@ const caseStudies = [
     image: '/project-leads.jpg',
     summary:
       'Built capture, enrichment, scoring, and routing automation tied directly to CRM ownership rules.',
+    tags: [
+      'lead routing automation',
+      'CRM workflow automation',
+      'B2B SaaS automation',
+      'sales pipeline automation',
+      'automated lead qualification',
+    ],
   },
   {
     title: 'Content Approval Engine',
@@ -28,6 +42,13 @@ const caseStudies = [
     image: '/project-content.jpg',
     summary:
       'Introduced approval chains, publishing checks, and channel-specific scheduling across campaigns.',
+    tags: [
+      'marketing automation workflow',
+      'content approval automation',
+      'publishing workflow automation',
+      'campaign operations automation',
+      'workflow automations',
+    ],
   },
 ];
 
@@ -35,8 +56,22 @@ export function CaseStudiesPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Case Studies | Aqib Ops',
-    'See real automation projects and outcomes delivered by Aqib Ops.'
+    'Case Studies | Aqib Ops Automation Results',
+    'See real workflow automation case studies from Aqib Ops across e-commerce, B2B SaaS, and marketing operations with measurable outcomes.',
+    {
+      keywords: [
+        'workflow automation case studies',
+        'n8n automation examples',
+        'sales ops automation results',
+        'e-commerce automation success',
+        'business process automation',
+        'automation workflow examples',
+        'marketing workflow automation',
+        'lead management automation',
+      ],
+      path: '/case-studies',
+      image: '/project-shopify.jpg',
+    }
   );
   usePageReveal(pageRef);
 
@@ -74,6 +109,13 @@ export function CaseStudiesPage() {
                       {caseStudy.title}
                     </h2>
                     <p className="mt-4 text-black/70">{caseStudy.summary}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {caseStudy.tags.map((tag) => (
+                        <span key={`${caseStudy.title}-${tag}`} className="chip chip-light">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                     <p className="mt-4 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-black">
                       Outcome: {caseStudy.impact}
                     </p>

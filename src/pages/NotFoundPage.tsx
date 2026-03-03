@@ -6,7 +6,10 @@ import { usePageReveal } from '../hooks/usePageReveal';
 export function NotFoundPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
-  usePageMeta('Page Not Found | Aqib Ops', 'The page you requested does not exist.');
+  usePageMeta('404 | Aqib Ops', 'The page you requested does not exist.', {
+    path: '/404',
+    noindex: true,
+  });
   usePageReveal(pageRef);
 
   return (

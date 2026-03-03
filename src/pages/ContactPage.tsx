@@ -1,20 +1,38 @@
 import { type FormEvent, useRef, useState } from 'react';
 import { Mail, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
 import { buildWhatsAppLink, whatsappDisplayNumber } from '../lib/whatsapp';
+import { countryCallingCodeOptions } from '../lib/countryCallingCodes';
 
-const N8N_WEBHOOK_URL = 'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
+const N8N_WEBHOOK_URL =
+  import.meta.env.VITE_N8N_WEBHOOK_URL ??
+  'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
 const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi Aqib Ops, I want to discuss my project.');
+const HUMAN_CHECK_VALUE = 'AQIB';
+const MIN_FORM_COMPLETION_MS = 2500;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactPage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const formStartRef = useRef<number>(Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   usePageMeta(
-    'Contact | Aqib Ops',
-    'Tell Aqib Ops about your automation needs and get a custom workflow plan.'
+    'Contact Aqib Ops | Workflow Automation Consultant',
+    'Contact Aqib Ops for workflow automation consulting, n8n or Make.com implementation, and production-ready AI automation systems.',
+    {
+      keywords: [
+        'contact workflow automation consultant',
+        'aqib ops contact',
+        'n8n automation expert contact',
+        'make.com workflow consultant',
+      ],
+      path: '/contact',
+      image: '/contact-workspace.jpg',
+    }
   );
   usePageReveal(pageRef);
 
@@ -25,9 +43,83 @@ export function ContactPage() {
 
     const name = String(formData.get('name') ?? '').trim();
     const email = String(formData.get('email') ?? '').trim();
-    const business = String(formData.get('business') ?? '').trim();
+    const website = String(formData.get('website') ?? '').trim();
+    const whatsappCountryCode = String(formData.get('whatsappCountryCode') ?? '+92').trim();
+    const whatsappNumberRaw = String(formData.get('whatsappNumber') ?? '').trim();
     const details = String(formData.get('details') ?? '').trim();
-    const termsAccepted = true;
+    const honeypot = String(formData.get('referenceWebsite') ?? '').trim();
+    const humanCheck = String(formData.get('humanCheck') ?? '').trim().toUpperCase();
+    const termsAccepted = formData.get('termsAccepted') === 'on';
+    const completionTime = Date.now() - formStartRef.current;
+    const whatsappDigitsOnly = whatsappNumberRaw.replace(/\D/g, '');
+    const whatsappNumber = whatsappDigitsOnly.replace(/^0+/, '');
+    const whatsappE164 = `${whatsappCountryCode}${whatsappNumber}`;
+
+    if (honeypot) {
+      setSubmitStatus({
+        type: 'success',
+        message: 'Great, your message is received. We will be in touch with you shortly.',
+      });
+      form.reset();
+      formStartRef.current = Date.now();
+      return;
+    }
+
+    if (!name || !email || !website || !details) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete name, email, website, and project details before submitting.',
+      });
+      return;
+    }
+
+    if (!whatsappNumber || whatsappNumber.length < 6 || whatsappNumber.length > 15) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid WhatsApp number before submitting.',
+      });
+      return;
+    }
+
+    if (!EMAIL_PATTERN.test(email)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid business email address.',
+      });
+      return;
+    }
+
+    if (details.length < 20) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please add at least 20 characters in project details so we can help properly.',
+      });
+      return;
+    }
+
+    if (!termsAccepted) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please accept the Terms and Privacy Policy before submitting.',
+      });
+      return;
+    }
+
+    if (humanCheck !== HUMAN_CHECK_VALUE) {
+      setSubmitStatus({
+        type: 'error',
+        message: `Human check failed. Type "${HUMAN_CHECK_VALUE}" exactly and submit again.`,
+      });
+      return;
+    }
+
+    if (completionTime < MIN_FORM_COMPLETION_MS) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please wait a moment and submit again.',
+      });
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitStatus(null);
@@ -41,11 +133,17 @@ export function ContactPage() {
         body: JSON.stringify({
           name,
           email,
-          businessOrWebsite: business,
+          website,
+          businessOrWebsite: website,
+          whatsappCountryCode,
+          whatsappNumber,
+          whatsappE164,
           details,
           termsAccepted,
+          humanCheckPassed: true,
           submittedAt: new Date().toISOString(),
           source: 'aqib-ops-contact-page',
+          formCompletionMs: completionTime,
         }),
       });
 
@@ -58,6 +156,7 @@ export function ContactPage() {
         type: 'success',
         message: 'Great, your message is received. We will be in touch with you shortly.',
       });
+      formStartRef.current = Date.now();
     } catch (error) {
       console.error('Contact form webhook submission failed:', error);
       setSubmitStatus({
@@ -111,6 +210,24 @@ export function ContactPage() {
                 Response window: usually within 24 hours. Share your stack and we will tailor the
                 solution.
               </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs">
+                <a
+                  href="https://www.linkedin.com/in/aqibops"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://x.com/AqibOps"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
+                >
+                  X
+                </a>
+              </div>
             </aside>
 
             <form onSubmit={handleSubmit} className="paper-card p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
@@ -137,13 +254,44 @@ export function ContactPage() {
                 </label>
               </div>
 
+              <div className="mt-4 grid gap-4 sm:grid-cols-[0.95fr_1.05fr]">
+                <label className="space-y-2">
+                  <span className="text-sm font-semibold text-black/[0.75]">WhatsApp country code</span>
+                  <select
+                    name="whatsappCountryCode"
+                    defaultValue="+92"
+                    className="contact-input"
+                    required
+                  >
+                    {countryCallingCodeOptions.map((option) => (
+                      <option key={`${option.value}-${option.label}`} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="space-y-2">
+                  <span className="text-sm font-semibold text-black/[0.75]">WhatsApp number</span>
+                  <input
+                    name="whatsappNumber"
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="[0-9\\s\\-()]{6,20}"
+                    className="contact-input"
+                    placeholder="3432142032"
+                    required
+                  />
+                </label>
+              </div>
+
               <label className="mt-4 block space-y-2">
                 <span className="text-sm font-semibold text-black/[0.75]">Business or website</span>
                 <input
-                  name="business"
+                  name="website"
                   type="text"
                   className="contact-input"
                   placeholder="company.com"
+                  required
                 />
               </label>
 
@@ -158,6 +306,49 @@ export function ContactPage() {
                 />
               </label>
 
+              <label className="mt-4 block space-y-2">
+                <span className="text-sm font-semibold text-black/[0.75]">
+                  Human check: type <span className="font-mono">{HUMAN_CHECK_VALUE}</span>
+                </span>
+                <input
+                  name="humanCheck"
+                  type="text"
+                  autoComplete="off"
+                  className="contact-input"
+                  placeholder={`Type ${HUMAN_CHECK_VALUE}`}
+                  required
+                />
+              </label>
+
+              <label className="mt-4 flex items-start gap-3 rounded-xl border border-black/[0.14] bg-white/60 p-3">
+                <input
+                  name="termsAccepted"
+                  type="checkbox"
+                  className="mt-0.5 h-4 w-4 accent-[var(--mint-deep)]"
+                  required
+                />
+                <span className="text-xs leading-relaxed text-black/[0.72]">
+                  I agree to the{' '}
+                  <Link to="/terms-and-conditions" className="font-semibold underline">
+                    Terms and Conditions
+                  </Link>{' '}
+                  and{' '}
+                  <Link to="/privacy-policy" className="font-semibold underline">
+                    Privacy Policy
+                  </Link>
+                  .
+                </span>
+              </label>
+
+              <input
+                name="referenceWebsite"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -165,9 +356,7 @@ export function ContactPage() {
               >
                 {isSubmitting ? 'Sending...' : 'Send Brief'}
               </button>
-              <p className="mt-3 text-xs text-black/[0.62]">
-                By sending brief, you agree to our terms and services.
-              </p>
+              <p className="mt-3 text-xs text-black/[0.62]">Typical response time: within 24 hours.</p>
               {submitStatus && (
                 <p className={`mt-4 text-sm ${submitStatus.type === 'success' ? 'text-[var(--mint-deep)]' : 'text-red-600'}`}>
                   {submitStatus.message}

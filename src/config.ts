@@ -360,8 +360,8 @@ export const footerConfig: FooterConfig = {
   ],
   socialLabel: "Follow Along",
   socialLinks: [
-    { iconName: "Twitter", href: "https://twitter.com/aqibops", label: "Twitter" },
-    { iconName: "Linkedin", href: "https://linkedin.com/in/aqibops", label: "LinkedIn" },
+    { iconName: "Twitter", href: "https://x.com/AqibOps", label: "Twitter" },
+    { iconName: "Linkedin", href: "https://www.linkedin.com/in/aqibops", label: "LinkedIn" },
     { iconName: "Mail", href: "mailto:AqibOpscontact@gmail.com", label: "Email" },
   ],
   tagline: "Built with n8n, Make,\nand too much coffee.",

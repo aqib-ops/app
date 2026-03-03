@@ -54,8 +54,19 @@ export function SolutionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Solutions | Aqib Ops',
-    'Explore Aqib Ops automation solutions for support, sales, e-commerce, and AI agent orchestration.'
+    'Automation Solutions | Aqib Ops Workflow Systems',
+    'Explore workflow automation solutions by Aqib Ops for support automation, sales pipeline ops, e-commerce operations, and AI agent orchestration.',
+    {
+      keywords: [
+        'workflow automation solutions',
+        'support automation setup',
+        'sales pipeline automation',
+        'e-commerce operations automation',
+        'ai agent workflow orchestration',
+      ],
+      path: '/solutions',
+      image: '/project-leads.jpg',
+    }
   );
   usePageReveal(pageRef);
 
