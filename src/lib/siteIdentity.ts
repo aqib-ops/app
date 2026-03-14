@@ -1,0 +1,15 @@
+export const siteIdentity = {
+  name: 'Aqib Ops',
+  alias: '',
+  fullName: 'Aqib Ops',
+  seoName: 'Aqib Ops',
+  defaultUrl: 'https://aqibops.com',
+  logoPath: '/aqib.png',
+  email: 'AqibOpscontact@gmail.com',
+  xProfile: 'https://x.com/AqibOps',
+  linkedinProfile: 'https://www.linkedin.com/in/aqibops',
+  whatsappProfile: 'https://wa.me/923432142032',
+  twitterHandle: '@AqibOps',
+  locale: 'en_US',
+  language: 'en',
+} as const;

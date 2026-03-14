@@ -1,0 +1,37 @@
+WORKFLOW AUDIT CHECKLIST
+Aqib Ops
+
+1) BUSINESS CONTEXT
+- Define one business outcome for this workflow.
+- Name the owner responsible for approvals and exceptions.
+- Confirm which KPIs the workflow should move.
+
+2) TRIGGERS AND INPUTS
+- List all trigger sources (forms, webhooks, apps, schedules).
+- Validate required fields before processing.
+- Define what happens when data is missing.
+
+3) ROUTING LOGIC
+- Document routing rules and ownership conditions.
+- Add priority conditions for urgent events.
+- Include fallback route if primary destination fails.
+
+4) RELIABILITY CONTROLS
+- Set retry policy and delay windows.
+- Add dead-letter queue or exception queue.
+- Configure alert channels for failed runs.
+
+5) SECURITY AND ACCESS
+- Use least-privilege credentials for integrations.
+- Mask sensitive fields in logs and notifications.
+- Review data retention and access boundaries.
+
+6) MONITORING
+- Track success rate, error rate, and queue delays.
+- Set daily and weekly health reports.
+- Assign response owner for incident alerts.
+
+7) HANDOVER
+- Share runbook for common failure scenarios.
+- Document dependencies and API limits.
+- Schedule monthly optimization review.

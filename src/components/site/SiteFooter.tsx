@@ -5,21 +5,29 @@ import { buildWhatsAppLink, whatsappDisplayNumber } from '../../lib/whatsapp';
 const footerLinks = {
   company: [
     { label: 'Solutions', to: '/solutions' },
-    { label: 'Pricing', to: '/pricing' },
+    { label: 'Service Pages', to: '/shopify-automation' },
+    { label: 'Industry Pages', to: '/industry/ecommerce-automation' },
     { label: 'Case Studies', to: '/case-studies' },
     { label: 'Contact', to: '/contact' },
   ],
   resources: [
-    { label: 'Terms & Conditions', to: '/terms-and-conditions' },
+    { label: 'Insights', to: '/insights' },
+    { label: 'FAQ Hub', to: '/faq' },
+    { label: 'Audit Checklist', to: '/workflow-audit-checklist' },
+    { label: 'Compare Alternatives', to: '/compare-alternatives' },
     { label: 'Privacy Policy', to: '/privacy-policy' },
-    { label: 'Book Discovery', to: '/contact' },
+    { label: 'Terms & Conditions', to: '/terms-and-conditions' },
   ],
 };
 
 const socialLinks: { label: string; href: string; icon: LucideIcon }[] = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aqibops', icon: Linkedin },
   { label: 'X', href: 'https://x.com/AqibOps', icon: Twitter },
-  { label: 'WhatsApp', href: buildWhatsAppLink('Hi Aqib Ops, I want to discuss workflow automation for my business.'), icon: MessageCircle },
+  {
+    label: 'WhatsApp',
+    href: buildWhatsAppLink('Hi Aqib Ops, I want to discuss workflow automation for my business.'),
+    icon: MessageCircle,
+  },
   { label: 'Email', href: 'mailto:AqibOpscontact@gmail.com', icon: Mail },
 ];
 
@@ -39,9 +47,13 @@ export function SiteFooter() {
                 Manual operations slow you down every week. Build automations that execute while
                 your team scales.
               </h2>
+              <p className="mt-4 max-w-2xl text-sm text-white/70">
+                We cap projects at <span className="font-semibold text-white">5 active clients</span> so every build
+                gets senior attention, fast iteration, and extra QA. Slots reopen as projects ship.
+              </p>
             </div>
             <Link to="/contact" className="btn-solid w-full justify-center md:w-auto">
-              Book Workflow Discovery
+              Book Quickly
             </Link>
           </div>
         </div>
@@ -106,16 +118,21 @@ export function SiteFooter() {
 
         <div className="mt-12 overflow-hidden rounded-3xl border border-black/[0.12] bg-[#0a0f12] p-6 md:p-10">
           <p className="eyebrow text-white/[0.55]">Automation Execution Studio</p>
-          <p
-            className="mt-5 font-display text-[clamp(3.2rem,16vw,12rem)] font-extrabold leading-[0.86] tracking-[-0.05em] text-transparent"
-            style={{
-              backgroundImage:
-                'linear-gradient(112deg, rgba(255,255,255,0.95), rgba(0,228,194,0.98), rgba(154,167,255,0.94))',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-            }}
-          >
-            aqibops
+          <p className="mt-5 font-display font-extrabold leading-[0.86] tracking-[-0.05em]">
+            <span
+              className="block text-[clamp(3.2rem,16vw,12rem)] text-transparent"
+              style={{
+                backgroundImage:
+                  'linear-gradient(112deg, rgba(255,255,255,0.95), rgba(0,228,194,0.98), rgba(154,167,255,0.94))',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+              }}
+            >
+              aqibops
+            </span>
+            <span className="mt-1 block text-[clamp(0.95rem,3.2vw,1.9rem)] font-semibold uppercase tracking-[0.16em] text-white/[0.68]">
+              automation studio
+            </span>
           </p>
           <p className="mt-3 max-w-2xl text-sm text-white/[0.66]">
             Stop repeating manual work. Launch automations that keep your business fast under

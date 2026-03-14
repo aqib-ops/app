@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 test.describe('Route smoke checks', () => {
   const routes: Array<{ path: string; heading: RegExp }> = [
@@ -20,16 +20,38 @@ test.describe('Route smoke checks', () => {
   }
 });
 
+const WEBHOOK_URL =
+  process.env.VITE_N8N_WEBHOOK_URL ||
+  'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
+const CORS_HEADERS = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'POST, OPTIONS',
+  'access-control-allow-headers': 'content-type',
+};
+
+async function mockWebhook(page: Page, status: number, body: Record<string, string>) {
+  await page.route(WEBHOOK_URL, async (route) => {
+    const request = route.request();
+    if (request.method() === 'OPTIONS') {
+      await route.fulfill({
+        status: 204,
+        headers: CORS_HEADERS,
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status,
+      headers: CORS_HEADERS,
+      contentType: 'application/json',
+      body: JSON.stringify(body),
+    });
+  });
+}
+
 test.describe('Contact form flows', () => {
   test('shows success state when webhook succeeds', async ({ page }) => {
-    await page.route('**/webhook/**', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ message: 'Workflow was started' }),
-      });
-    });
-
+    await mockWebhook(page, 200, { message: 'Workflow was started' });
     await page.goto('/contact');
     await page.getByRole('textbox', { name: 'Name' }).fill('Aqib QA');
     await page.getByRole('textbox', { name: 'Email' }).fill('qa@example.com');
@@ -49,13 +71,7 @@ test.describe('Contact form flows', () => {
   });
 
   test('shows error state when webhook fails', async ({ page }) => {
-    await page.route('**/webhook/**', async (route) => {
-      await route.fulfill({
-        status: 500,
-        contentType: 'application/json',
-        body: JSON.stringify({ message: 'Server error' }),
-      });
-    });
+    await mockWebhook(page, 500, { message: 'Server error' });
 
     await page.goto('/contact');
     await page.getByRole('textbox', { name: 'Name' }).fill('Aqib QA');

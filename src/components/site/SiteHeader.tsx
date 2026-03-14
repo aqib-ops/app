@@ -5,8 +5,9 @@ import { Menu, X } from 'lucide-react';
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Solutions', to: '/solutions' },
-  { label: 'Pricing', to: '/pricing' },
   { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Insights', to: '/insights' },
+  { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ];
 
@@ -46,9 +47,11 @@ export function SiteHeader() {
                 alt="Aqib Ops logo"
                 className="h-10 w-10 rounded-xl border border-white/[0.2] object-contain"
               />
-              <span className="font-display text-2xl font-extrabold tracking-tight text-white">
-                aqib <span className="text-[var(--mint)]">ops</span>
-              </span>
+              <div className="leading-tight">
+                <span className="font-display text-2xl font-extrabold tracking-tight text-white">
+                  aqib <span className="text-[var(--mint)]">ops</span>
+                </span>
+              </div>
             </Link>
 
             <nav className="hidden items-center rounded-full border border-white/[0.12] bg-white/[0.03] p-1 md:flex">

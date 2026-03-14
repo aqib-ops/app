@@ -32,6 +32,18 @@ const faq = [
   },
 ];
 
+const pricingFaqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+
 export function PricingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -47,6 +59,7 @@ export function PricingPage() {
       ],
       path: '/pricing',
       image: '/capability-scheduling.jpg',
+      structuredData: pricingFaqSchema,
     }
   );
   usePageReveal(pageRef);

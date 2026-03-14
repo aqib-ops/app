@@ -1,4 +1,4 @@
-import { useEffect, type RefObject } from 'react';
+import { useLayoutEffect, type RefObject } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -11,11 +11,13 @@ function parseDelay(node: Element): number {
 }
 
 export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const scope = scopeRef.current;
     if (!scope) return;
 
     const ctx = gsap.context(() => {
+      document.documentElement.classList.add('js-reveal');
+
       const fadeUpEls = gsap.utils.toArray<HTMLElement>('[data-animate="fade-up"]', scope);
       fadeUpEls.forEach((el) => {
         ScrollTrigger.create({
@@ -23,9 +25,10 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
           start: 'top 88%',
           once: true,
           onEnter: () => {
+            gsap.set(el, { willChange: 'transform, opacity, filter' });
             gsap.fromTo(
               el,
-              { y: 34, opacity: 0, filter: 'blur(6px)' },
+              { y: 28, opacity: 0, filter: 'blur(4px)' },
               {
                 y: 0,
                 opacity: 1,
@@ -33,6 +36,9 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
                 duration: 0.85,
                 ease: 'power3.out',
                 delay: parseDelay(el),
+                onComplete: () => {
+                  gsap.set(el, { clearProps: 'will-change' });
+                },
               }
             );
           },
@@ -46,6 +52,7 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
           start: 'top 90%',
           once: true,
           onEnter: () => {
+            gsap.set(el, { willChange: 'opacity' });
             gsap.fromTo(
               el,
               { opacity: 0 },
@@ -54,6 +61,9 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
                 duration: 0.9,
                 ease: 'power2.out',
                 delay: parseDelay(el),
+                onComplete: () => {
+                  gsap.set(el, { clearProps: 'will-change' });
+                },
               }
             );
           },
@@ -67,15 +77,19 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
           start: 'top 88%',
           once: true,
           onEnter: () => {
+            gsap.set(el, { willChange: 'clip-path, opacity, transform' });
             gsap.fromTo(
               el,
-              { clipPath: 'inset(0 0 100% 0)', opacity: 0.7 },
+              { clipPath: 'inset(0 0 100% 0)', opacity: 0.8 },
               {
                 clipPath: 'inset(0 0 0% 0)',
                 opacity: 1,
-                duration: 1.1,
+                duration: 1,
                 ease: 'power4.out',
                 delay: parseDelay(el),
+                onComplete: () => {
+                  gsap.set(el, { clearProps: 'will-change' });
+                },
               }
             );
           },
@@ -92,6 +106,7 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
           start: 'top 84%',
           once: true,
           onEnter: () => {
+            gsap.set(children, { willChange: 'transform, opacity' });
             gsap.fromTo(
               children,
               { y: 30, opacity: 0 },
@@ -102,6 +117,9 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
                 stagger: 0.1,
                 ease: 'power3.out',
                 delay: parseDelay(parent),
+                onComplete: () => {
+                  gsap.set(children, { clearProps: 'will-change' });
+                },
               }
             );
           },
@@ -110,6 +128,7 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
 
       const parallaxEls = gsap.utils.toArray<HTMLElement>('[data-animate="parallax"]', scope);
       parallaxEls.forEach((el) => {
+        gsap.set(el, { willChange: 'transform' });
         gsap.fromTo(
           el,
           { yPercent: -8 },
@@ -121,6 +140,9 @@ export function usePageReveal(scopeRef: RefObject<HTMLElement | null>) {
               start: 'top bottom',
               end: 'bottom top',
               scrub: 1.1,
+            },
+            onComplete: () => {
+              gsap.set(el, { clearProps: 'will-change' });
             },
           }
         );

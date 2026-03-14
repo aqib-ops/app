@@ -6,6 +6,7 @@ import { usePageReveal } from '../hooks/usePageReveal';
 
 const caseStudies = [
   {
+    slug: 'd2c-order-notifications',
     title: 'D2C Order Notifications',
     industry: 'E-commerce',
     impact: 'Reduced support response lag by 62%.',
@@ -21,6 +22,7 @@ const caseStudies = [
     ],
   },
   {
+    slug: 'lead-qualification-pipeline',
     title: 'Lead Qualification Pipeline',
     industry: 'B2B SaaS',
     impact: 'Qualified leads surfaced in under 60 seconds.',
@@ -36,6 +38,7 @@ const caseStudies = [
     ],
   },
   {
+    slug: 'content-approval-engine',
     title: 'Content Approval Engine',
     industry: 'Marketing Operations',
     impact: 'Saved 35+ team hours every month.',
@@ -119,12 +122,20 @@ export function CaseStudiesPage() {
                     <p className="mt-4 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-black">
                       Outcome: {caseStudy.impact}
                     </p>
-                    <Link
-                      to="/contact"
-                      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.7]"
-                    >
-                      Build Similar Workflow <ArrowUpRight className="h-4 w-4" />
-                    </Link>
+                    <div className="mt-6 flex flex-wrap gap-4">
+                      <Link
+                        to={`/case-studies/${caseStudy.slug}`}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.7]"
+                      >
+                        View Full Case Study <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.7]"
+                      >
+                        Build Similar Workflow <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </article>

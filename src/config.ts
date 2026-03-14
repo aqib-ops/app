@@ -365,7 +365,7 @@ export const footerConfig: FooterConfig = {
     { iconName: "Mail", href: "mailto:AqibOpscontact@gmail.com", label: "Email" },
   ],
   tagline: "Built with n8n, Make,\nand too much coffee.",
-  copyright: "(c) 2026 Aqib Ops Studio. All rights reserved.",
+  copyright: "(c) 2026 Aqib Ops. All rights reserved.",
   bottomLinks: [
     { label: "Privacy Policy", href: "#" },
     { label: "Terms of Service", href: "#" },

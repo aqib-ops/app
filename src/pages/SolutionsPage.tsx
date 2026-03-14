@@ -8,24 +8,28 @@ const solutions = [
   {
     icon: MessageSquareMore,
     title: 'Support Automation',
+    href: '/support-automation',
     description:
       'Route tickets, generate response drafts, and escalate urgent issues with SLA awareness.',
   },
   {
     icon: UserRoundSearch,
     title: 'Sales Pipeline Ops',
+    href: '/crm-automation',
     description:
       'Capture leads, enrich profiles, score intent, and alert your team in real-time.',
   },
   {
     icon: ShoppingCart,
     title: 'E-commerce Operations',
+    href: '/shopify-automation',
     description:
       'Automate order updates, returns workflows, inventory checks, and customer notifications.',
   },
   {
     icon: Bot,
     title: 'Agent Orchestration',
+    href: '/ai-agent-ops',
     description:
       'Coordinate AI agents with guardrails, human-in-the-loop controls, and rollback paths.',
   },
@@ -97,8 +101,8 @@ export function SolutionsPage() {
                   </div>
                   <h2 className="mt-5 font-display text-2xl font-semibold text-black">{solution.title}</h2>
                   <p className="mt-3 text-black/[0.65]">{solution.description}</p>
-                  <Link to="/contact" className="mt-6 inline-flex text-sm font-semibold text-black hover:text-black/[0.7]">
-                    Request this setup
+                  <Link to={solution.href} className="mt-6 inline-flex text-sm font-semibold text-black hover:text-black/[0.7]">
+                    Open Service Page
                   </Link>
                 </article>
               );
@@ -129,14 +133,22 @@ export function SolutionsPage() {
         <div className="container-site py-16 md:py-20">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
-              <p className="eyebrow" data-animate="fade-up">Need a custom page stack?</p>
+              <p className="eyebrow" data-animate="fade-up">Industry Specific Pages</p>
               <h2 className="mt-3 max-w-xl font-display text-3xl font-bold text-white md:text-4xl" data-animate="fade-up">
-                We can create dedicated landing pages by workflow, industry, and outcome.
+                Explore healthcare, e-commerce, and SaaS workflow architectures.
               </h2>
             </div>
-            <Link to="/contact" className="btn-solid" data-animate="fade-up" data-delay="0.12">
-              Build My Page Set
-            </Link>
+            <div className="flex flex-wrap gap-3" data-animate="fade-up" data-delay="0.12">
+              <Link to="/industry/healthcare-automation" className="btn-ghost">
+                Healthcare
+              </Link>
+              <Link to="/industry/ecommerce-automation" className="btn-ghost">
+                E-commerce
+              </Link>
+              <Link to="/industry/saas-automation" className="btn-ghost">
+                SaaS
+              </Link>
+            </div>
           </div>
         </div>
       </section>
