@@ -96,7 +96,7 @@ export function InsightsPage() {
               Explore Solutions
             </Link>
             <Link to="/contact" className="btn-solid">
-              Book Discovery Call
+              Book Automation Audit
             </Link>
           </div>
         </div>

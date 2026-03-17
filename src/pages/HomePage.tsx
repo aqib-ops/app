@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import {
   Check,
   ChevronRight,
@@ -302,25 +302,18 @@ export function HomePage() {
     if (!scope) return;
 
     const ctx = gsap.context(() => {
-      const titleLines = heroTitleRef.current?.querySelectorAll<HTMLElement>('.title-line') ?? [];
-
       const introTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      introTl.fromTo(
-        titleLines,
-        { yPercent: 120, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.95, stagger: 0.09 }
-      );
       introTl.fromTo(
         heroCopyRef.current,
         { y: 24, opacity: 0, filter: 'blur(6px)' },
         { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.75 },
-        '-=0.62'
+        0.4
       );
       introTl.fromTo(
         heroActionsRef.current,
         { y: 20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6 },
-        '-=0.55'
+        0.55
       );
 
       if (trustRowRef.current) {
@@ -329,7 +322,7 @@ export function HomePage() {
           trustItems,
           { y: 18, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.52, stagger: 0.06 },
-          '-=0.4'
+          0.75
         );
       }
 
@@ -579,7 +572,33 @@ export function HomePage() {
         <div className="hero-orb-b absolute -right-28 -top-24 h-[360px] w-[420px] rounded-[58%_42%_62%_38%/40%_57%_43%_60%] bg-[radial-gradient(circle_at_60%_24%,rgba(255,255,255,0.85),rgba(102,190,255,0.9)_26%,rgba(58,90,255,0.82)_48%,rgba(22,28,110,0.76)_72%,transparent_86%)] blur-[8px]" />
         <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:86px_86px]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,8,10,0.38)_68%,rgba(5,8,10,0.68)_100%)]" />
-
+        <div className="hero-particles" aria-hidden="true">
+          {[
+            { x: '10%', y: '18%', size: '5px', z: '60px', delay: '0s', duration: '12s' },
+            { x: '24%', y: '12%', size: '3px', z: '35px', delay: '0.6s', duration: '9s' },
+            { x: '42%', y: '20%', size: '6px', z: '70px', delay: '1.2s', duration: '13s' },
+            { x: '60%', y: '10%', size: '4px', z: '45px', delay: '0.4s', duration: '10s' },
+            { x: '76%', y: '22%', size: '5px', z: '62px', delay: '1.6s', duration: '12.5s' },
+            { x: '18%', y: '38%', size: '4px', z: '30px', delay: '0.8s', duration: '9.5s' },
+            { x: '36%', y: '44%', size: '3px', z: '40px', delay: '1.1s', duration: '10.5s' },
+            { x: '70%', y: '40%', size: '5px', z: '75px', delay: '0.2s', duration: '12s' },
+          ].map((particle, index) => (
+            <span
+              key={`hero-particle-${index}`}
+              className="hero-particle"
+              style={
+                {
+                  '--x': particle.x,
+                  '--y': particle.y,
+                  '--size': particle.size,
+                  '--z': particle.z,
+                  '--delay': particle.delay,
+                  '--duration': particle.duration,
+                } as CSSProperties
+              }
+            />
+          ))}
+        </div>
         <div className="container-site flex min-h-[calc(100svh-104px)] items-start justify-center pt-10 pb-16 md:pt-14 md:pb-24">
           <div className="w-full max-w-6xl text-center">
             <div className="flex flex-wrap items-center justify-center gap-2 text-sm" data-animate="fade">
@@ -596,21 +615,59 @@ export function HomePage() {
               className="mx-auto mt-8 max-w-5xl font-display text-[clamp(2.9rem,11vw,7rem)] font-bold leading-[0.9] tracking-[-0.052em] text-white"
             >
               <span className="title-wrap">
-                <span className="title-line block">Automate Repeated Work.</span>
+                <span
+                  className="hero-title-line"
+                  style={
+                    {
+                      '--type-width': '8ch',
+                      '--type-steps': 8,
+                      '--type-delay': '0s',
+                      '--type-duration': '0.6s',
+                    } as CSSProperties
+                  }
+                >
+                  Automate
+                </span>
               </span>
               <span className="title-wrap">
-                <span className="title-line block">Scale With Clarity.</span>
+                <span
+                  className="hero-title-line"
+                  style={
+                    {
+                      '--type-width': '14ch',
+                      '--type-steps': 14,
+                      '--type-delay': '0.35s',
+                      '--type-duration': '0.8s',
+                    } as CSSProperties
+                  }
+                >
+                  Repeated Work.
+                </span>
+              </span>
+              <span className="title-wrap">
+                <span
+                  className="hero-title-line"
+                  style={
+                    {
+                      '--type-width': '19ch',
+                      '--type-steps': 19,
+                      '--type-delay': '0.7s',
+                      '--type-duration': '0.95s',
+                    } as CSSProperties
+                  }
+                >
+                  Scale With Clarity.
+                </span>
               </span>
             </h1>
 
             <p ref={heroCopyRef} className="mx-auto mt-7 max-w-3xl text-lg text-white/[0.74]">
-              We build clean, reliable workflow automation for sales, support, and operations so
-              your team moves faster with less manual effort.
+              We build n8n + AI automation systems for e-commerce, SaaS, and ops teams in 2-4 weeks.
             </p>
 
             <div ref={heroActionsRef} className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/contact" className="btn-solid">
-                Book Discovery
+                Book Automation Audit
               </Link>
               <Link to="/solutions" className="btn-ghost">
                 Explore Solutions
@@ -1238,7 +1295,7 @@ export function HomePage() {
               </p>
             </div>
             <Link to="/contact" className="btn-solid h-fit">
-              Start My Audit
+              Get My Automation Audit
             </Link>
           </div>
 

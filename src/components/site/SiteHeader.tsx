@@ -67,7 +67,7 @@ export function SiteHeader() {
                 Automation Execution Studio
               </span>
               <Link to="/contact" className="btn-solid shadow-[0_8px_20px_rgba(0,228,194,0.24)]">
-                Book Audit
+                Book Automation Audit
               </Link>
             </div>
 
@@ -96,7 +96,7 @@ export function SiteHeader() {
                   </NavLink>
                 ))}
                 <Link to="/contact" className="btn-solid mt-2 justify-center" onClick={() => setMobileOpen(false)}>
-                  Book Audit
+                  Book Automation Audit
                 </Link>
               </div>
             </div>

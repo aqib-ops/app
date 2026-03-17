@@ -53,7 +53,7 @@ export function SiteFooter() {
               </p>
             </div>
             <Link to="/contact" className="btn-solid w-full justify-center md:w-auto">
-              Book Quickly
+              Book Automation Audit
             </Link>
           </div>
         </div>

@@ -81,7 +81,7 @@ export function PricingPage() {
 
           <div className="mt-8 flex flex-wrap gap-3" data-animate="fade-up" data-delay="0.14">
             <Link to="/contact" className="btn-solid">
-              Book Discovery Call
+              Book Automation Audit
             </Link>
             <Link to="/solutions" className="btn-ghost">
               View Solutions
@@ -148,7 +148,7 @@ export function PricingPage() {
                 Tell us your workflow. We&apos;ll scope it and share a clear quote.
               </h2>
               <Link to="/contact" className="btn-solid">
-                Start Discovery
+                Start Automation Audit
               </Link>
             </div>
           </div>

@@ -139,7 +139,7 @@ export function WorkflowAuditChecklistPage() {
               Browse FAQ
             </Link>
             <Link to="/contact" className="btn-solid">
-              Book Workflow Discovery
+              Book Automation Audit
             </Link>
           </div>
         </div>
