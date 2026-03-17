@@ -18,6 +18,7 @@ export function useLenis() {
     });
 
     lenisRef.current = lenis;
+    (window as typeof window & { __lenis?: Lenis }).__lenis = lenis;
 
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -52,6 +53,9 @@ export function useLenis() {
     return () => {
       document.removeEventListener('click', handleAnchorClick);
       gsap.ticker.remove(raf);
+      if ((window as typeof window & { __lenis?: Lenis }).__lenis === lenis) {
+        delete (window as typeof window & { __lenis?: Lenis }).__lenis;
+      }
       lenis.destroy();
     };
   }, []);

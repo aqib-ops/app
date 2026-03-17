@@ -5,7 +5,12 @@ export function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    const lenis = (window as typeof window & { __lenis?: { scrollTo: (target: number, options?: { immediate?: boolean }) => void } }).__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
   }, [pathname]);
 
   return null;
