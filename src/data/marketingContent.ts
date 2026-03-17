@@ -166,7 +166,15 @@ export const caseStudyDetails: CaseStudyContent[] = [
     testimonialRole: 'Ops Lead, D2C Brand',
     relatedServiceSlug: 'shopify-automation',
     image: '/project-shopify.jpg',
-    keywords: ['shopify automation case study', 'order notification workflow', 'ecommerce automation results'],
+    keywords: [
+      'shopify automation case study',
+      'order notification workflow',
+      'ecommerce automation results',
+      'n8n automation',
+      'workflow automation',
+      'order automation',
+      'webhooks',
+    ],
   },
   {
     slug: 'lead-qualification-pipeline',
@@ -199,7 +207,56 @@ export const caseStudyDetails: CaseStudyContent[] = [
     testimonialRole: 'Founder, TechStart',
     relatedServiceSlug: 'crm-automation',
     image: '/project-leads.jpg',
-    keywords: ['lead automation case study', 'crm pipeline automation', 'sales workflow results'],
+    keywords: [
+      'lead automation case study',
+      'crm pipeline automation',
+      'sales workflow results',
+      'n8n automation',
+      'sales automation',
+      'crm automation',
+      'workflow automation expert',
+    ],
+  },
+  {
+    slug: 'ai-sales-agent',
+    title: 'AI Sales Agent for Lead Follow-up',
+    industry: 'Revenue Ops',
+    summary:
+      'Deployed an AI sales agent to qualify inbound leads, draft outreach, and sync CRM tasks with full context.',
+    problem:
+      'Leads were followed up manually, creating slow response times and inconsistent qualification across reps.',
+    stack: ['OpenAI', 'n8n', 'HubSpot', 'Gmail', 'Slack'],
+    workflowDiagram: [
+      'New lead captured from forms and ad sources',
+      'Lead enrichment and score calculation applied',
+      'AI agent drafts personalized outreach with context',
+      'Human review gate or auto-send based on score',
+      'CRM updated with tasks, notes, and follow-up schedule',
+    ],
+    beforeMetrics: [
+      'First response time: 1 business day',
+      'Manual follow-ups per rep: 35+ per day',
+      'Qualification consistency: low',
+    ],
+    afterMetrics: [
+      'First response time cut to 2 minutes',
+      'Follow-up effort reduced by 65%',
+      'Qualification consistency improved across teams',
+    ],
+    testimonialQuote:
+      'We now respond faster than the competition with consistent messaging and complete CRM context.',
+    testimonialName: 'Liam Patel',
+    testimonialRole: 'Revenue Operations Lead',
+    relatedServiceSlug: 'ai-agent-ops',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737866/AI_Sales_Agent_t1mjl6.png',
+    keywords: [
+      'ai sales agent',
+      'n8n ai automation',
+      'ai automation workflows',
+      'crm automation',
+      'chatgpt automation',
+      'workflow automation',
+    ],
   },
   {
     slug: 'content-approval-engine',
@@ -232,7 +289,97 @@ export const caseStudyDetails: CaseStudyContent[] = [
     testimonialRole: 'Marketing Operations Manager',
     relatedServiceSlug: 'support-automation',
     image: '/project-content.jpg',
-    keywords: ['content workflow automation', 'marketing operations case study', 'approval engine automation'],
+    keywords: [
+      'content workflow automation',
+      'marketing operations case study',
+      'approval engine automation',
+      'workflow automation',
+      'marketing automation',
+      'process automation',
+      'n8n automation',
+    ],
+  },
+  {
+    slug: 'ecommerce-order-tracking-bot',
+    title: 'E-commerce Order Tracking Bot',
+    industry: 'E-commerce',
+    summary:
+      'Built a tracking bot that syncs fulfillment events and delivers live order updates across WhatsApp, email, and support tools.',
+    problem:
+      'Order status requests flooded support queues because fulfillment updates were not shared automatically with customers.',
+    stack: ['Shopify', 'n8n', 'WhatsApp Business API', 'Gmail', 'Zendesk'],
+    workflowDiagram: [
+      'Fulfillment updates captured from Shopify webhooks',
+      'Order status mapped to customer messaging templates',
+      'WhatsApp + email updates sent automatically',
+      'Support tickets enriched with live tracking context',
+      'Fallback alerts triggered for delayed shipments',
+    ],
+    beforeMetrics: [
+      'Order status tickets per week: 220+',
+      'Average response time: 6 hours',
+      'Manual tracking lookups: 45 per day',
+    ],
+    afterMetrics: [
+      'Order status tickets reduced by 55%',
+      'Average response time down to 45 minutes',
+      'Automated tracking updates for 90% of orders',
+    ],
+    testimonialQuote:
+      'Customers finally get updates without us chasing carriers. Support load dropped fast.',
+    testimonialName: 'Hannah Lee',
+    testimonialRole: 'Head of CX',
+    relatedServiceSlug: 'shopify-automation',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737870/Order_Tracking_gdlvq8.png',
+    keywords: [
+      'ecommerce order tracking bot',
+      'whatsapp automation',
+      'n8n workflow automation',
+      'order automation',
+      'webhooks',
+      'customer support automation',
+    ],
+  },
+  {
+    slug: 'whatsapp-ai-bot',
+    title: 'WhatsApp AI Support Bot',
+    industry: 'Customer Support',
+    summary:
+      'Launched a WhatsApp AI bot that answers FAQs, captures order context, and escalates to agents with full history.',
+    problem:
+      'Support agents spent most of their day answering repetitive questions without structured context or routing.',
+    stack: ['WhatsApp Business API', 'n8n', 'OpenAI', 'Zendesk', 'Airtable'],
+    workflowDiagram: [
+      'WhatsApp message ingested and classified by intent',
+      'AI bot responds with FAQs and gathers order data',
+      'Context pushed into Zendesk for agent handoff',
+      'Escalation rules triggered for priority keywords',
+      'Daily support summaries generated for ops',
+    ],
+    beforeMetrics: [
+      'First response time: 9 hours',
+      'FAQ tickets in queue: 60% of volume',
+      'Agent context collection: manual',
+    ],
+    afterMetrics: [
+      '48% of repetitive queries resolved instantly',
+      'First response time reduced by 70%',
+      'Agent handoffs arrive with full context',
+    ],
+    testimonialQuote:
+      'The bot now handles the repetitive load, and our agents focus on the tough tickets.',
+    testimonialName: 'Omar Siddiqui',
+    testimonialRole: 'Support Operations Manager',
+    relatedServiceSlug: 'support-automation',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737834/WhatsApp_AI_Bot_iepyts.png',
+    keywords: [
+      'whatsapp ai bot',
+      'ai chatbot automation',
+      'support automation',
+      'n8n workflow automation',
+      'messenger bot',
+      'notification automation',
+    ],
   },
 ];
 

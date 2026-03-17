@@ -32,8 +32,11 @@ function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/case-studies/d2c-order-notifications" element={<CaseStudyDetailPage caseStudySlug="d2c-order-notifications" />} />
+          <Route path="/case-studies/ecommerce-order-tracking-bot" element={<CaseStudyDetailPage caseStudySlug="ecommerce-order-tracking-bot" />} />
           <Route path="/case-studies/lead-qualification-pipeline" element={<CaseStudyDetailPage caseStudySlug="lead-qualification-pipeline" />} />
+          <Route path="/case-studies/ai-sales-agent" element={<CaseStudyDetailPage caseStudySlug="ai-sales-agent" />} />
           <Route path="/case-studies/content-approval-engine" element={<CaseStudyDetailPage caseStudySlug="content-approval-engine" />} />
+          <Route path="/case-studies/whatsapp-ai-bot" element={<CaseStudyDetailPage caseStudySlug="whatsapp-ai-bot" />} />
           <Route path="/shopify-automation" element={<ServiceLandingPage serviceSlug="shopify-automation" />} />
           <Route path="/crm-automation" element={<ServiceLandingPage serviceSlug="crm-automation" />} />
           <Route path="/support-automation" element={<ServiceLandingPage serviceSlug="support-automation" />} />

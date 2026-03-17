@@ -92,13 +92,15 @@ export function usePageMeta(title: string, description: string, options: PageMet
     includeBreadcrumbs = !noindex,
     includeDefaultSchemas = !noindex,
   } = options;
-  const keywordsKey = keywords.join(', ');
+  const mergedKeywords = Array.from(new Set([...(siteIdentity.keywords ?? []), ...keywords]));
+  const keywordsKey = mergedKeywords.join(', ');
 
   useEffect(() => {
+    const baseUrl = siteIdentity.defaultUrl ?? window.location.origin;
     const brandedTitle = toBrandedTitle(title);
     const brandedDescription = toBrandedDescription(description);
     const currentPath = toPath(path ?? window.location.pathname);
-    const canonicalUrl = `${window.location.origin}${currentPath}`;
+    const canonicalUrl = `${baseUrl}${currentPath}`;
 
     document.title = brandedTitle;
     document.documentElement.lang = siteIdentity.language;
@@ -120,7 +122,7 @@ export function usePageMeta(title: string, description: string, options: PageMet
     }
     canonical.setAttribute('href', canonicalUrl);
 
-    const imageUrl = image.startsWith('http') ? image : `${window.location.origin}${image}`;
+    const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
 
     const ogTitle = getOrCreateMeta('meta[property="og:title"]', 'property', 'og:title');
     ogTitle.setAttribute('content', brandedTitle);
@@ -181,8 +183,8 @@ export function usePageMeta(title: string, description: string, options: PageMet
         '@type': 'Organization',
         name: siteIdentity.fullName,
         ...(alternateNames ? { alternateName: alternateNames } : {}),
-        url: window.location.origin,
-        logo: `${window.location.origin}${siteIdentity.logoPath}`,
+        url: baseUrl,
+        logo: `${baseUrl}${siteIdentity.logoPath}`,
         email: siteIdentity.email,
         sameAs: [siteIdentity.linkedinProfile, siteIdentity.xProfile, siteIdentity.whatsappProfile],
       });
@@ -191,12 +193,12 @@ export function usePageMeta(title: string, description: string, options: PageMet
         '@type': 'WebSite',
         name: siteIdentity.fullName,
         ...(alternateNames ? { alternateName: alternateNames } : {}),
-        url: window.location.origin,
+        url: baseUrl,
       });
     }
 
     if (includeBreadcrumbs) {
-      const breadcrumb = buildBreadcrumbSchema(window.location.origin, currentPath);
+      const breadcrumb = buildBreadcrumbSchema(baseUrl, currentPath);
       if (breadcrumb) {
         schemaEntries.push(breadcrumb);
       }

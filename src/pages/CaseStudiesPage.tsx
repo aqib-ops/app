@@ -22,6 +22,22 @@ const caseStudies = [
     ],
   },
   {
+    slug: 'ecommerce-order-tracking-bot',
+    title: 'E-commerce Order Tracking Bot',
+    industry: 'E-commerce',
+    impact: 'Order status tickets dropped by 55%.',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737870/Order_Tracking_gdlvq8.png',
+    summary:
+      'Built a tracking bot that syncs fulfillment events and delivers live order updates across WhatsApp, email, and support tools.',
+    tags: [
+      'ecommerce order automation',
+      'whatsapp automation',
+      'n8n order tracking',
+      'customer support automation',
+      'webhooks',
+    ],
+  },
+  {
     slug: 'lead-qualification-pipeline',
     title: 'Lead Qualification Pipeline',
     industry: 'B2B SaaS',
@@ -35,6 +51,22 @@ const caseStudies = [
       'B2B SaaS automation',
       'sales pipeline automation',
       'automated lead qualification',
+    ],
+  },
+  {
+    slug: 'ai-sales-agent',
+    title: 'AI Sales Agent',
+    industry: 'Revenue Ops',
+    impact: 'First response time cut to 2 minutes.',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737866/AI_Sales_Agent_t1mjl6.png',
+    summary:
+      'Deployed an AI sales agent that qualifies inbound leads, drafts outreach, and syncs CRM tasks with full context.',
+    tags: [
+      'ai sales agent',
+      'n8n ai automation',
+      'crm automation',
+      'lead qualification',
+      'gpt chatbot',
     ],
   },
   {
@@ -53,6 +85,22 @@ const caseStudies = [
       'workflow automations',
     ],
   },
+  {
+    slug: 'whatsapp-ai-bot',
+    title: 'WhatsApp AI Support Bot',
+    industry: 'Customer Support',
+    impact: '48% of repetitive queries resolved instantly.',
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773737834/WhatsApp_AI_Bot_iepyts.png',
+    summary:
+      'Launched a WhatsApp AI bot that answers FAQs, captures order context, and escalates to agents with full history.',
+    tags: [
+      'whatsapp ai bot',
+      'ai chatbot automation',
+      'support automation',
+      'n8n workflow automation',
+      'messenger bot',
+    ],
+  },
 ];
 
 export function CaseStudiesPage() {
@@ -65,6 +113,10 @@ export function CaseStudiesPage() {
       keywords: [
         'workflow automation case studies',
         'n8n automation examples',
+        'n8n automation case study',
+        'whatsapp automation case study',
+        'ai sales agent case study',
+        'ecommerce order tracking bot',
         'sales ops automation results',
         'e-commerce automation success',
         'business process automation',

@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight,
-  Bot,
   Check,
   ChevronRight,
-  Headset,
   Quote,
   ShieldCheck,
   Sparkles,
-  Store,
-  UserRoundSearch,
-  type LucideIcon,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
@@ -127,70 +121,86 @@ const integrationLogoGrid = [
   },
 ];
 
-const clarityCards: Array<{
-  icon: LucideIcon;
-  title: string;
-  bottleneck: string;
-  automation: string;
-  caseStudy: {
-    title: string;
-    summary: string;
-    outcome: string;
-    stack: string[];
-  };
-  href: string;
-}> = [
+const serviceCards = [
   {
-    icon: UserRoundSearch,
-    title: 'Sales & CRM Automation',
-    bottleneck: 'Leads stall between forms, enrichment, and CRM ownership.',
-    automation: 'Capture → enrich → score → route with instant owner alerts.',
-    caseStudy: {
-      title: 'Lead Qualification Pipeline',
-      summary: 'Automated capture, enrichment, scoring, and CRM routing tied to ownership rules.',
-      outcome: 'Qualified leads surfaced in under 60 seconds.',
-      stack: ['Web forms', 'n8n', 'CRM', 'Clearbit', 'Slack'],
-    },
-    href: '/crm-automation',
+    id: 'sales-crm',
+    title: 'Sales Pipeline Automation',
+    subtitle: 'Lead capture → scoring → owner routing',
+    summary: 'Never miss a hot lead. Qualify, enrich, and route within minutes.',
+    bullets: ['Instant enrichment + scoring', 'Owner alerts + follow‑up sequences'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731634/Sales___CRM_xvt5en.png',
   },
   {
-    icon: Headset,
-    title: 'Support Workflow Automation',
-    bottleneck: 'Manual triage slows first response and increases SLA risk during spikes.',
-    automation: 'Classify tickets, route by urgency, and escalate high-risk cases automatically.',
-    caseStudy: {
-      title: 'SLA Triage Control Room',
-      summary: 'Automated ticket classification, escalation logic, and queue health summaries.',
-      outcome: 'Faster first response with clear ownership during peak volume.',
-      stack: ['Zendesk', 'Intercom', 'n8n', 'Slack', 'Notion'],
-    },
-    href: '/support-automation',
+    id: 'support',
+    title: 'Support Command Center',
+    subtitle: 'Triage → priority → escalation',
+    summary: 'Protect SLAs with automated routing and intelligent escalation.',
+    bullets: ['Auto‑classify tickets', 'SLA breach alerts'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/Support_Ops_eer3lg.png',
   },
   {
-    icon: Store,
-    title: 'E-commerce Ops Automation',
-    bottleneck: 'Order updates and fulfillment handoffs create constant manual follow-ups.',
-    automation: 'Sync order events, fulfillment status, and customer updates across channels.',
-    caseStudy: {
-      title: 'D2C Order Notifications',
-      summary: 'Connected Shopify orders to Slack and fulfillment boards with priority alerting.',
-      outcome: 'Support response lag reduced by 62%.',
-      stack: ['Shopify', 'n8n', 'Slack', 'Google Sheets'],
-    },
-    href: '/shopify-automation',
+    id: 'ecommerce',
+    title: 'E‑commerce Ops Automation',
+    subtitle: 'Orders → fulfillment → returns',
+    summary: 'Keep customers updated and ops synced across every channel.',
+    bullets: ['Status sync + notifications', 'Refund + return workflows'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731634/E-commerce_Ops_v36vhd.png',
   },
   {
-    icon: Bot,
+    id: 'finance',
+    title: 'Revenue Ops Automation',
+    subtitle: 'Quotes → invoices → renewals',
+    summary: 'Automate revenue handoffs so money never gets stuck.',
+    bullets: ['Invoice reminders', 'Renewal follow‑ups'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731632/Revenue_Ops_zjuviw.png',
+  },
+  {
+    id: 'ai-ops',
     title: 'AI Agent Operations',
-    bottleneck: 'Agent actions are hard to trust without validation and audit trails.',
-    automation: 'Add policy checks, confidence thresholds, and approval gates before execution.',
-    caseStudy: {
-      title: 'Agent Guardrails Launch',
-      summary: 'Wrapped agent actions with validation layers, fallbacks, and human review paths.',
-      outcome: 'High-risk actions require approval; every run stays auditable.',
-      stack: ['OpenAI', 'n8n', 'Slack', 'Postgres'],
-    },
-    href: '/ai-agent-ops',
+    subtitle: 'Guardrails → approvals → audit',
+    summary: 'Ship AI workflows that are trusted, visible, and reversible.',
+    bullets: ['Human checkpoints', 'Run logs + rollback'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/AI_Agent_Ops_et2rke.png',
+  },
+  {
+    id: 'reporting',
+    title: 'Reporting & Insights',
+    subtitle: 'Dashboards → summaries → alerts',
+    summary: 'Get weekly visibility without manual reporting overhead.',
+    bullets: ['Live KPI dashboards', 'Exec‑ready summaries'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/Reporting_zb3hjb.png',
+  },
+  {
+    id: 'dashboard-builder',
+    title: 'Dashboard Builder',
+    subtitle: 'Live dashboards in hours',
+    summary: 'Turn messy data into clean exec views with real‑time updates.',
+    bullets: ['Custom KPI views', 'Auto refresh + alerts'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731938/Dashboard_Builder_gyxb8l.png',
+  },
+  {
+    id: 'ai-website',
+    title: 'AI Website Builder',
+    subtitle: 'Launch faster with AI',
+    summary: 'Generate, customize, and deploy high‑converting pages quickly.',
+    bullets: ['AI sections + copy', 'SEO‑ready pages'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731989/AI_Website_Builder_dhcrbc.png',
+  },
+  {
+    id: 'n8n',
+    title: 'n8n Automations',
+    subtitle: 'Flows, retries, monitoring',
+    summary: 'Production‑grade n8n automations with clear guardrails.',
+    bullets: ['Error handling', 'Run visibility'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773732328/sdfga_satqcx.png',
+  },
+  {
+    id: 'order-handling',
+    title: 'E‑commerce Order Handling',
+    subtitle: 'Order → ship → notify',
+    summary: 'Automate order updates, fulfillment, and customer messaging.',
+    bullets: ['Status sync', 'Shipment alerts'],
+    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773732334/E-commerce_Order_Handling_1_jr0fpq.png',
   },
 ];
 
@@ -220,18 +230,52 @@ const processSteps = [
   },
 ];
 
+const stepperSteps = [
+  {
+    step: '01',
+    title: 'Scope the Bottleneck',
+    headline: 'Find the one workflow to fix first.',
+    description: 'Map the triggers and handoffs to isolate the single point of delay.',
+    points: ['Workflow map + gap', 'Success metric'],
+  },
+  {
+    step: '02',
+    title: 'Design the Flow',
+    headline: 'Blueprint the automation with guardrails.',
+    description: 'Define routing and exception paths so the system stays reliable.',
+    points: ['Workflow blueprint', 'Rollback plan'],
+  },
+  {
+    step: '03',
+    title: 'Build & Integrate',
+    headline: 'Build and test with real data.',
+    description: 'Integrate systems and validate edge cases in production conditions.',
+    points: ['Live automation', 'Owner handoff'],
+  },
+  {
+    step: '04',
+    title: 'Monitor & Improve',
+    headline: 'Add monitoring and recovery paths.',
+    description: 'Track run health, add retries, and keep stakeholders informed.',
+    points: ['Alerts + retries', 'Weekly snapshot'],
+  },
+];
+
 export function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
   const heroCopyRef = useRef<HTMLParagraphElement>(null);
   const heroActionsRef = useRef<HTMLDivElement>(null);
   const trustRowRef = useRef<HTMLDivElement>(null);
-  const aiResponseRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const stepperSectionRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const marqueeDragRef = useRef<HTMLDivElement>(null);
+  const isMarqueeDraggingRef = useRef(false);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const [activeAiIndex, setActiveAiIndex] = useState(0);
-
-  const activeAi = aiPrompts[activeAiIndex];
+  const activeStepRef = useRef(0);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [expandedService, setExpandedService] = useState<string | null>(null);
 
   usePageMeta(
     'Aqib Ops | Workflow Automation Services for Sales, Support, and Operations',
@@ -375,23 +419,158 @@ export function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (!aiResponseRef.current) return;
-    gsap.set(aiResponseRef.current, { willChange: 'transform, opacity, filter' });
-    gsap.fromTo(
-      aiResponseRef.current,
-      { y: 10, opacity: 0, filter: 'blur(3px)' },
-      {
-        y: 0,
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 0.45,
-        ease: 'power2.out',
-        onComplete: () => {
-          gsap.set(aiResponseRef.current, { clearProps: 'will-change' });
-        },
+    const marquee = marqueeRef.current;
+    const dragLayer = marqueeDragRef.current;
+    if (!marquee || !dragLayer) return;
+
+    let scrollTimeout: number | undefined;
+    let isPointerDown = false;
+    let hasDragged = false;
+    let activePointerId: number | null = null;
+    let startX = 0;
+    let startY = 0;
+    let baseOffset = 0;
+    let currentOffset = 0;
+
+    const pause = () => marquee.classList.add('is-paused');
+    const resume = () => marquee.classList.remove('is-paused');
+
+    const setOffset = (value: number) => {
+      currentOffset = value;
+      dragLayer.style.transform = `translate3d(${value}px, 0, 0)`;
+    };
+
+    const onScroll = () => {
+      pause();
+      if (scrollTimeout) window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        scrollTimeout = undefined;
+        if (!isMarqueeDraggingRef.current) {
+          resume();
+        }
+      }, 220);
+    };
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.button !== 0) return;
+      isPointerDown = true;
+      hasDragged = false;
+      activePointerId = event.pointerId;
+      startX = event.clientX;
+      startY = event.clientY;
+      baseOffset = currentOffset;
+      pause();
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (!isPointerDown) return;
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      if (!hasDragged) {
+        if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          isPointerDown = false;
+          if (marquee.hasPointerCapture(event.pointerId)) {
+            marquee.releasePointerCapture(event.pointerId);
+          }
+          return;
+        }
+        hasDragged = true;
+        isMarqueeDraggingRef.current = true;
+        marquee.classList.add('is-dragging');
+        if (activePointerId !== null && !marquee.hasPointerCapture(activePointerId)) {
+          marquee.setPointerCapture(activePointerId);
+        }
       }
-    );
-  }, [activeAiIndex]);
+
+      event.preventDefault();
+      setOffset(baseOffset + deltaX);
+    };
+
+    const onPointerUp = () => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      if (activePointerId !== null && marquee.hasPointerCapture(activePointerId)) {
+        marquee.releasePointerCapture(activePointerId);
+      }
+      activePointerId = null;
+      marquee.classList.remove('is-dragging');
+      window.setTimeout(() => {
+        isMarqueeDraggingRef.current = false;
+      }, 60);
+      if (!scrollTimeout) {
+        resume();
+      }
+    };
+
+    marquee.addEventListener('pointerdown', onPointerDown);
+    marquee.addEventListener('pointermove', onPointerMove);
+    marquee.addEventListener('pointerup', onPointerUp);
+    marquee.addEventListener('pointerleave', onPointerUp);
+    marquee.addEventListener('pointercancel', onPointerUp);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      marquee.removeEventListener('pointerdown', onPointerDown);
+      marquee.removeEventListener('pointermove', onPointerMove);
+      marquee.removeEventListener('pointerup', onPointerUp);
+      marquee.removeEventListener('pointerleave', onPointerUp);
+      marquee.removeEventListener('pointercancel', onPointerUp);
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeout) window.clearTimeout(scrollTimeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = stepperSectionRef.current;
+    if (!section) return;
+
+    const totalSteps = stepperSteps.length;
+    const stepScrollPx = 320;
+    let ticking = false;
+
+    const updateStep = () => {
+      const viewport = window.innerHeight || 0;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const start = section.offsetTop - viewport * 0.2;
+      const end = start + stepScrollPx * (totalSteps - 1);
+
+      let nextIndex = 0;
+      if (scrollY <= start) {
+        nextIndex = 0;
+      } else if (scrollY >= end) {
+        nextIndex = totalSteps - 1;
+      } else {
+        const progress = (scrollY - start) / Math.max(1, stepScrollPx * (totalSteps - 1));
+        nextIndex = Math.min(totalSteps - 1, Math.floor(progress * totalSteps));
+      }
+
+      if (activeStepRef.current !== nextIndex) {
+        activeStepRef.current = nextIndex;
+        setActiveStepIndex(nextIndex);
+      }
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        updateStep();
+        ticking = false;
+      });
+    };
+
+    updateStep();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
 
   return (
     <div ref={pageRef}>
@@ -481,55 +660,61 @@ export function HomePage() {
             process fixed fast, with clear business impact.
           </p>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2" data-animate="stagger">
-            {clarityCards.map((item) => {
-              const Icon = item.icon;
-                return (
-                  <article key={item.title} className="clarity-card p-6 md:p-7" data-animate-child>
-                    <div className="inline-flex rounded-2xl border border-black/10 bg-white p-3.5">
-                      <Icon className="h-5 w-5 text-[var(--mint-deep)]" />
-                    </div>
-                    <h3 className="mt-4 font-display text-2xl font-semibold text-black">{item.title}</h3>
-                    <div className="mt-4 rounded-2xl border border-black/10 bg-white/[0.72] p-4">
-                      <p className="eyebrow text-black/[0.45]">Case Study Snapshot</p>
-                      <h4 className="mt-2 font-display text-lg font-semibold text-black">
-                        {item.caseStudy.title}
-                      </h4>
-                      <p className="mt-2 text-sm text-black/[0.7]">{item.caseStudy.summary}</p>
-                      <p className="mt-3 text-sm font-semibold text-black">
-                        Outcome: {item.caseStudy.outcome}
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {item.caseStudy.stack.map((tool) => (
-                          <span key={`${item.title}-${tool}`} className="chip chip-light">
-                            {tool}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-4 space-y-2">
-                      <p className="text-sm font-semibold text-black/[0.78]">
-                        Bottleneck: {item.bottleneck}
-                      </p>
-                      <p className="text-black/[0.7]">Automation: {item.automation}</p>
-                    </div>
-                    <div className="mt-6 flex flex-wrap gap-4">
-                      <Link
-                        to="/case-studies"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.7]"
-                      >
-                        See case studies <ArrowRight className="h-4 w-4" />
-                      </Link>
-                      <Link
-                        to={item.href}
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.7]"
-                      >
-                        See this service <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </div>
-                  </article>
-                );
-              })}
+          <div className="service-marquee" data-animate="fade-up" ref={marqueeRef}>
+            <div className="service-drag" ref={marqueeDragRef}>
+              <div className="service-track">
+                {[0, 1].map((setIndex) => (
+                  <div
+                    key={`set-${setIndex}`}
+                    className="service-set"
+                    aria-hidden={setIndex === 1}
+                  >
+                    {serviceCards.map((card) => {
+                      const key = `${card.id}-${setIndex}`;
+                      const isExpanded = expandedService === key;
+                      return (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`service-card ${isExpanded ? 'is-expanded' : ''}`}
+                          onClick={(event) => {
+                            if (isMarqueeDraggingRef.current) {
+                              event.preventDefault();
+                              return;
+                            }
+                            setExpandedService(isExpanded ? null : key);
+                          }}
+                          aria-expanded={isExpanded}
+                        >
+                          <div className="service-media">
+                            {card.image ? (
+                              <img src={card.image} alt={card.title} loading="lazy" />
+                            ) : (
+                              <div className="service-media-fallback" />
+                            )}
+                          </div>
+                          <div className="service-footer">
+                            <p className="service-title">{card.title}</p>
+                            <p className="service-subtitle">{card.subtitle}</p>
+                          </div>
+                          <div className="service-details">
+                            <p className="service-summary">{card.summary}</p>
+                            <ul>
+                              {card.bullets.map((bullet) => (
+                                <li key={bullet}>
+                                  <Check className="h-4 w-4 text-[var(--mint-deep)]" />
+                                  <span>{bullet}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -772,41 +957,72 @@ export function HomePage() {
 
       <section className="section-paper border-t border-black/[0.12]">
         <div className="container-site py-16 md:py-24">
-          <div className="grid gap-6 lg:grid-cols-[0.44fr_0.56fr]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div data-animate="fade-up">
-              <p className="eyebrow text-black/[0.5]">Ask AI</p>
-              <h2 className="mt-4 font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
-                Ask a workflow question. Get an execution-ready answer.
+              <p className="eyebrow text-black/[0.5]">Interactive Process</p>
+              <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
+                A modern step-by-step system for shipping automation fast.
               </h2>
-              <p className="mt-4 text-black/[0.66]">
-                Strategy answers are useful only if they can be implemented. Aqib Ops translates AI
-                suggestions into monitored, production-safe workflows.
+              <p className="mt-4 max-w-2xl text-black/[0.66]">
+                Scroll down to move through each step. The active item expands in place as you
+                progress.
               </p>
             </div>
-            <div className="paper-card p-6 md:p-7" data-animate="fade-up" data-delay="0.1">
-              <p className="eyebrow text-black/[0.45]">Live Prompt Console</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {aiPrompts.map((item, index) => (
-                  <button
-                    key={`paper-${item.prompt}`}
-                    type="button"
-                    onClick={() => setActiveAiIndex(index)}
-                    className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                      index === activeAiIndex
-                        ? 'border-[var(--mint-deep)] bg-[rgba(0,140,116,0.13)] text-black'
-                        : 'border-black/[0.14] bg-white text-black/[0.68] hover:text-black'
-                    }`}
+            <div className="stepper-pill" data-animate="fade-up" data-delay="0.1">
+              Fully guided delivery
+            </div>
+          </div>
+
+          <div ref={stepperSectionRef} className="stepper-shell mt-10">
+            <div className="stepper-surface">
+              {stepperSteps.map((step, index) => {
+                const isActive = index === activeStepIndex;
+                return (
+                  <div
+                    key={step.step}
+                    className={`stepper-item ${isActive ? 'is-active' : ''}`}
                   >
-                    {item.tag}
-                  </button>
-                ))}
-              </div>
-              <div ref={aiResponseRef} className="mt-4 rounded-xl border border-black/[0.1] bg-white p-4">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-black/[0.45]">
-                  Prompt: {activeAi.prompt}
-                </p>
-                <p className="mt-3 leading-relaxed text-black/[0.8]">{activeAi.answer}</p>
-              </div>
+                    <button
+                      type="button"
+                      className="stepper-head"
+                      onMouseEnter={() => {
+                        activeStepRef.current = index;
+                        setActiveStepIndex(index);
+                      }}
+                      onFocus={() => {
+                        activeStepRef.current = index;
+                        setActiveStepIndex(index);
+                      }}
+                      onClick={() => {
+                        activeStepRef.current = index;
+                        setActiveStepIndex(index);
+                      }}
+                    >
+                      <span className="stepper-index">{step.step}</span>
+                      <div className="stepper-text">
+                        <p className="stepper-title">{step.title}</p>
+                      </div>
+                      <span className="stepper-arrow">
+                        <ChevronRight className="h-4 w-4" />
+                      </span>
+                    </button>
+                    <div className="stepper-body">
+                      <div className="stepper-body-inner">
+                        <p className="stepper-headline">{step.headline}</p>
+                        <p className="stepper-desc">{step.description}</p>
+                        <ul className="stepper-list stepper-list-compact">
+                          {step.points.map((item) => (
+                            <li key={item}>
+                              <Check className="h-4 w-4 text-[var(--mint-deep)]" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -849,13 +1065,101 @@ export function HomePage() {
       <section className="section-paper border-t border-black/[0.1]">
         <div className="container-site py-16 md:py-24">
           <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
+            Automation Expertise
+          </p>
+          <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
+            n8n workflow automation, AI agents, and integration services.
+          </h2>
+          <p className="mt-4 max-w-3xl text-black/[0.66]" data-animate="fade-up" data-delay="0.08">
+            Work with an n8n automation expert to build n8n workflows, n8n API integration, and
+            n8n AI automation that replaces manual handoffs. If you want to hire an n8n developer,
+            an automation engineer (n8n), or an AI automation consultant n8n teams trust, we deliver
+            n8n automation services backed by real workflow automation expert playbooks.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <article className="paper-card p-6 md:p-7">
+              <span className="chip chip-light">n8n Workflow Automation</span>
+              <h3 className="mt-4 text-2xl font-semibold text-black">Build n8n workflows that scale.</h3>
+              <p className="mt-3 text-black/[0.7]">
+                We ship advanced n8n workflows with n8n webhooks, n8n integrations, and automation
+                templates tailored to your business automation goals.
+              </p>
+              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  n8n workflow examples + real world projects.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  n8n automation templates and custom scripts.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  n8n automation specialist delivery and testing.
+                </li>
+              </ul>
+            </article>
+
+            <article className="paper-card p-6 md:p-7">
+              <span className="chip chip-light">AI Automation</span>
+              <h3 className="mt-4 text-2xl font-semibold text-black">n8n AI agents + chatbot automation.</h3>
+              <p className="mt-3 text-black/[0.7]">
+                Launch n8n AI automation workflows, n8n OpenAI workflows, and GPT chatbot
+                automation that powers support, sales, and internal ops.
+              </p>
+              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  n8n chatbot automation + conversational AI.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  AI automation workflows and AI agents.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  ChatGPT automation and AI assistant flows.
+                </li>
+              </ul>
+            </article>
+
+            <article className="paper-card p-6 md:p-7">
+              <span className="chip chip-light">Integrations</span>
+              <h3 className="mt-4 text-2xl font-semibold text-black">API integrations + no-code automation.</h3>
+              <p className="mt-3 text-black/[0.7]">
+                We connect CRMs, databases, and SaaS tools with REST API, webhook, and backend
+                integration paths—plus Make.com and Zapier automation where it fits.
+              </p>
+              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  n8n vs Zapier automation expert guidance.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  No code automation + low code automation stacks.
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
+                  Integration specialist n8n setups for CRM, email, and data.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-paper border-t border-black/[0.1]">
+        <div className="container-site py-16 md:py-24">
+          <p className="eyebrow text-black/[0.5]">
             Workflows
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
+          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
             Transform workflows across your business.
           </h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-            <article className="paper-card p-6 md:p-8" data-animate="fade-up">
+            <article className="paper-card p-6 md:p-8">
               <span className="chip chip-light">Healthcare Intake</span>
               <h3 className="mt-4 text-2xl font-semibold text-black md:text-3xl">
                 Reduce appointment no-shows with real-time reminders.
@@ -883,12 +1187,11 @@ export function HomePage() {
               </Link>
             </article>
 
-            <article className="paper-card p-4 md:p-5" data-animate="clip">
+            <article className="paper-card p-4 md:p-5">
               <img
                 src="/impact-hands-tasks.jpg"
                 alt="Team operating workflow with live data"
                 className="h-full min-h-[320px] w-full rounded-2xl object-cover"
-                data-animate="parallax"
                 loading="lazy"
               />
             </article>
@@ -898,18 +1201,17 @@ export function HomePage() {
 
       <section className="section-paper border-t border-black/[0.1]">
         <div className="container-site py-16 md:py-24">
-          <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
+          <p className="eyebrow text-black/[0.5]">
             Security
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
+          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
             Enterprise-grade controls, built into your automation stack.
           </h2>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5" data-animate="stagger">
+          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {securityBadges.map((badge) => (
               <div
                 key={badge}
-                data-animate-child
                 className="paper-card badge-card-hover flex items-center justify-center gap-2 rounded-2xl px-4 py-6 text-center"
               >
                 <ShieldCheck className="h-5 w-5 text-[var(--mint-deep)]" />
@@ -924,25 +1226,25 @@ export function HomePage() {
         <div className="container-site py-16 md:py-24">
           <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="eyebrow" data-animate="fade-up">
+              <p className="eyebrow">
                 Performance
               </p>
-              <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-white md:text-5xl" data-animate="fade-up">
+              <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
                 Where milliseconds matter, reliability delivers.
               </h2>
-              <p className="mt-4 max-w-2xl text-white/70" data-animate="fade-up" data-delay="0.08">
+              <p className="mt-4 max-w-2xl text-white/70">
                 From support to sales to operations, your workflows stay fast, observable, and easy
                 to maintain as volume grows.
               </p>
             </div>
-            <Link to="/contact" className="btn-solid h-fit" data-animate="fade-up" data-delay="0.15">
+            <Link to="/contact" className="btn-solid h-fit">
               Start My Audit
             </Link>
           </div>
 
-          <div ref={statsRef} className="mt-10 grid gap-4 md:grid-cols-3" data-animate="stagger">
+          <div ref={statsRef} className="mt-10 grid gap-4 md:grid-cols-3">
             {performanceStats.map((item, index) => (
-              <div key={item.label} data-animate-child className="stat-pill">
+              <div key={item.label} className="stat-pill">
                 <p className="text-xs uppercase text-white/50">{item.label}</p>
                 <p className="mt-1 text-3xl font-bold text-white">
                   <span

@@ -1,46 +1,66 @@
 # Security Best Practices Report
 
 ## Executive Summary
-This review covers the React/Vite frontend. No critical vulnerabilities were found in the codebase. The main risks are (1) a public webhook endpoint being called directly from the browser, which can be spammed or abused, and (2) a dangerouslySetInnerHTML usage that is safe only if its inputs are fully trusted. Security headers and CSP are not visible in repo code and should be verified at the hosting or edge layer.
+I ran a focused React/TypeScript frontend security review. The biggest risk is a publicly exposed contact-form webhook URL in the client bundle, which can be abused for spam or data injection. I also noted a third-party script without SRI and a `dangerouslySetInnerHTML` usage that is safe only if its inputs stay developer-controlled. Finally, security headers/CSP are not configured in-repo and should be verified at the edge.
 
----
+## Critical
+None found.
 
-## Medium Severity
-
-### SEC-001: A public webhook endpoint is called directly from client code
-- Rule ID: REACT-CONFIG-001 / REACT-NET-001
-- Location:
-  - src/pages/ContactPage.tsx:9-11, 178-186
+## High
+### FIND-001
+- Rule ID: REACT-CONFIG-001
+- Severity: High
+- Location: `src/pages/ContactPage.tsx` (lines 9-11, 177-197)
 - Evidence:
-  - const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || 'https://.../webhook/...';
-  - await fetch(N8N_WEBHOOK_URL, { method: 'POST', ... })
-- Impact: Anyone can post directly to this endpoint, enabling spam, automation abuse, and data poisoning. If the workflow triggers downstream actions (notifications, CRM updates), this can create operational or cost impact.
-- Fix (preferred): Move webhook submission to a server-side endpoint (API route/serverless/BFF) and keep the webhook URL and any signing keys server-only. Add verification (HMAC signature), rate limits, and bot protection (CAPTCHA).
-- Mitigation: Add WAF or rate-limiting at the webhook provider; validate Origin or Referer and require a secret token in the request body or header (validated server-side).
-- False positive notes: If the webhook endpoint already enforces its own auth, rate limits, and filtering, then risk is reduced. Verify in n8n or hosting settings.
+  - `const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || 'https://n8n-.../webhook/...';`
+  - `fetch(N8N_WEBHOOK_URL, { method: 'POST', ... })`
+- Impact: The webhook URL is shipped to all users and can be abused by attackers to submit arbitrary payloads, spam the endpoint, or attempt injection into downstream automation.
+- Fix: Move the webhook invocation server-side (BFF/serverless), or require an authenticated token from a backend endpoint. Add rate limits and bot protection (e.g., CAPTCHA) at the edge or webhook layer.
+- Mitigation: If you must keep a public webhook, rate-limit at the provider, add allowlisted origins, and implement a shared secret that is not embedded in the client.
+- False positive notes: If the webhook is already protected by a server-side secret, auth, or strict rate limits, reduce severity accordingly.
 
----
-
-## Low Severity
-
-### SEC-002: dangerouslySetInnerHTML used to inject dynamic style
-- Rule ID: REACT-XSS-001 / REACT-DOM-001
-- Location: src/components/ui/chart.tsx:83-98
+## Medium
+### FIND-002
+- Rule ID: REACT-SRI-001
+- Severity: Medium
+- Location: `index.html` (lines 48-57)
 - Evidence:
-  - <style dangerouslySetInnerHTML={{ __html: ... }} />
-- Impact: If any part of config or id becomes attacker-controlled, this could open DOM XSS or CSS injection. Currently it appears to be internal-only, which is safer.
-- Fix: Keep config and id strictly internal. If future data can be user-controlled, sanitize or switch to a safer CSSOM API to avoid raw HTML injection.
-- Mitigation: Add a strict CSP and consider Trusted Types to reduce the impact of any DOM injection.
-- False positive notes: If config values are compile-time constants, the risk is minimal.
+  - `<script type="module"> import { embedWidget } from "https://cdn.jsdelivr.net/npm/agent-embed-widget/dist/agent-embed-widget.es.js"; ... </script>`
+- Impact: Loading third-party JS without SRI lets a compromised CDN or package supply-chain push arbitrary code into your origin.
+- Fix: Self-host the widget or pin a specific version and add `integrity` + `crossorigin` attributes. Consider a CSP that limits `script-src` to known sources.
+- Mitigation: If the vendor provides a recommended integrity hash or a hosted bundle with integrity metadata, use it.
+- False positive notes: If the script is already self-hosted or integrity-checked via a different mechanism, adjust severity.
 
-### SEC-003: Security headers and CSP not visible in repo (verify at edge)
+### FIND-003
 - Rule ID: REACT-HEADERS-001 / REACT-CSP-001
-- Location: No CSP or security headers are defined in repo-visible server or edge configuration. Vite config does not set headers.
-- Impact: Missing CSP and related headers reduces defense-in-depth against XSS and clickjacking.
-- Fix: Add CSP, X-Content-Type-Options, Referrer-Policy, and frame-ancestors at the CDN or edge or server.
-- False positive notes: If these headers are already set at your hosting provider or CDN, then this is satisfied. Verify via response headers in production.
+- Severity: Medium
+- Location: `vercel.json` (no headers configured)
+- Evidence:
+  - No CSP or security headers visible in repo config.
+- Impact: Without CSP and security headers, the app has less defense-in-depth against XSS, clickjacking, and MIME sniffing.
+- Fix: Set headers at the edge (Vercel, Cloudflare, etc.) for:
+  - `Content-Security-Policy` (report-only first)
+  - `X-Content-Type-Options: nosniff`
+  - `Referrer-Policy`
+  - `Permissions-Policy`
+  - `frame-ancestors` (or `X-Frame-Options`)
+- Mitigation: If headers are already set at the CDN/host, document where and confirm via runtime header checks.
+- False positive notes: Headers may be configured outside the repo; verify in production.
 
----
+## Low
+### FIND-004
+- Rule ID: REACT-XSS-001
+- Severity: Low
+- Location: `src/components/ui/chart.tsx` (lines 82-90)
+- Evidence:
+  - `<style dangerouslySetInnerHTML={{ __html: ... }} />`
+- Impact: If any of the chart config or theme values become attacker-controlled, this becomes an XSS vector. Currently it appears developer-controlled.
+- Fix: Ensure `config` values are strictly internal and never accept user input. Consider generating CSS variables via inline styles or a CSS-in-JS approach that avoids raw HTML insertion.
+- Mitigation: Add TypeScript constraints / validation for the config source to prevent untrusted input from reaching this component.
+- False positive notes: If `config` is always static and authored in code, this is low risk.
 
 ## Notes
-- VITE_* variables are always embedded in the client bundle and should never contain secrets.
+- No evidence of secrets in `.env`; note that any `VITE_*` variables are public by design.
+
+---
+Report generated: 2026-03-17
