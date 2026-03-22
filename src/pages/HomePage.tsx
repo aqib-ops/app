@@ -887,48 +887,6 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="section-paper border-t border-black/[0.1]">
-        <div className="container-site py-16 md:py-24">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div data-animate="fade-up">
-              <p className="eyebrow text-black/[0.5]">{testimonialsConfig.subtitle}</p>
-              <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
-                Proof from teams running live automations.
-              </h2>
-              <p className="mt-4 max-w-2xl text-black/[0.66]">
-                Real outcomes from automation programs we build, launch, and monitor in production.
-              </p>
-            </div>
-            <Link to="/case-studies" className="btn-solid h-fit" data-animate="fade-up" data-delay="0.12">
-              Read Case Studies
-            </Link>
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3" data-animate="stagger">
-            {testimonialsConfig.testimonials.map((testimonial) => (
-              <article key={testimonial.id} className="testimonial-card p-6 md:p-7" data-animate-child>
-                <div className="testimonial-quote">
-                  <Quote className="h-6 w-6 text-[var(--mint-deep)]" />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-black/[0.45]">
-                    Client voice
-                  </span>
-                </div>
-                <p className="mt-5 text-black/[0.82]">&ldquo;{testimonial.quote}&rdquo;</p>
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="testimonial-avatar">
-                    <img src={testimonial.image} alt={testimonial.name} loading="lazy" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-black">{testimonial.name}</p>
-                    <p className="text-xs text-black/[0.55]">{testimonial.role}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
         <section className="section-dark integration-section border-t border-white/10">
           <div className="container-site integration-container py-8 md:py-10">
           <div className="integration-header">
@@ -1318,6 +1276,48 @@ export function HomePage() {
                   </span>
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-paper border-t border-black/[0.1]">
+        <div className="container-site py-16 md:py-24">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div data-animate="fade-up">
+              <p className="eyebrow text-black/[0.5]">{testimonialsConfig.subtitle}</p>
+              <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
+                Proof from teams running live automations.
+              </h2>
+              <p className="mt-4 max-w-2xl text-black/[0.66]">
+                Real outcomes from automation programs we build, launch, and monitor in production.
+              </p>
+            </div>
+            <Link to="/case-studies" className="btn-solid h-fit" data-animate="fade-up" data-delay="0.12">
+              Read Case Studies
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3" data-animate="stagger">
+            {testimonialsConfig.testimonials.map((testimonial) => (
+              <article key={testimonial.id} className="testimonial-card p-6 md:p-7" data-animate-child>
+                <div className="testimonial-quote">
+                  <Quote className="h-6 w-6 text-[var(--mint-deep)]" />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-black/[0.45]">
+                    Client voice
+                  </span>
+                </div>
+                <p className="mt-5 text-black/[0.82]">&ldquo;{testimonial.quote}&rdquo;</p>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="testimonial-avatar">
+                    <img src={testimonial.image} alt={testimonial.name} loading="lazy" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-black">{testimonial.name}</p>
+                    <p className="text-xs text-black/[0.55]">{testimonial.role}</p>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </div>
