@@ -49,7 +49,7 @@ export function CompareAlternativesPage() {
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
             Aqib Ops vs hiring in-house vs generic agency.
           </h1>
-          <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
+          <p className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg" data-animate="fade-up" data-delay="0.08">
             Use this comparison to decide the best operating model for your workflow automation roadmap.
           </p>
         </div>
@@ -99,11 +99,11 @@ export function CompareAlternativesPage() {
 
       <section className="section-dark border-t border-white/10">
         <div className="container-site py-16 md:py-20">
-          <div className="flex flex-wrap gap-3">
-            <Link to="/contact" className="btn-solid">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link to="/contact" className="btn-solid w-full justify-center sm:w-auto">
               Discuss My Best Option
             </Link>
-            <Link to="/workflow-audit-checklist" className="btn-ghost">
+            <Link to="/workflow-audit-checklist" className="btn-ghost w-full justify-center sm:w-auto">
               Start With Free Audit Checklist
             </Link>
           </div>

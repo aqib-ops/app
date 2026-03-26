@@ -11,8 +11,6 @@ import { TermsAndConditionsPage } from './pages/TermsAndConditionsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ServiceLandingPage } from './pages/ServiceLandingPage';
 import { CaseStudyDetailPage } from './pages/CaseStudyDetailPage';
-import { InsightsPage } from './pages/InsightsPage';
-import { InsightDetailPage } from './pages/InsightDetailPage';
 import { WorkflowAuditChecklistPage } from './pages/WorkflowAuditChecklistPage';
 import { FAQHubPage } from './pages/FAQHubPage';
 import { CompareAlternativesPage } from './pages/CompareAlternativesPage';
@@ -37,17 +35,11 @@ function App() {
           <Route path="/case-studies/ai-sales-agent" element={<CaseStudyDetailPage caseStudySlug="ai-sales-agent" />} />
           <Route path="/case-studies/content-approval-engine" element={<CaseStudyDetailPage caseStudySlug="content-approval-engine" />} />
           <Route path="/case-studies/whatsapp-ai-bot" element={<CaseStudyDetailPage caseStudySlug="whatsapp-ai-bot" />} />
+          <Route path="/lead-follow-up-automation" element={<ServiceLandingPage serviceSlug="lead-follow-up-automation" />} />
           <Route path="/shopify-automation" element={<ServiceLandingPage serviceSlug="shopify-automation" />} />
           <Route path="/crm-automation" element={<ServiceLandingPage serviceSlug="crm-automation" />} />
           <Route path="/support-automation" element={<ServiceLandingPage serviceSlug="support-automation" />} />
           <Route path="/ai-agent-ops" element={<ServiceLandingPage serviceSlug="ai-agent-ops" />} />
-          <Route path="/insights" element={<InsightsPage />} />
-          <Route path="/insights/automate-lead-follow-up-with-n8n" element={<InsightDetailPage postSlug="automate-lead-follow-up-with-n8n" />} />
-          <Route path="/insights/support-triage-automation-playbook" element={<InsightDetailPage postSlug="support-triage-automation-playbook" />} />
-          <Route path="/insights/shopify-ops-automation-checklist" element={<InsightDetailPage postSlug="shopify-ops-automation-checklist" />} />
-          <Route path="/insights/ai-agent-ops-guardrails-playbook" element={<InsightDetailPage postSlug="ai-agent-ops-guardrails-playbook" />} />
-          <Route path="/insights/automation-reliability-playbook" element={<InsightDetailPage postSlug="automation-reliability-playbook" />} />
-          <Route path="/insights/ecommerce-returns-exceptions-automation" element={<InsightDetailPage postSlug="ecommerce-returns-exceptions-automation" />} />
           <Route path="/workflow-audit-checklist" element={<WorkflowAuditChecklistPage />} />
           <Route path="/faq" element={<FAQHubPage />} />
           <Route path="/compare-alternatives" element={<CompareAlternativesPage />} />
@@ -62,7 +54,6 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/404" element={<NotFoundPage />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
-          <Route path="/blog" element={<Navigate to="/insights" replace />} />
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Route>
       </Routes>

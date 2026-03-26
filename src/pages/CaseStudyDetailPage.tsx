@@ -64,7 +64,7 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
             {caseStudy.title}
           </h1>
-          <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
+          <p className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg" data-animate="fade-up" data-delay="0.08">
             {caseStudy.summary}
           </p>
         </div>
@@ -74,9 +74,9 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
         <div className="container-site py-16 md:py-24">
           <div className="grid gap-6 lg:grid-cols-[0.55fr_0.45fr]">
             <article className="paper-card overflow-hidden" data-animate="clip">
-              <img src={caseStudy.image} alt={caseStudy.title} className="h-full min-h-[280px] w-full object-cover" />
+              <img src={caseStudy.image} alt={caseStudy.title} className="h-full min-h-[220px] w-full object-cover sm:min-h-[280px]" />
             </article>
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up">
               <p className="eyebrow text-black/[0.45]">Client Problem</p>
               <p className="mt-4 text-black/[0.78]">{caseStudy.problem}</p>
               <p className="eyebrow mt-7 text-black/[0.45]">Stack Used</p>
@@ -91,7 +91,7 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up">
               <p className="eyebrow text-black/[0.45]">Workflow Diagram</p>
               <ol className="mt-4 space-y-3 text-black/[0.8]">
                 {caseStudy.workflowDiagram.map((step, index) => (
@@ -101,7 +101,7 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
                 ))}
               </ol>
             </article>
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
               <p className="eyebrow text-black/[0.45]">Before / After Metrics</p>
               <div className="mt-4 grid gap-4 md:grid-cols-2">
                 <div className="rounded-xl border border-black/10 bg-white p-4">
@@ -128,7 +128,7 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
             </article>
           </div>
 
-          <article className="paper-card mt-8 p-7 md:p-8" data-animate="fade-up">
+          <article className="paper-card mt-8 p-5 sm:p-7 md:p-8" data-animate="fade-up">
             <p className="eyebrow text-black/[0.45]">Testimonial</p>
             <blockquote className="mt-4 text-xl font-semibold leading-relaxed text-black/[0.82]">
               "{caseStudy.testimonialQuote}"
@@ -142,11 +142,11 @@ export function CaseStudyDetailPage({ caseStudySlug }: CaseStudyDetailPageProps)
 
       <section className="section-dark border-t border-white/10">
         <div className="container-site py-16 md:py-20">
-          <div className="flex flex-wrap items-center gap-3">
-            <Link to={`/${caseStudy.relatedServiceSlug}`} className="btn-ghost">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link to={`/${caseStudy.relatedServiceSlug}`} className="btn-ghost w-full justify-center sm:w-auto">
               View Related Service Page
             </Link>
-            <Link to="/contact" className="btn-solid">
+            <Link to="/contact" className="btn-solid w-full justify-center sm:w-auto">
               Build Similar Workflow
             </Link>
           </div>

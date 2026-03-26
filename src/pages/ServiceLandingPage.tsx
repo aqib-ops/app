@@ -62,7 +62,7 @@ export function ServiceLandingPage({ serviceSlug }: ServiceLandingPageProps) {
   return (
     <div ref={pageRef}>
       <section className="section-dark -mt-20 border-b border-white/10 pt-20">
-        <div className="container-site py-16 md:py-20">
+        <div className="container-site py-14 sm:py-16 md:py-20">
           <p className="eyebrow text-white/60" data-animate="fade-up">
             Service
           </p>
@@ -72,18 +72,18 @@ export function ServiceLandingPage({ serviceSlug }: ServiceLandingPageProps) {
                 {service.title}
               </h1>
               <p
-                className="mt-4 max-w-2xl text-base text-white/[0.72]"
+                className="mt-4 max-w-2xl text-sm text-white/[0.72] sm:text-base"
                 data-animate="fade-up"
                 data-delay="0.08"
               >
                 {service.subtitle}
               </p>
               <div className="mt-6 flex flex-wrap gap-3" data-animate="fade-up" data-delay="0.14">
-                <Link to={service.ctaHref} className="btn-solid">
+                <Link to={service.ctaHref} className="btn-solid w-full justify-center sm:w-auto">
                   {service.ctaLabel}
                 </Link>
                 {relatedCaseStudy ? (
-                  <Link to={`/case-studies/${relatedCaseStudy.slug}`} className="btn-ghost">
+                  <Link to={`/case-studies/${relatedCaseStudy.slug}`} className="btn-ghost w-full justify-center sm:w-auto">
                     Related Case Study
                   </Link>
                 ) : null}
@@ -145,7 +145,7 @@ export function ServiceLandingPage({ serviceSlug }: ServiceLandingPageProps) {
             <div className="grid gap-6 lg:grid-cols-[0.55fr_0.45fr]">
               <div data-animate="fade-up">
                 <p className="eyebrow text-black/[0.5]">Related Case Study</p>
-                <h2 className="mt-3 font-display text-3xl font-semibold text-black">
+                <h2 className="mt-3 font-display text-2xl font-semibold text-black sm:text-3xl">
                   {relatedCaseStudy.title}
                 </h2>
                 <p className="mt-3 text-black/[0.7]">{relatedCaseStudy.summary}</p>
@@ -198,7 +198,7 @@ export function ServiceLandingPage({ serviceSlug }: ServiceLandingPageProps) {
                   See Related Case Study
                 </Link>
               ) : null}
-              <Link to={service.ctaHref} className="btn-solid">
+              <Link to={service.ctaHref} className="btn-solid w-full justify-center sm:w-auto">
                 {service.ctaLabel}
               </Link>
             </div>

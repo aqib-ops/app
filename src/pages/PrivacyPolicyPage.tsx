@@ -69,7 +69,7 @@ export function PrivacyPolicyPage() {
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
           <article className="paper-card p-7 md:p-10" data-animate="fade-up">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               1. Data We Collect
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -86,7 +86,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.05">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               2. How We Use Data
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -102,7 +102,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.09">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               3. Legal Basis and Consent
             </h2>
             <div className="mt-4 space-y-3 text-black/[0.76]">
@@ -118,7 +118,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.13">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               4. Data Sharing and Third Parties
             </h2>
             <div className="mt-4 space-y-3 text-black/[0.76]">
@@ -134,7 +134,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.17">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               5. Data Retention
             </h2>
             <div className="mt-4 space-y-3 text-black/[0.76]">
@@ -150,7 +150,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.21">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               6. Security Practices
             </h2>
             <div className="mt-4 space-y-3 text-black/[0.76]">
@@ -166,7 +166,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.25">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               7. Your Rights
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -182,7 +182,7 @@ export function PrivacyPolicyPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.29">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               8. Contact Us
             </h2>
             <p className="mt-4 text-black/[0.74]">

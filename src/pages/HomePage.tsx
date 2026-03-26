@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+﻿import { useEffect, useRef, type CSSProperties } from 'react';
 import {
   Check,
   ChevronRight,
@@ -15,15 +15,12 @@ import { testimonialsConfig } from '../config';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const trustedBy = ['OpenAI', 'IBM', 'Cisco', 'Zillow', 'Microsoft', 'Talkdesk'];
-
-const checklist = [
-  'Workflow access controls',
-  'Failover and retries',
-  'Human approval checkpoints',
-  'Live run monitoring',
-  'Alert routing and escalation',
-  'Audit and version history',
+const reliabilityPoints = [
+  'Runs reliably without constant checking',
+  'Handles issues automatically',
+  'Keeps everything organized and on track',
+  'Scales as your workflow grows',
+  'No missed actions or broken flows',
 ];
 
 const comparisonRows = [
@@ -91,173 +88,98 @@ const securityBadges = ['SOC 2 Ready', 'Audit Logging', 'Role-based Access', 'Ch
 const performanceStats = [
   { label: 'Implementations', value: 40, suffix: '+' },
   { label: 'Hours Saved Monthly', value: 500, prefix: '<' },
-  { label: 'Integrations Used', value: 30, suffix: '+' },
-];
-
-const integrationLogoGrid = [
-  {
-    name: 'Slack',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404320/slack_twd79b.png',
-  },
-  {
-    name: 'Airtable',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404347/images_uslysp.png',
-  },
-  {
-    name: 'HubSpot',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404415/e00454ed-7f50-4aed-af53-56a52bf925b1.png',
-  },
-  {
-    name: 'Stripe',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404320/stripe_n4gzrf.png',
-  },
-  {
-    name: 'WhatsApp',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404538/whatsapp_efgrka.png',
-  },
-  {
-    name: 'Telegram',
-    logo: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773404541/telegram_sprlee.png',
-  },
-];
-
-const serviceCards = [
-  {
-    id: 'sales-crm',
-    title: 'Sales Pipeline Automation',
-    subtitle: 'Lead capture → scoring → owner routing',
-    summary: 'Never miss a hot lead. Qualify, enrich, and route within minutes.',
-    bullets: ['Instant enrichment + scoring', 'Owner alerts + follow‑up sequences'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731634/Sales___CRM_xvt5en.png',
-  },
-  {
-    id: 'support',
-    title: 'Support Command Center',
-    subtitle: 'Triage → priority → escalation',
-    summary: 'Protect SLAs with automated routing and intelligent escalation.',
-    bullets: ['Auto‑classify tickets', 'SLA breach alerts'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/Support_Ops_eer3lg.png',
-  },
-  {
-    id: 'ecommerce',
-    title: 'E‑commerce Ops Automation',
-    subtitle: 'Orders → fulfillment → returns',
-    summary: 'Keep customers updated and ops synced across every channel.',
-    bullets: ['Status sync + notifications', 'Refund + return workflows'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731634/E-commerce_Ops_v36vhd.png',
-  },
-  {
-    id: 'finance',
-    title: 'Revenue Ops Automation',
-    subtitle: 'Quotes → invoices → renewals',
-    summary: 'Automate revenue handoffs so money never gets stuck.',
-    bullets: ['Invoice reminders', 'Renewal follow‑ups'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731632/Revenue_Ops_zjuviw.png',
-  },
-  {
-    id: 'ai-ops',
-    title: 'AI Agent Operations',
-    subtitle: 'Guardrails → approvals → audit',
-    summary: 'Ship AI workflows that are trusted, visible, and reversible.',
-    bullets: ['Human checkpoints', 'Run logs + rollback'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/AI_Agent_Ops_et2rke.png',
-  },
-  {
-    id: 'reporting',
-    title: 'Reporting & Insights',
-    subtitle: 'Dashboards → summaries → alerts',
-    summary: 'Get weekly visibility without manual reporting overhead.',
-    bullets: ['Live KPI dashboards', 'Exec‑ready summaries'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731633/Reporting_zb3hjb.png',
-  },
-  {
-    id: 'dashboard-builder',
-    title: 'Dashboard Builder',
-    subtitle: 'Live dashboards in hours',
-    summary: 'Turn messy data into clean exec views with real‑time updates.',
-    bullets: ['Custom KPI views', 'Auto refresh + alerts'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731938/Dashboard_Builder_gyxb8l.png',
-  },
-  {
-    id: 'ai-website',
-    title: 'AI Website Builder',
-    subtitle: 'Launch faster with AI',
-    summary: 'Generate, customize, and deploy high‑converting pages quickly.',
-    bullets: ['AI sections + copy', 'SEO‑ready pages'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773731989/AI_Website_Builder_dhcrbc.png',
-  },
-  {
-    id: 'n8n',
-    title: 'n8n Automations',
-    subtitle: 'Flows, retries, monitoring',
-    summary: 'Production‑grade n8n automations with clear guardrails.',
-    bullets: ['Error handling', 'Run visibility'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773732328/sdfga_satqcx.png',
-  },
-  {
-    id: 'order-handling',
-    title: 'E‑commerce Order Handling',
-    subtitle: 'Order → ship → notify',
-    summary: 'Automate order updates, fulfillment, and customer messaging.',
-    bullets: ['Status sync', 'Shipment alerts'],
-    image: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1773732334/E-commerce_Order_Handling_1_jr0fpq.png',
-  },
+  { label: 'Workflows Live', value: 30, suffix: '+' },
 ];
 
 const audiencePills = [
-  'Founders running lean teams',
-  'Operations leads fixing bottlenecks',
-  'Revenue teams scaling follow-ups',
-  'Support managers improving SLA response',
-  'E-commerce owners reducing manual tasks',
+  'Founders missing opportunities due to slow follow-ups',
+  'Teams dealing with messy, disconnected systems',
+  'Teams struggling to keep up with incoming leads',
+  'Teams replying late and losing conversations',
+  'Businesses letting potential customers slip away daily',
 ];
 
 const processSteps = [
   {
     step: '01',
-    title: 'Audit',
-    detail: 'We map your current workflow and identify the highest-impact automation gap.',
+    title: 'Find the Gaps',
+    detail: 'We look at where leads, messages, and tasks are being missed or delayed.',
   },
   {
     step: '02',
-    title: 'Build',
-    detail: 'We design and implement the workflow with integrations, guardrails, and testing.',
+    title: 'Build the System',
+    detail: 'We set up automation that responds, follows up, and keeps everything moving.',
   },
   {
     step: '03',
-    title: 'Monitor',
-    detail: 'We add alerts, retries, and visibility so the system stays reliable as you scale.',
+    title: 'Keep It Running',
+    detail: 'Your system stays active, reliable, and optimized as you grow.',
   },
 ];
 
 const stepperSteps = [
   {
     step: '01',
-    title: 'Scope the Bottleneck',
-    headline: 'Find the one workflow to fix first.',
-    description: 'Map the triggers and handoffs to isolate the single point of delay.',
-    points: ['Workflow map + gap', 'Success metric'],
+    title: 'Spot the Drag',
+    headline: 'See where momentum gets stuck first.',
+    description: 'We trace the handoffs, delays, and silent drop-offs slowing down the whole flow.',
+    points: ['Drop-off map', 'Priority bottleneck'],
   },
   {
     step: '02',
-    title: 'Design the Flow',
-    headline: 'Blueprint the automation with guardrails.',
-    description: 'Define routing and exception paths so the system stays reliable.',
-    points: ['Workflow blueprint', 'Rollback plan'],
+    title: 'Shape the Flow',
+    headline: 'Turn the messy path into a clear one.',
+    description: 'We define what should happen next, who sees it, and how the flow stays easy to follow.',
+    points: ['Decision rules', 'Clear owner path'],
   },
   {
     step: '03',
-    title: 'Build & Integrate',
-    headline: 'Build and test with real data.',
-    description: 'Integrate systems and validate edge cases in production conditions.',
-    points: ['Live automation', 'Owner handoff'],
+    title: 'Launch the System',
+    headline: 'Put the live workflow into motion.',
+    description: 'We build the working version, test it with real inputs, and make sure every step moves cleanly.',
+    points: ['Live rollout', 'Real-world testing'],
   },
   {
     step: '04',
-    title: 'Monitor & Improve',
-    headline: 'Add monitoring and recovery paths.',
-    description: 'Track run health, add retries, and keep stakeholders informed.',
-    points: ['Alerts + retries', 'Weekly snapshot'],
+    title: 'Strengthen the System',
+    headline: 'Keep it sharp as volume grows.',
+    description: 'We refine weak spots, tighten the experience, and keep the workflow dependable over time.',
+    points: ['Performance tuning', 'Ongoing improvements'],
+  },
+];
+
+const captureCards = [
+  {
+    step: '01',
+    label: 'Always On',
+    title: 'Capture Every Lead',
+    points: ['No missed messages', 'No delayed responses', 'Instant handling'],
+    accent: 'from-[#0e8c74] via-[#2ec4a5] to-[#b7f3e4]',
+    glow: 'bg-[radial-gradient(circle,rgba(14,140,116,0.18),transparent_72%)]',
+  },
+  {
+    step: '02',
+    label: 'Stay Warm',
+    title: 'Automate Follow-Ups',
+    points: ['Smart follow-ups', 'Across channels', 'Keeps opportunities warm'],
+    accent: 'from-[#ff8b3d] via-[#ffb364] to-[#ffe1bf]',
+    glow: 'bg-[radial-gradient(circle,rgba(255,139,61,0.18),transparent_72%)]',
+  },
+  {
+    step: '03',
+    label: 'Stay Aligned',
+    title: 'Connect Your Systems',
+    points: ['Bring tools together', 'One smooth flow', 'Clear handoffs'],
+    accent: 'from-[#2858ff] via-[#5e8aff] to-[#d4e1ff]',
+    glow: 'bg-[radial-gradient(circle,rgba(40,88,255,0.16),transparent_72%)]',
+  },
+  {
+    step: '04',
+    label: 'Stay Focused',
+    title: 'Reduce Manual Work',
+    points: ['Less task chasing', 'Less manual work', 'More time for growth'],
+    accent: 'from-[#0f1720] via-[#44616b] to-[#c4d7dd]',
+    glow: 'bg-[radial-gradient(circle,rgba(68,97,107,0.18),transparent_72%)]',
   },
 ];
 
@@ -266,16 +188,8 @@ export function HomePage() {
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
   const heroCopyRef = useRef<HTMLParagraphElement>(null);
   const heroActionsRef = useRef<HTMLDivElement>(null);
-  const trustRowRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  const stepperSectionRef = useRef<HTMLDivElement>(null);
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  const marqueeDragRef = useRef<HTMLDivElement>(null);
-  const isMarqueeDraggingRef = useRef(false);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const activeStepRef = useRef(0);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [expandedService, setExpandedService] = useState<string | null>(null);
 
   usePageMeta(
     'Aqib Ops | Workflow Automation Services for Sales, Support, and Operations',
@@ -315,16 +229,6 @@ export function HomePage() {
         { y: 0, opacity: 1, duration: 0.6 },
         0.55
       );
-
-      if (trustRowRef.current) {
-        const trustItems = trustRowRef.current.querySelectorAll<HTMLElement>('.chip');
-        introTl.fromTo(
-          trustItems,
-          { y: 18, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.52, stagger: 0.06 },
-          0.75
-        );
-      }
 
       gsap.to('.hero-orb-a', {
         y: -18,
@@ -411,160 +315,6 @@ export function HomePage() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    const dragLayer = marqueeDragRef.current;
-    if (!marquee || !dragLayer) return;
-
-    let scrollTimeout: number | undefined;
-    let isPointerDown = false;
-    let hasDragged = false;
-    let activePointerId: number | null = null;
-    let startX = 0;
-    let startY = 0;
-    let baseOffset = 0;
-    let currentOffset = 0;
-
-    const pause = () => marquee.classList.add('is-paused');
-    const resume = () => marquee.classList.remove('is-paused');
-
-    const setOffset = (value: number) => {
-      currentOffset = value;
-      dragLayer.style.transform = `translate3d(${value}px, 0, 0)`;
-    };
-
-    const onScroll = () => {
-      pause();
-      if (scrollTimeout) window.clearTimeout(scrollTimeout);
-      scrollTimeout = window.setTimeout(() => {
-        scrollTimeout = undefined;
-        if (!isMarqueeDraggingRef.current) {
-          resume();
-        }
-      }, 220);
-    };
-
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.button !== 0) return;
-      isPointerDown = true;
-      hasDragged = false;
-      activePointerId = event.pointerId;
-      startX = event.clientX;
-      startY = event.clientY;
-      baseOffset = currentOffset;
-      pause();
-    };
-
-    const onPointerMove = (event: PointerEvent) => {
-      if (!isPointerDown) return;
-
-      const deltaX = event.clientX - startX;
-      const deltaY = event.clientY - startY;
-
-      if (!hasDragged) {
-        if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
-        if (Math.abs(deltaY) > Math.abs(deltaX)) {
-          isPointerDown = false;
-          if (marquee.hasPointerCapture(event.pointerId)) {
-            marquee.releasePointerCapture(event.pointerId);
-          }
-          return;
-        }
-        hasDragged = true;
-        isMarqueeDraggingRef.current = true;
-        marquee.classList.add('is-dragging');
-        if (activePointerId !== null && !marquee.hasPointerCapture(activePointerId)) {
-          marquee.setPointerCapture(activePointerId);
-        }
-      }
-
-      event.preventDefault();
-      setOffset(baseOffset + deltaX);
-    };
-
-    const onPointerUp = () => {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-      if (activePointerId !== null && marquee.hasPointerCapture(activePointerId)) {
-        marquee.releasePointerCapture(activePointerId);
-      }
-      activePointerId = null;
-      marquee.classList.remove('is-dragging');
-      window.setTimeout(() => {
-        isMarqueeDraggingRef.current = false;
-      }, 60);
-      if (!scrollTimeout) {
-        resume();
-      }
-    };
-
-    marquee.addEventListener('pointerdown', onPointerDown);
-    marquee.addEventListener('pointermove', onPointerMove);
-    marquee.addEventListener('pointerup', onPointerUp);
-    marquee.addEventListener('pointerleave', onPointerUp);
-    marquee.addEventListener('pointercancel', onPointerUp);
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      marquee.removeEventListener('pointerdown', onPointerDown);
-      marquee.removeEventListener('pointermove', onPointerMove);
-      marquee.removeEventListener('pointerup', onPointerUp);
-      marquee.removeEventListener('pointerleave', onPointerUp);
-      marquee.removeEventListener('pointercancel', onPointerUp);
-      window.removeEventListener('scroll', onScroll);
-      if (scrollTimeout) window.clearTimeout(scrollTimeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    const section = stepperSectionRef.current;
-    if (!section) return;
-
-    const totalSteps = stepperSteps.length;
-    const stepScrollPx = 320;
-    let ticking = false;
-
-    const updateStep = () => {
-      const viewport = window.innerHeight || 0;
-      const scrollY = window.scrollY || window.pageYOffset || 0;
-      const start = section.offsetTop - viewport * 0.2;
-      const end = start + stepScrollPx * (totalSteps - 1);
-
-      let nextIndex = 0;
-      if (scrollY <= start) {
-        nextIndex = 0;
-      } else if (scrollY >= end) {
-        nextIndex = totalSteps - 1;
-      } else {
-        const progress = (scrollY - start) / Math.max(1, stepScrollPx * (totalSteps - 1));
-        nextIndex = Math.min(totalSteps - 1, Math.floor(progress * totalSteps));
-      }
-
-      if (activeStepRef.current !== nextIndex) {
-        activeStepRef.current = nextIndex;
-        setActiveStepIndex(nextIndex);
-      }
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        updateStep();
-        ticking = false;
-      });
-    };
-
-    updateStep();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-
   return (
     <div ref={pageRef}>
       <section className="section-dark relative -mt-20 overflow-hidden pt-20">
@@ -599,105 +349,69 @@ export function HomePage() {
             />
           ))}
         </div>
-        <div className="container-site flex min-h-[calc(100svh-104px)] items-start justify-center pt-10 pb-16 md:pt-14 md:pb-24">
+        <div className="container-site flex min-h-[calc(100svh-88px)] items-center justify-center pt-8 pb-10 sm:pt-10 sm:pb-12 md:min-h-[calc(100svh-104px)] md:pt-14 md:pb-16">
           <div className="w-full max-w-6xl text-center">
-            <div className="flex flex-wrap items-center justify-center gap-2 text-sm" data-animate="fade">
-              <span className="rounded-full border border-white/[0.16] bg-white/[0.08] px-3 py-1.5 text-white/[0.86]">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm" data-animate="fade">
+              <span className="rounded-full border border-white/[0.16] bg-white/[0.08] px-2.5 py-1.5 text-white/[0.86] sm:px-3">
                 Automation Studio
               </span>
-              <span className="rounded-full border border-white/[0.16] bg-white/[0.08] px-3 py-1.5 text-white/[0.86]">
+              <span className="rounded-full border border-white/[0.16] bg-white/[0.08] px-2.5 py-1.5 text-white/[0.86] sm:px-3">
                 Aqib Ops
               </span>
             </div>
 
             <h1
               ref={heroTitleRef}
-              className="mx-auto mt-8 max-w-5xl font-display text-[clamp(2.9rem,11vw,7rem)] font-bold leading-[0.9] tracking-[-0.052em] text-white"
+              className="mx-auto mt-8 max-w-[11ch] font-display font-bold leading-[0.9] tracking-[-0.058em] text-white md:max-w-none"
             >
-              <span className="title-wrap">
-                <span
-                  className="hero-title-line"
-                  style={
-                    {
-                      '--type-width': '8ch',
-                      '--type-steps': 8,
-                      '--type-delay': '0s',
-                      '--type-duration': '0.6s',
-                    } as CSSProperties
-                  }
-                >
-                  Automate
-                </span>
+              <span
+                className="hero-title-line block text-[clamp(2.9rem,11vw,5rem)] md:whitespace-nowrap"
+                style={
+                  {
+                    '--type-delay': '0s',
+                    '--type-duration': '0.75s',
+                  } as CSSProperties
+                }
+              >
+                Built to Capture
               </span>
-              <span className="title-wrap">
-                <span
-                  className="hero-title-line"
-                  style={
-                    {
-                      '--type-width': '14ch',
-                      '--type-steps': 14,
-                      '--type-delay': '0.35s',
-                      '--type-duration': '0.8s',
-                    } as CSSProperties
-                  }
-                >
-                  Repeated Work.
-                </span>
-              </span>
-              <span className="title-wrap">
-                <span
-                  className="hero-title-line"
-                  style={
-                    {
-                      '--type-width': '19ch',
-                      '--type-steps': 19,
-                      '--type-delay': '0.7s',
-                      '--type-duration': '0.95s',
-                    } as CSSProperties
-                  }
-                >
-                  Scale With Clarity.
-                </span>
+              <span
+                className="hero-title-line mt-1 block bg-[linear-gradient(110deg,#f7fbff_5%,#ffffff_40%,#7ff5e1_82%,#b8fff0_100%)] bg-clip-text text-[clamp(2.9rem,10.6vw,4.8rem)] text-transparent md:mt-2 md:whitespace-nowrap"
+                style={
+                  {
+                    '--type-delay': '0.14s',
+                    '--type-duration': '0.9s',
+                  } as CSSProperties
+                }
+              >
+                More Opportunities.
               </span>
             </h1>
 
-            <p ref={heroCopyRef} className="mx-auto mt-7 max-w-3xl text-lg text-white/[0.74]">
-              We build n8n + AI automation systems for e-commerce, SaaS, and ops teams in 2-4 weeks.
+            <p ref={heroCopyRef} className="mx-auto mt-7 max-w-2xl text-base leading-7 text-white/[0.72] sm:text-lg sm:leading-8">
+              Automate your follow-ups, responses, and workflows &mdash; so no opportunity slips through.
             </p>
 
-            <div ref={heroActionsRef} className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link to="/contact" className="btn-solid">
+            <div ref={heroActionsRef} className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+              <Link to="/contact" className="btn-solid w-full justify-center px-6 py-3.5 sm:w-auto">
                 Book Automation Audit
               </Link>
-              <Link to="/solutions" className="btn-ghost">
+              <Link to="/solutions" className="btn-ghost w-full justify-center px-6 py-3.5 sm:w-auto">
                 Explore Solutions
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5 text-sm text-white/[0.86]">
-              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3.5 py-2">
-                Lead & CRM automation
+            <div className="mt-9 flex flex-wrap justify-center gap-2.5 text-xs text-white/[0.86] sm:text-sm">
+              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3 py-1.5 sm:px-3.5 sm:py-2">
+                Lead capture
               </span>
-              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3.5 py-2">
-                Support workflow orchestration
+              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3 py-1.5 sm:px-3.5 sm:py-2">
+                Follow-up systems
               </span>
-              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3.5 py-2">
-                Alerts, retries, and reporting
+              <span className="rounded-full border border-white/[0.14] bg-white/[0.05] px-3 py-1.5 sm:px-3.5 sm:py-2">
+                Support automation
               </span>
             </div>
-          </div>
-        </div>
-
-        <div className="container-site pb-10 md:pb-14">
-          <p className="text-center text-xs uppercase tracking-[0.18em] text-white/[0.45]" data-animate="fade-up">
-            Trusted by high-velocity teams
-          </p>
-          <div ref={trustRowRef} className="mt-4 flex flex-wrap justify-center gap-3">
-            {trustedBy.map((name) => (
-              <span key={name} className="chip">
-                {name}
-              </span>
-            ))}
           </div>
         </div>
       </section>
@@ -706,72 +420,47 @@ export function HomePage() {
         <div className="clarity-orb-a pointer-events-none absolute -left-24 top-10 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(0,228,194,0.26),rgba(0,140,116,0.06),transparent_72%)] blur-[4px]" />
         <div className="clarity-orb-b pointer-events-none absolute -right-24 bottom-8 h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(117,142,255,0.22),rgba(42,84,255,0.08),transparent_72%)] blur-[4px]" />
         <div className="container-site integration-container py-16 md:py-24">
-          <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
-            What We Do
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
-            Pick one bottleneck. We automate it end-to-end.
-          </h2>
-          <p className="mt-4 max-w-3xl text-black/[0.66]" data-animate="fade-up" data-delay="0.08">
-            Most teams do not need a full platform redesign on day one. They need one painful
-            process fixed fast, with clear business impact.
-          </p>
+          <div className="mx-auto max-w-3xl text-center" data-animate="fade-up">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+              How You Capture More
+            </h2>
+          </div>
 
-          <div className="service-marquee" data-animate="fade-up" ref={marqueeRef}>
-            <div className="service-drag" ref={marqueeDragRef}>
-              <div className="service-track">
-                {[0, 1].map((setIndex) => (
-                  <div
-                    key={`set-${setIndex}`}
-                    className="service-set"
-                    aria-hidden={setIndex === 1}
-                  >
-                    {serviceCards.map((card) => {
-                      const key = `${card.id}-${setIndex}`;
-                      const isExpanded = expandedService === key;
-                      return (
-                        <button
-                          key={key}
-                          type="button"
-                          className={`service-card ${isExpanded ? 'is-expanded' : ''}`}
-                          onClick={(event) => {
-                            if (isMarqueeDraggingRef.current) {
-                              event.preventDefault();
-                              return;
-                            }
-                            setExpandedService(isExpanded ? null : key);
-                          }}
-                          aria-expanded={isExpanded}
-                        >
-                          <div className="service-media">
-                            {card.image ? (
-                              <img src={card.image} alt={card.title} loading="lazy" />
-                            ) : (
-                              <div className="service-media-fallback" />
-                            )}
-                          </div>
-                          <div className="service-footer">
-                            <p className="service-title">{card.title}</p>
-                            <p className="service-subtitle">{card.subtitle}</p>
-                          </div>
-                          <div className="service-details">
-                            <p className="service-summary">{card.summary}</p>
-                            <ul>
-                              {card.bullets.map((bullet) => (
-                                <li key={bullet}>
-                                  <Check className="h-4 w-4 text-[var(--mint-deep)]" />
-                                  <span>{bullet}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4" data-animate="stagger">
+            {captureCards.map((card) => (
+              <article
+                key={card.step}
+                className="group relative flex min-h-[280px] flex-col overflow-hidden rounded-[28px] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94))] p-5 shadow-[0_18px_40px_rgba(10,14,20,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_54px_rgba(10,14,20,0.12)] sm:min-h-[320px] sm:p-6"
+                data-animate-child
+              >
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accent}`} />
+                <div className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-2xl ${card.glow}`} />
+                <div className="relative flex items-center justify-between">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#081118] font-mono text-[11px] font-semibold tracking-[0.18em] text-white sm:h-12 sm:w-12 sm:text-xs">
+                    {card.step}
+                  </span>
+                  <span className="rounded-full border border-black/[0.08] bg-black/[0.03] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/[0.58] sm:px-3 sm:text-[10px]">
+                    {card.label}
+                  </span>
+                </div>
+                <h3 className="relative mt-6 max-w-none font-display text-[1.7rem] font-bold leading-[1.02] tracking-[-0.04em] text-black sm:mt-8 sm:max-w-[11ch] sm:text-[1.95rem]">
+                  {card.title}
+                </h3>
+                <ul className="relative mt-6 grid gap-3 sm:mt-8">
+                  {card.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-white/80 px-3.5 py-3 text-sm font-medium text-black/[0.72] shadow-[0_10px_24px_rgba(10,14,20,0.05)]"
+                    >
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[rgba(0,0,0,0.88)] text-white">
+                        <Check className="h-4 w-4" />
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -786,7 +475,7 @@ export function HomePage() {
               className="mt-3 max-w-3xl font-display text-2xl font-bold tracking-tight text-white md:text-3xl"
               data-animate="fade-up"
             >
-              Built for teams that are tired of repeating the same manual work every day.
+              For teams losing time, leads, and opportunities due to slow or manual processes.
             </h2>
             <div className="mt-6 flex flex-wrap gap-2.5" data-animate="stagger">
               {audiencePills.map((pill) => (
@@ -804,13 +493,9 @@ export function HomePage() {
           <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
             How It Works
           </p>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
-            Audit, build, and monitor in a clear 3-step workflow.
+          <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl" data-animate="fade-up">
+            A simple system to capture more and miss less &mdash; without the chaos.
           </h2>
-          <p className="mt-4 max-w-3xl text-black/[0.66]" data-animate="fade-up" data-delay="0.08">
-            You always know what we are building, why it matters, and how reliability is handled
-            after launch.
-          </p>
 
           <div className="relative mt-10">
             <div className="process-progress absolute left-6 right-6 top-[1.65rem] hidden h-px bg-[linear-gradient(90deg,rgba(0,140,116,0.28),rgba(56,95,255,0.22))] md:block" />
@@ -831,214 +516,80 @@ export function HomePage() {
 
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
-          <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
-            Reliability Layer
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
-            How we keep your workflows stable in production.
-          </h2>
-          <p className="mt-4 max-w-3xl text-black/[0.65]" data-animate="fade-up" data-delay="0.08">
-            After launch, we add clear rules, scoped access, retries, and monitoring so your
-            automations stay reliable as volume grows.
-          </p>
+          <div className="mx-auto max-w-4xl" data-animate="fade-up">
+            <h2 className="text-center font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+              Built to Work. Built to Last.
+            </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-center text-black/[0.66]">
+              Your automation doesn&apos;t just launch &mdash; it keeps running smoothly without breaking
+              or missing anything.
+            </p>
+          </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
-            <div className="paper-card p-6" data-animate="fade-up">
-              <p className="eyebrow text-black/[0.45]">Checklist</p>
-              <div className="mt-4 space-y-2" data-animate="stagger">
-                {checklist.map((item) => (
-                  <div
-                    key={item}
-                    data-animate-child
-                    className="flex items-start gap-3 rounded-xl border border-black/10 bg-white/[0.55] p-3"
-                  >
-                    <Check className="mt-0.5 h-4 w-4 text-[var(--mint-deep)]" />
-                    <p className="text-sm text-black/[0.8]">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mx-auto mt-10 max-w-4xl rounded-[32px] border border-black/[0.08] bg-white p-6 shadow-[0_18px_44px_rgba(10,14,20,0.07)] md:p-10">
+            <ul className="grid gap-3 md:grid-cols-2" data-animate="stagger">
+              {reliabilityPoints.map((item, index) => (
+                <li
+                  key={item}
+                  data-animate-child
+                  className={`flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-[rgba(250,251,252,0.96)] px-4 py-4 text-sm font-medium text-black/[0.74] shadow-[0_8px_24px_rgba(10,14,20,0.04)] ${
+                    index === reliabilityPoints.length - 1 ? 'md:col-span-2' : ''
+                  }`}
+                >
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[rgba(0,140,116,0.1)] text-[var(--mint-deep)]">
+                    <Check className="h-4 w-4" />
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-            <div className="paper-card p-6 md:p-8" data-animate="fade-up" data-delay="0.08">
-              <p className="eyebrow text-black/[0.45]">Environment Snapshot</p>
-              <div className="mt-5 rounded-2xl border border-black/10 bg-white p-5">
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-black/[0.45]">Node Group</p>
-                <p className="mt-2 text-xl font-semibold text-black">Production Cluster A</p>
-                <div className="mt-5 space-y-3">
-                  <div className="flex items-center justify-between border-b border-black/[0.08] pb-3">
-                    <span className="text-sm text-black/[0.65]">Retry Policy</span>
-                    <span className="font-mono text-sm text-black">3 attempts</span>
-                  </div>
-                  <div className="flex items-center justify-between border-b border-black/[0.08] pb-3">
-                    <span className="text-sm text-black/[0.65]">Fallback Route</span>
-                    <span className="font-mono text-sm text-black">Queue + Alert</span>
-                  </div>
-                  <div className="flex items-center justify-between pb-1">
-                    <span className="text-sm text-black/[0.65]">Human Review Gate</span>
-                    <span className="font-mono text-sm text-black">Enabled</span>
-                  </div>
-                </div>
-                <Link to="/contact" className="btn-solid mt-6 w-full justify-center">
-                  Launch Similar Setup
-                </Link>
-              </div>
-            </div>
+            <p className="mt-6 text-center text-sm text-black/[0.52]">
+              Built with safeguards to ensure nothing slips or breaks.
+            </p>
           </div>
         </div>
       </section>
-
-        <section className="section-dark integration-section border-t border-white/10">
-          <div className="container-site integration-container py-8 md:py-10">
-          <div className="integration-header">
-            <p className="eyebrow text-white/60" data-animate="fade-up">
-              Integrations
-            </p>
-            <h2 className="integration-title font-display text-white" data-animate="fade-up">
-              Connect to the systems your team already runs.
-            </h2>
-            <p className="integration-copy text-white/70" data-animate="fade-up" data-delay="0.08">
-              We map your data flow, plug into existing tools, and orchestrate workflows without
-              ripping out what already works.
-            </p>
-          </div>
-
-            <div className="integration-visual" data-animate="clip">
-              <div className="integration-panel integration-panel-core">
-                <div className="integration-canvas">
-                  <span className="flow-line line-horizontal line-core-left" />
-                  <span className="flow-line line-horizontal line-core-right-top" />
-                  <span className="flow-line line-horizontal line-core-right-bottom" />
-                  <span className="flow-line line-vertical line-core-top-left" />
-                  <span className="flow-line line-vertical line-core-top-right" />
-                  <span className="flow-line line-vertical line-core-bottom" />
-                  <span className="flow-line line-vertical line-bots-left" />
-                  <span className="flow-line line-vertical line-bots-right" />
-                  <span className="flow-line line-vertical line-core-to-bots" />
-
-                  <div className="flow-node node-workflows">
-                    <span className="node-pill">Trigger</span>
-                    <p className="node-title">Custom Workflows</p>
-                  </div>
-                  <div className="flow-node node-api">
-                    <span className="node-pill">HTTP</span>
-                    <p className="node-title">API Integrations</p>
-                  </div>
-
-                  <div className="flow-market">
-                    <div className="flow-market-header">
-                      <p className="flow-market-title">App Marketplace</p>
-                      <span className="flow-market-badge">500+ apps</span>
-                    </div>
-                    <div className="flow-logo-grid">
-                      {integrationLogoGrid.map((logo) => (
-                        <span key={logo.name} className="flow-logo-chip">
-                          <img src={logo.logo} alt={logo.name} loading="lazy" />
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flow-core">
-                    <p className="flow-core-eyebrow">Aqib Ops</p>
-                    <p className="flow-core-title">Orchestration Layer</p>
-                    <p className="flow-core-subtitle">n8n-grade routing + guardrails</p>
-                  </div>
-
-                  <div className="flow-node node-analytics">
-                    <span className="node-pill">Store</span>
-                    <p className="node-title">Data Analytics</p>
-                  </div>
-                  <div className="flow-node node-reporting">
-                    <span className="node-pill">Report</span>
-                    <p className="node-title">Reporting Dashboards</p>
-                  </div>
-
-                  <div className="flow-node node-automation">
-                    <span className="node-pill">Subflow</span>
-                    <p className="node-title">Workflow Automation</p>
-                  </div>
-                  <div className="flow-bot-row">
-                    {['Ops Bot', 'Alerts Bot', 'Recovery Bot'].map((label, index) => (
-                      <span key={`${label}-${index}`} className="flow-bot-chip">
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
       <section className="section-paper border-t border-black/[0.12]">
         <div className="container-site py-16 md:py-24">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div data-animate="fade-up">
               <p className="eyebrow text-black/[0.5]">Interactive Process</p>
-              <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
-                A modern step-by-step system for shipping automation fast.
+              <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+                A clear path from bottleneck to working system.
               </h2>
               <p className="mt-4 max-w-2xl text-black/[0.66]">
-                Scroll down to move through each step. The active item expands in place as you
-                progress.
+                Four stages. Clear decisions. No guesswork about what happens next.
               </p>
             </div>
             <div className="stepper-pill" data-animate="fade-up" data-delay="0.1">
-              Fully guided delivery
+              4-step delivery path
             </div>
           </div>
 
-          <div ref={stepperSectionRef} className="stepper-shell mt-10">
-            <div className="stepper-surface">
-              {stepperSteps.map((step, index) => {
-                const isActive = index === activeStepIndex;
-                return (
-                  <div
-                    key={step.step}
-                    className={`stepper-item ${isActive ? 'is-active' : ''}`}
-                  >
-                    <button
-                      type="button"
-                      className="stepper-head"
-                      onMouseEnter={() => {
-                        activeStepRef.current = index;
-                        setActiveStepIndex(index);
-                      }}
-                      onFocus={() => {
-                        activeStepRef.current = index;
-                        setActiveStepIndex(index);
-                      }}
-                      onClick={() => {
-                        activeStepRef.current = index;
-                        setActiveStepIndex(index);
-                      }}
-                    >
-                      <span className="stepper-index">{step.step}</span>
-                      <div className="stepper-text">
-                        <p className="stepper-title">{step.title}</p>
-                      </div>
-                      <span className="stepper-arrow">
-                        <ChevronRight className="h-4 w-4" />
+          <div className="stepper-grid mt-12" data-animate="stagger">
+            {stepperSteps.map((step) => (
+              <article key={step.step} className="stepper-card" data-animate-child>
+                <div className="stepper-card-top">
+                  <span className="stepper-card-index">{step.step}</span>
+                  <span className="stepper-card-stage">Stage {step.step}</span>
+                </div>
+                <h3 className="stepper-card-title">{step.title}</h3>
+                <p className="stepper-card-headline">{step.headline}</p>
+                <p className="stepper-card-desc">{step.description}</p>
+                <ul className="stepper-card-points">
+                  {step.points.map((item) => (
+                    <li key={item}>
+                      <span className="stepper-card-check">
+                        <Check className="h-4 w-4" />
                       </span>
-                    </button>
-                    <div className="stepper-body">
-                      <div className="stepper-body-inner">
-                        <p className="stepper-headline">{step.headline}</p>
-                        <p className="stepper-desc">{step.description}</p>
-                        <ul className="stepper-list stepper-list-compact">
-                          {step.points.map((item) => (
-                            <li key={item}>
-                              <Check className="h-4 w-4 text-[var(--mint-deep)]" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -1048,7 +599,7 @@ export function HomePage() {
           <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
             Comparison
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl" data-animate="fade-up">
             Built for agents, not retrofitted for them.
           </h2>
 
@@ -1077,100 +628,13 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="section-paper border-t border-black/[0.1]">
-        <div className="container-site py-16 md:py-24">
-          <p className="eyebrow text-black/[0.5]" data-animate="fade-up">
-            Automation Expertise
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl" data-animate="fade-up">
-            n8n workflow automation, AI agents, and integration services.
-          </h2>
-          <p className="mt-4 max-w-3xl text-black/[0.66]" data-animate="fade-up" data-delay="0.08">
-            Work with an n8n automation expert to build n8n workflows, n8n API integration, and
-            n8n AI automation that replaces manual handoffs. If you want to hire an n8n developer,
-            an automation engineer (n8n), or an AI automation consultant n8n teams trust, we deliver
-            n8n automation services backed by real workflow automation expert playbooks.
-          </p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <article className="paper-card p-6 md:p-7">
-              <span className="chip chip-light">n8n Workflow Automation</span>
-              <h3 className="mt-4 text-2xl font-semibold text-black">Build n8n workflows that scale.</h3>
-              <p className="mt-3 text-black/[0.7]">
-                We ship advanced n8n workflows with n8n webhooks, n8n integrations, and automation
-                templates tailored to your business automation goals.
-              </p>
-              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  n8n workflow examples + real world projects.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  n8n automation templates and custom scripts.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  n8n automation specialist delivery and testing.
-                </li>
-              </ul>
-            </article>
-
-            <article className="paper-card p-6 md:p-7">
-              <span className="chip chip-light">AI Automation</span>
-              <h3 className="mt-4 text-2xl font-semibold text-black">n8n AI agents + chatbot automation.</h3>
-              <p className="mt-3 text-black/[0.7]">
-                Launch n8n AI automation workflows, n8n OpenAI workflows, and GPT chatbot
-                automation that powers support, sales, and internal ops.
-              </p>
-              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  n8n chatbot automation + conversational AI.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  AI automation workflows and AI agents.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  ChatGPT automation and AI assistant flows.
-                </li>
-              </ul>
-            </article>
-
-            <article className="paper-card p-6 md:p-7">
-              <span className="chip chip-light">Integrations</span>
-              <h3 className="mt-4 text-2xl font-semibold text-black">API integrations + no-code automation.</h3>
-              <p className="mt-3 text-black/[0.7]">
-                We connect CRMs, databases, and SaaS tools with REST API, webhook, and backend
-                integration paths—plus Make.com and Zapier automation where it fits.
-              </p>
-              <ul className="mt-5 space-y-2 text-sm text-black/[0.78]">
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  n8n vs Zapier automation expert guidance.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  No code automation + low code automation stacks.
-                </li>
-                <li className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[var(--mint-deep)]" />
-                  Integration specialist n8n setups for CRM, email, and data.
-                </li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
 
       <section className="section-paper border-t border-black/[0.1]">
         <div className="container-site py-16 md:py-24">
           <p className="eyebrow text-black/[0.5]">
             Workflows
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
             Transform workflows across your business.
           </h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -1206,7 +670,7 @@ export function HomePage() {
               <img
                 src="/impact-hands-tasks.jpg"
                 alt="Team operating workflow with live data"
-                className="h-full min-h-[320px] w-full rounded-2xl object-cover"
+                className="h-full min-h-[220px] w-full rounded-2xl object-cover sm:min-h-[320px]"
                 loading="lazy"
               />
             </article>
@@ -1219,7 +683,7 @@ export function HomePage() {
           <p className="eyebrow text-black/[0.5]">
             Security
           </p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
             Enterprise-grade controls, built into your automation stack.
           </h2>
 
@@ -1244,7 +708,7 @@ export function HomePage() {
               <p className="eyebrow">
                 Performance
               </p>
-              <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
+              <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                 Where milliseconds matter, reliability delivers.
               </h2>
               <p className="mt-4 max-w-2xl text-white/70">
@@ -1252,7 +716,7 @@ export function HomePage() {
                 to maintain as volume grows.
               </p>
             </div>
-            <Link to="/contact" className="btn-solid h-fit">
+            <Link to="/contact" className="btn-solid h-fit w-full justify-center sm:w-auto">
               Get My Automation Audit
             </Link>
           </div>
@@ -1286,14 +750,14 @@ export function HomePage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div data-animate="fade-up">
               <p className="eyebrow text-black/[0.5]">{testimonialsConfig.subtitle}</p>
-              <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-black md:text-5xl">
+              <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
                 Proof from teams running live automations.
               </h2>
               <p className="mt-4 max-w-2xl text-black/[0.66]">
                 Real outcomes from automation programs we build, launch, and monitor in production.
               </p>
             </div>
-            <Link to="/case-studies" className="btn-solid h-fit" data-animate="fade-up" data-delay="0.12">
+            <Link to="/case-studies" className="btn-solid h-fit w-full justify-center sm:w-auto" data-animate="fade-up" data-delay="0.12">
               Read Case Studies
             </Link>
           </div>

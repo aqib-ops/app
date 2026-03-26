@@ -77,7 +77,7 @@ export function WorkflowAuditChecklistPage() {
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
             Workflow Audit Checklist
           </h1>
-          <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
+          <p className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg" data-animate="fade-up" data-delay="0.08">
             Use this checklist to identify automation opportunities, reduce execution risk, and plan clean handoff.
           </p>
         </div>
@@ -86,7 +86,7 @@ export function WorkflowAuditChecklistPage() {
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
           <div className="grid gap-6 lg:grid-cols-[0.5fr_0.5fr]">
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up">
               <p className="eyebrow text-black/[0.45]">What You Get</p>
               <ul className="mt-4 space-y-3 text-black/[0.78]">
                 {checklistHighlights.map((item) => (
@@ -97,7 +97,7 @@ export function WorkflowAuditChecklistPage() {
               </ul>
             </article>
 
-            <form onSubmit={handleSubmit} className="paper-card p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
+            <form onSubmit={handleSubmit} className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
               <p className="eyebrow text-black/[0.45]">Get Access</p>
               <label className="mt-4 block space-y-2">
                 <span className="text-sm font-semibold text-black/[0.75]">Name</span>
@@ -134,11 +134,11 @@ export function WorkflowAuditChecklistPage() {
 
       <section className="section-dark border-t border-white/10">
         <div className="container-site py-16 md:py-20">
-          <div className="flex flex-wrap gap-3">
-            <Link to="/faq" className="btn-ghost">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link to="/faq" className="btn-ghost w-full justify-center sm:w-auto">
               Browse FAQ
             </Link>
-            <Link to="/contact" className="btn-solid">
+            <Link to="/contact" className="btn-solid w-full justify-center sm:w-auto">
               Book Automation Audit
             </Link>
           </div>

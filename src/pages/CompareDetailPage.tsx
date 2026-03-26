@@ -58,7 +58,7 @@ export function CompareDetailPage({ compareSlug }: CompareDetailPageProps) {
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
             {comparison.title}
           </h1>
-          <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
+          <p className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg" data-animate="fade-up" data-delay="0.08">
             {comparison.summary}
           </p>
         </div>
@@ -67,11 +67,11 @@ export function CompareDetailPage({ compareSlug }: CompareDetailPageProps) {
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
           <div className="grid gap-6 lg:grid-cols-2">
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up">
               <p className="eyebrow text-black/[0.45]">Ideal For</p>
               <p className="mt-4 text-black/[0.78]">{comparison.idealFor}</p>
             </article>
-            <article className="paper-card p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
+            <article className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
               <p className="eyebrow text-black/[0.45]">Common Tradeoffs</p>
               <ul className="mt-4 space-y-3 text-black/[0.78]">
                 {comparison.tradeoffs.map((item) => (
@@ -83,7 +83,7 @@ export function CompareDetailPage({ compareSlug }: CompareDetailPageProps) {
             </article>
           </div>
 
-          <article className="paper-card mt-8 p-7 md:p-8" data-animate="fade-up">
+          <article className="paper-card mt-8 p-5 sm:p-7 md:p-8" data-animate="fade-up">
             <p className="eyebrow text-black/[0.45]">Why Aqib Ops Stands Out</p>
             <ul className="mt-4 space-y-3 text-black/[0.8]">
               {comparison.whyAqibOpsWins.map((point) => (
@@ -98,11 +98,11 @@ export function CompareDetailPage({ compareSlug }: CompareDetailPageProps) {
 
       <section className="section-dark border-t border-white/10">
         <div className="container-site py-16 md:py-20">
-          <div className="flex flex-wrap gap-3">
-            <Link to="/compare-alternatives" className="btn-ghost">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link to="/compare-alternatives" className="btn-ghost w-full justify-center sm:w-auto">
               Back to All Comparisons
             </Link>
-            <Link to="/contact" className="btn-solid">
+            <Link to="/contact" className="btn-solid w-full justify-center sm:w-auto">
               Choose My Best Route
             </Link>
           </div>

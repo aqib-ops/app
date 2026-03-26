@@ -6,7 +6,6 @@ const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Solutions', to: '/solutions' },
   { label: 'Case Studies', to: '/case-studies' },
-  { label: 'Insights', to: '/insights' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ];
@@ -34,21 +33,21 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50">
       <div className="container-site">
         <div
-          className={`overflow-hidden rounded-b-[1.35rem] border-x border-b border-t-0 backdrop-blur-xl transition-all duration-300 ${
+          className={`overflow-hidden rounded-b-[1.1rem] border-x border-b border-t-0 backdrop-blur-xl transition-all duration-300 sm:rounded-b-[1.35rem] ${
             isScrolled
               ? 'border-white/16 bg-[rgba(4,8,10,0.92)] shadow-[0_12px_30px_rgba(0,0,0,0.22)]'
               : 'border-white/10 bg-[rgba(5,8,10,0.72)] shadow-[0_6px_18px_rgba(0,0,0,0.16)]'
           }`}
         >
-          <div className="flex h-20 items-center justify-between px-3 md:px-5">
-            <Link to="/" className="group inline-flex items-center gap-3" onClick={() => setMobileOpen(false)}>
+          <div className="flex h-[4.5rem] items-center justify-between px-3 sm:h-20 sm:px-4 md:px-5">
+            <Link to="/" className="group inline-flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setMobileOpen(false)}>
               <img
                 src="/Aqib.svg"
                 alt="Aqib Ops logo"
-                className="h-10 w-10 rounded-xl border border-white/[0.2] object-contain"
+                className="h-9 w-9 rounded-xl border border-white/[0.2] object-contain sm:h-10 sm:w-10"
               />
-              <div className="leading-tight">
-                <span className="font-display text-2xl font-extrabold tracking-tight text-white">
+              <div className="min-w-0 leading-tight">
+                <span className="font-display text-[1.3rem] font-extrabold tracking-tight text-white sm:text-2xl">
                   aqib <span className="text-[var(--mint)]">ops</span>
                 </span>
               </div>
@@ -83,7 +82,7 @@ export function SiteHeader() {
           </div>
 
           {mobileOpen && (
-            <div className="border-t border-white/10 bg-[rgba(5,8,10,0.96)] px-4 pb-4 pt-3 md:hidden">
+            <div className="border-t border-white/10 bg-[rgba(5,8,10,0.96)] px-3.5 pb-5 pt-3 md:hidden">
               <div className="flex flex-col gap-3">
                 {navItems.map((item) => (
                   <NavLink

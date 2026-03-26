@@ -71,7 +71,7 @@ export function TermsAndConditionsPage() {
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
           <article className="paper-card p-7 md:p-10" data-animate="fade-up">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               1. Service Agreement
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -90,7 +90,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.05">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               2. Client Responsibilities
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -108,7 +108,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.09">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               3. Payments and Commercial Terms
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -133,7 +133,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.13">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               4. Data and Security
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -157,7 +157,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.17">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               5. Acceptable Use
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -174,7 +174,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.21">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               6. Warranties and Liability
             </h2>
             <div className="mt-4 space-y-3 text-black/[0.76]">
@@ -195,7 +195,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.25">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               7. Termination
             </h2>
             <p className="mt-4 text-black/[0.74]">
@@ -206,7 +206,7 @@ export function TermsAndConditionsPage() {
           </article>
 
           <article className="paper-card mt-6 p-7 md:p-10" data-animate="fade-up" data-delay="0.29">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-black md:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               8. Contact and Policy Links
             </h2>
             <p className="mt-4 text-black/[0.74]">

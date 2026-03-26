@@ -1,41 +1,23 @@
-import { type FormEvent, useEffect, useRef, useState } from 'react';
-import { Facebook, Instagram, Linkedin, Mail, MessageCircle, Youtube } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { type FormEvent, useRef, useState } from 'react';
+import { Mail, MessageCircle } from 'lucide-react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
 import { buildWhatsAppLink, whatsappDisplayNumber } from '../lib/whatsapp';
-import { countryCallingCodeOptions } from '../lib/countryCallingCodes';
 
 const N8N_WEBHOOK_URL =
   import.meta.env.VITE_N8N_WEBHOOK_URL ||
   'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
 const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi Aqib Ops, I want to discuss my project.');
-const HUMAN_CHECK_VALUE = 'AQIB';
-const MIN_FORM_COMPLETION_MS = 2500;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DEFAULT_COUNTRY_CODE = '+92';
-
-function XBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
-      <path
-        fill="currentColor"
-        d="M18.901 1.153h3.68l-8.04 9.188L24 22.847h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.61 20.644h2.039L6.486 3.24H4.298z"
-      />
-    </svg>
-  );
-}
 
 export function ContactPage() {
   const pageRef = useRef<HTMLDivElement>(null);
-  const formStartRef = useRef<number>(Date.now());
-  const [whatsappCountryCode, setWhatsappCountryCode] = useState(DEFAULT_COUNTRY_CODE);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   usePageMeta(
     'Contact Aqib Ops | Workflow Automation Consultant',
-    'Contact Aqib Ops for workflow automation consulting, n8n or Make.com implementation, and production-ready AI automation systems.',
+    'Tell Aqib Ops what is slowing your team down and get a simple automation plan with a clear next step.',
     {
       keywords: [
         'contact workflow automation consultant',
@@ -49,43 +31,6 @@ export function ContactPage() {
   );
   usePageReveal(pageRef);
 
-  useEffect(() => {
-    let isActive = true;
-
-    const detectCountryCode = async () => {
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        if (!response.ok) {
-          return;
-        }
-        const data = await response.json();
-        const callingCodeRaw = typeof data?.country_calling_code === 'string' ? data.country_calling_code.trim() : '';
-        const callingCode = callingCodeRaw
-          ? callingCodeRaw.startsWith('+')
-            ? callingCodeRaw
-            : `+${callingCodeRaw}`
-          : '';
-
-        if (!callingCode) {
-          return;
-        }
-
-        const match = countryCallingCodeOptions.find((option) => option.value === callingCode);
-        if (match && isActive) {
-          setWhatsappCountryCode(match.value);
-        }
-      } catch (error) {
-        console.warn('Country code auto-detection failed:', error);
-      }
-    };
-
-    detectCountryCode();
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -94,16 +39,11 @@ export function ContactPage() {
     const name = String(formData.get('name') ?? '').trim();
     const email = String(formData.get('email') ?? '').trim();
     const website = String(formData.get('website') ?? '').trim();
-    const whatsappCountryCode = String(formData.get('whatsappCountryCode') ?? DEFAULT_COUNTRY_CODE).trim();
     const whatsappNumberRaw = String(formData.get('whatsappNumber') ?? '').trim();
-    const details = String(formData.get('details') ?? '').trim();
+    const message = String(formData.get('message') ?? '').trim();
     const honeypot = String(formData.get('referenceWebsite') ?? '').trim();
-    const humanCheck = String(formData.get('humanCheck') ?? '').trim().toUpperCase();
-    const termsAccepted = formData.get('termsAccepted') === 'on';
-    const completionTime = Date.now() - formStartRef.current;
     const whatsappDigitsOnly = whatsappNumberRaw.replace(/\D/g, '');
-    const whatsappNumber = whatsappDigitsOnly.replace(/^0+/, '');
-    const whatsappE164 = `${whatsappCountryCode}${whatsappNumber}`;
+    const whatsappNumber = whatsappDigitsOnly;
 
     if (honeypot) {
       setSubmitStatus({
@@ -111,14 +51,13 @@ export function ContactPage() {
         message: 'Great, your message is received. We will be in touch with you shortly.',
       });
       form.reset();
-      formStartRef.current = Date.now();
       return;
     }
 
-    if (!name || !email || !website || !details) {
+    if (!name || !email || !message) {
       setSubmitStatus({
         type: 'error',
-        message: 'Please complete name, email, website, and project details before submitting.',
+        message: 'Please complete name, email, WhatsApp number, and message before submitting.',
       });
       return;
     }
@@ -139,38 +78,6 @@ export function ContactPage() {
       return;
     }
 
-    if (details.length < 20) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please add at least 20 characters in project details so we can help properly.',
-      });
-      return;
-    }
-
-    if (!termsAccepted) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please accept the Terms and Privacy Policy before submitting.',
-      });
-      return;
-    }
-
-    if (humanCheck !== HUMAN_CHECK_VALUE) {
-      setSubmitStatus({
-        type: 'error',
-        message: `Human check failed. Type "${HUMAN_CHECK_VALUE}" exactly and submit again.`,
-      });
-      return;
-    }
-
-    if (completionTime < MIN_FORM_COMPLETION_MS) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please wait a moment and submit again.',
-      });
-      return;
-    }
-
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -185,15 +92,11 @@ export function ContactPage() {
           email,
           website,
           businessOrWebsite: website,
-          whatsappCountryCode,
           whatsappNumber,
-          whatsappE164,
-          details,
-          termsAccepted,
-          humanCheckPassed: true,
+          message,
+          details: message,
           submittedAt: new Date().toISOString(),
           source: 'aqib-ops-contact-page',
-          formCompletionMs: completionTime,
         }),
       });
 
@@ -206,7 +109,6 @@ export function ContactPage() {
         type: 'success',
         message: 'Great, your message is received. We will be in touch with you shortly.',
       });
-      formStartRef.current = Date.now();
     } catch (error) {
       console.error('Contact form webhook submission failed:', error);
       setSubmitStatus({
@@ -224,11 +126,11 @@ export function ContactPage() {
         <div className="container-site py-20 md:py-28">
           <p className="eyebrow" data-animate="fade-up">Contact</p>
           <h1 className="display-title mt-4 max-w-3xl text-white" data-animate="fade-up">
-            Tell us your workflow bottleneck.
+            Let&apos;s Fix What&apos;s Slowing You Down
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/[0.72]" data-animate="fade-up" data-delay="0.08">
-            We will map your current process, suggest the right architecture, and provide a clear
-            implementation plan.
+          <p className="mt-5 max-w-2xl text-base text-white/[0.72] sm:text-lg" data-animate="fade-up" data-delay="0.08">
+            Tell us where things are breaking &mdash; we&apos;ll map a simple automation plan for
+            you.
           </p>
         </div>
       </section>
@@ -236,12 +138,12 @@ export function ContactPage() {
       <section className="section-paper">
         <div className="container-site py-16 md:py-24">
           <div className="grid items-start gap-8 lg:grid-cols-[0.45fr_0.55fr]">
-            <aside className="paper-card p-7" data-animate="fade-up">
-              <p className="eyebrow text-black/[0.45]">Direct</p>
+            <aside className="paper-card p-5 sm:p-7" data-animate="fade-up">
+              <h2 className="font-display text-2xl font-semibold text-black sm:text-3xl">Prefer Direct?</h2>
               <div className="mt-5 space-y-4">
                 <a
                   href="mailto:AqibOpscontact@gmail.com"
-                  className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85]"
+                  className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85] break-all sm:break-normal"
                 >
                   <Mail className="h-5 w-5 text-[var(--mint-deep)]" />
                   AqibOpscontact@gmail.com
@@ -256,66 +158,12 @@ export function ContactPage() {
                   WhatsApp: {whatsappDisplayNumber}
                 </a>
               </div>
-              <div className="mt-6 rounded-xl border border-black/10 bg-white/70 p-4 text-sm text-black/70">
-                <p className="font-semibold text-black/80">Best way to reach us</p>
-                <p className="mt-2">
-                  Email for full briefs. WhatsApp for quick clarifications and updates.
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                  <span className="chip-light">Avg reply: under 24h</span>
-                  <span className="chip-light">Timezone: PKT (UTC+5)</span>
-                </div>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs">
-                <a
-                  href="https://www.linkedin.com/in/aqibops"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
-                >
-                  <Linkedin className="h-3.5 w-3.5" />
-                  LinkedIn
-                </a>
-                <a
-                  href="https://x.com/aqibops"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
-                >
-                  <XBrandIcon className="h-3.5 w-3.5" />
-                  X
-                </a>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61587420803198"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
-                >
-                  <Facebook className="h-3.5 w-3.5" />
-                  Facebook
-                </a>
-                <a
-                  href="https://www.instagram.com/aqibops"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
-                >
-                  <Instagram className="h-3.5 w-3.5" />
-                  Instagram
-                </a>
-                <a
-                  href="https://youtube.com/@aqibops"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.14] bg-white px-3 py-1.5 text-black/[0.74] hover:text-black"
-                >
-                  <Youtube className="h-3.5 w-3.5" />
-                  YouTube
-                </a>
-              </div>
+              <p className="mt-6 text-sm leading-7 text-black/[0.68]">
+                Quick replies on WhatsApp for faster clarification.
+              </p>
             </aside>
 
-            <form onSubmit={handleSubmit} className="paper-card p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
+            <form onSubmit={handleSubmit} className="paper-card p-5 sm:p-7 md:p-8" data-animate="fade-up" data-delay="0.08">
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2">
                   <span className="text-sm font-semibold text-black/[0.75]">Name</span>
@@ -339,23 +187,7 @@ export function ContactPage() {
                 </label>
               </div>
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-[0.95fr_1.05fr]">
-                <label className="space-y-2">
-                  <span className="text-sm font-semibold text-black/[0.75]">WhatsApp country code</span>
-                  <select
-                    name="whatsappCountryCode"
-                    value={whatsappCountryCode}
-                    onChange={(event) => setWhatsappCountryCode(event.target.value)}
-                    className="contact-input"
-                    required
-                  >
-                    {countryCallingCodeOptions.map((option) => (
-                      <option key={`${option.value}-${option.label}`} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2">
                   <span className="text-sm font-semibold text-black/[0.75]">WhatsApp number</span>
                   <input
@@ -368,62 +200,26 @@ export function ContactPage() {
                     required
                   />
                 </label>
+                <label className="space-y-2">
+                  <span className="text-sm font-semibold text-black/[0.75]">Website (optional)</span>
+                  <input
+                    name="website"
+                    type="text"
+                    className="contact-input"
+                    placeholder="company.com"
+                  />
+                </label>
               </div>
 
               <label className="mt-4 block space-y-2">
-                <span className="text-sm font-semibold text-black/[0.75]">Business or website</span>
-                <input
-                  name="website"
-                  type="text"
-                  className="contact-input"
-                  placeholder="company.com"
-                  required
-                />
-              </label>
-
-              <label className="mt-4 block space-y-2">
-                <span className="text-sm font-semibold text-black/[0.75]">Project details</span>
+                <span className="text-sm font-semibold text-black/[0.75]">Message</span>
                 <textarea
-                  name="details"
+                  name="message"
                   rows={6}
                   className="contact-input min-h-[140px] resize-y"
-                  placeholder="What workflow are you trying to automate?"
+                  placeholder="Where are you losing time, leads, or opportunities?"
                   required
                 />
-              </label>
-
-              <label className="mt-4 block space-y-2">
-                <span className="text-sm font-semibold text-black/[0.75]">
-                  Prove as a Human by Typing : <span className="font-mono">{HUMAN_CHECK_VALUE}</span>
-                </span>
-                <input
-                  name="humanCheck"
-                  type="text"
-                  autoComplete="off"
-                  className="contact-input"
-                  placeholder={HUMAN_CHECK_VALUE}
-                  required
-                />
-              </label>
-
-              <label className="mt-4 flex items-start gap-3 rounded-xl border border-black/[0.14] bg-white/60 p-3">
-                <input
-                  name="termsAccepted"
-                  type="checkbox"
-                  className="mt-0.5 h-4 w-4 accent-[var(--mint-deep)]"
-                  required
-                />
-                <span className="text-xs leading-relaxed text-black/[0.72]">
-                  I agree to the{' '}
-                  <Link to="/terms-and-conditions" className="font-semibold underline">
-                    Terms and Conditions
-                  </Link>{' '}
-                  and{' '}
-                  <Link to="/privacy-policy" className="font-semibold underline">
-                    Privacy Policy
-                  </Link>
-                  .
-                </span>
               </label>
 
               <input
@@ -440,9 +236,11 @@ export function ContactPage() {
                 disabled={isSubmitting}
                 className="btn-solid mt-6 w-full justify-center disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                {isSubmitting ? 'Sending...' : 'Send Brief'}
+                {isSubmitting ? 'Sending...' : 'Get My Automation Plan'}
               </button>
-              <p className="mt-3 text-xs text-black/[0.62]">Typical response time: within 24 hours.</p>
+              <p className="mt-3 text-sm text-black/[0.62]">
+                We usually respond within 24 hours with a clear next step.
+              </p>
               {submitStatus && (
                 <p className={`mt-4 text-sm ${submitStatus.type === 'success' ? 'text-[var(--mint-deep)]' : 'text-red-600'}`}>
                   {submitStatus.message}

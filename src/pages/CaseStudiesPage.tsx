@@ -138,7 +138,7 @@ export function CaseStudiesPage() {
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
             Real projects. Measurable operational wins.
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/[0.72]" data-animate="fade-up" data-delay="0.08">
+          <p className="mt-5 max-w-2xl text-base text-white/[0.72] sm:text-lg" data-animate="fade-up" data-delay="0.08">
             Here are examples of how we turn manual, error-prone tasks into reliable systems with
             clear business impact.
           </p>
@@ -154,13 +154,13 @@ export function CaseStudiesPage() {
                   <img
                     src={caseStudy.image}
                     alt={caseStudy.title}
-                    className="h-full min-h-[260px] w-full object-cover"
+                    className="h-full min-h-[220px] w-full object-cover sm:min-h-[260px]"
                     data-animate="parallax"
                     loading="lazy"
                   />
-                  <div className="p-7 md:p-9">
+                  <div className="p-5 sm:p-7 md:p-9">
                     <p className="eyebrow text-black/[0.45]">{caseStudy.industry}</p>
-                    <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-black">
+                    <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-black sm:text-3xl">
                       {caseStudy.title}
                     </h2>
                     <p className="mt-4 text-black/70">{caseStudy.summary}</p>
