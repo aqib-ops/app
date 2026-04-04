@@ -1,87 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
-import { Bot } from 'lucide-react';
 import { buildWhatsAppLink } from '../../lib/whatsapp';
 
-const CHAT_LINK = buildWhatsAppLink();
+const CHAT_LINK = buildWhatsAppLink('Hi, I want help editing my content.');
 
 export function WhatsAppChatButton() {
-  const [isOpen, setIsOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!panelRef.current) return;
-      if (panelRef.current.contains(event.target as Node)) return;
-      setIsOpen(false);
-    };
-
-    window.addEventListener('mousedown', handleClickOutside);
-    return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
-
-  const openAiChat = () => {
-    const toggle = document.querySelector<HTMLButtonElement>('.thesys--widget-toggle');
-    toggle?.click();
-    setIsOpen(false);
-  };
-
   return (
     <div className="pointer-events-none fixed bottom-5 right-4 z-[1001] sm:bottom-7 sm:right-6">
-      <div ref={panelRef} className="pointer-events-auto relative">
-        {isOpen && (
-          <div className="absolute bottom-full right-0 mb-3 w-56 rounded-2xl border border-black/10 bg-[rgba(241,238,231,0.98)] p-2 text-black shadow-[0_18px_46px_rgba(2,12,10,0.28)]">
-            <button
-              type="button"
-              onClick={openAiChat}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-black/90 transition-colors hover:bg-black/5"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--mint)] text-[#05080a] shadow-[inset_0_-6px_14px_rgba(0,0,0,0.18)]">
-                <Bot className="h-4 w-4" />
-              </span>
-              Chat with AI
-            </button>
-            <a
-              href={CHAT_LINK}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-black/90 transition-colors hover:bg-black/5"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-[#05080a]">
-                <WhatsAppIcon className="h-4 w-4" />
-              </span>
-              Chat on WhatsApp
-            </a>
-          </div>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-expanded={isOpen}
-          aria-label="Open chat options"
-          className="group relative inline-flex items-center gap-3 rounded-full border border-black/10 bg-[rgba(241,238,231,0.96)] px-3 py-3 pr-4 text-black shadow-[0_14px_40px_rgba(2,12,10,0.35)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,140,116,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mint)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05080a]"
-        >
-          <span
-            aria-hidden
-            className="absolute -inset-1 -z-10 rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(0,228,194,0.35),rgba(0,0,0,0))] blur-sm transition-opacity duration-300 group-hover:opacity-100"
-          />
-          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--mint)] text-black shadow-[inset_0_-8px_20px_rgba(0,0,0,0.18)]">
-            <span aria-hidden className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--mint)]/65" />
-              <span className="relative inline-flex h-3.5 w-3.5 rounded-full border border-white/70 bg-[var(--mint-deep)]" />
-            </span>
-            <WhatsAppIcon className="h-5 w-5 text-[#05080a]" />
+      <a
+        href={CHAT_LINK}
+        target="_blank"
+        rel="noreferrer"
+        className="group pointer-events-auto relative inline-flex items-center gap-3 rounded-full border border-black/10 bg-[rgba(248,245,236,0.96)] px-3 py-3 pr-4 text-black shadow-[0_14px_40px_rgba(2,12,10,0.28)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(194,133,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5c43e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+        aria-label="Chat on WhatsApp"
+      >
+        <span
+          aria-hidden
+          className="absolute -inset-1 -z-10 rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(245,196,62,0.3),rgba(0,0,0,0))] blur-sm transition-opacity duration-300 group-hover:opacity-100"
+        />
+        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f5c43e] text-black shadow-[inset_0_-8px_20px_rgba(0,0,0,0.18)]">
+          <span aria-hidden className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#f5c43e]/65" />
+            <span className="relative inline-flex h-3.5 w-3.5 rounded-full border border-white/70 bg-[#b37b00]" />
           </span>
-          <span className="hidden sm:flex sm:flex-col sm:leading-tight">
-            <span className="font-display text-sm font-semibold tracking-[-0.015em] text-black/90">
-              Chat options
-            </span>
-            <span className="text-[11px] font-medium text-black/60">AI + WhatsApp</span>
+          <WhatsAppIcon className="h-5 w-5 text-[#050505]" />
+        </span>
+        <span className="hidden sm:flex sm:flex-col sm:leading-tight">
+          <span className="font-display text-sm font-semibold tracking-[-0.015em] text-black/90">
+            Chat on WhatsApp
           </span>
-        </button>
-      </div>
+          <span className="text-[11px] font-medium text-black/60">Fast project replies</span>
+        </span>
+      </a>
     </div>
   );
 }

@@ -16,10 +16,10 @@ export function NotFoundPage() {
     <div ref={pageRef}>
       <section className="section-dark -mt-20 pt-20">
         <div className="container-site py-24 md:py-32">
-          <p className="eyebrow" data-animate="fade-up">404</p>
+          <p className="eyebrow text-white/[0.58]" data-animate="fade-up">404</p>
           <h1 className="display-title mt-4 text-white" data-animate="fade-up">This page does not exist.</h1>
           <p className="mt-4 max-w-xl text-white/70" data-animate="fade-up" data-delay="0.08">
-            The URL may have changed. Return to the homepage and continue from there.
+            The URL may have changed. Head back to the portfolio homepage and continue from there.
           </p>
           <Link to="/" className="btn-solid mt-8" data-animate="fade-up" data-delay="0.15">
             Back to Home

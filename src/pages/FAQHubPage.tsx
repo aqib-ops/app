@@ -1,46 +1,14 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../components/ui/accordion';
+import { WhatsAppCta } from '../components/site/WhatsAppCta';
+import { faqItems } from '../data/videoContent';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
-
-const faqItems = [
-  {
-    question: 'How quickly can we get started?',
-    answer: 'Most projects start within a few days after understanding your needs.',
-  },
-  {
-    question: 'How long does it take to see results?',
-    answer:
-      "You'll start seeing improvements as soon as automation goes live - often within the first few days.",
-  },
-  {
-    question: 'Do I need to change my current tools?',
-    answer: 'No. We work with your existing tools and make them work better together.',
-  },
-  {
-    question: 'What if something breaks?',
-    answer: 'Your system is built to handle issues automatically and stay reliable.',
-  },
-  {
-    question: 'Will this actually save me time?',
-    answer:
-      'Yes - automation removes repetitive work and ensures things keep moving without manual effort.',
-  },
-  {
-    question: 'Is this a one-time setup or ongoing?',
-    answer: 'We can do both - build once or continue optimizing as you grow.',
-  },
-  {
-    question: 'How do we get started?',
-    answer: "Book a quick call, and we'll map out the best system for you.",
-  },
-] as const;
 
 const faqSchema = {
   '@type': 'FAQPage',
@@ -58,16 +26,17 @@ export function FAQHubPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'FAQ Hub | Workflow Automation Questions',
-    'Simple answers to the most important questions about getting started with workflow automation.',
+    'FAQ | Aqib Ops',
+    'Answers about YouTube and short-form video editing, revisions, workflow, and what is needed to start.',
     {
       keywords: [
-        'workflow automation faq',
-        'automation questions',
-        'workflow automation getting started',
+        'video editing faq',
+        'youtube video editor questions',
+        'short form editor faq',
+        'video editing revisions',
       ],
       path: '/faq',
-      image: '/process-road.jpg',
+      image: '/hero-portrait.jpg',
       structuredData: faqSchema,
     }
   );
@@ -78,29 +47,28 @@ export function FAQHubPage() {
     <div ref={pageRef}>
       <section className="section-dark -mt-20 border-b border-white/10 pt-20">
         <div className="container-site py-20 md:py-28">
-          <p className="eyebrow" data-animate="fade-up">
-            FAQ Hub
+          <p className="eyebrow text-white/[0.58]" data-animate="fade-up">
+            FAQ
           </p>
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
-            Clear answers before you commit to automation.
+            Clear answers before you hand off the footage.
           </h1>
-          <p className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg" data-animate="fade-up" data-delay="0.08">
-            Everything you need to know before getting started &mdash; simple, clear, and to the
-            point.
+          <p
+            className="mt-5 max-w-3xl text-base text-white/[0.74] sm:text-lg"
+            data-animate="fade-up"
+            data-delay="0.08"
+          >
+            Everything important about edits, revisions, formats, and workflow, without the vague
+            agency language.
           </p>
         </div>
       </section>
 
-      <section className="section-paper">
+      <section className="section-paper border-b border-black/[0.08]">
         <div className="container-site py-12 md:py-16">
           <div className="mx-auto max-w-4xl">
             <div data-animate="stagger">
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue="item-0"
-                className="space-y-4"
-              >
+              <Accordion type="single" collapsible defaultValue="item-0" className="space-y-4">
                 {faqItems.map((item, index) => (
                   <AccordionItem
                     key={item.question}
@@ -122,18 +90,27 @@ export function FAQHubPage() {
         </div>
       </section>
 
-      <section className="section-dark border-t border-white/10">
+      <section className="section-dark">
         <div className="container-site py-16 md:py-20">
-          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <div className="mx-auto flex max-w-3xl flex-col items-center rounded-[2rem] border border-white/10 bg-white/[0.04] px-6 py-10 text-center sm:px-8">
             <h2
               className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl"
               data-animate="fade-up"
             >
-              Still Have Questions? Let&apos;s Clear Them Fast.
+              Ready to turn raw footage into stronger content?
             </h2>
-            <Link to="/contact" className="btn-solid mt-6" data-animate="fade-up" data-delay="0.08">
-              Book Your Automation Plan
-            </Link>
+            <p className="mt-4 max-w-2xl text-white/[0.7]" data-animate="fade-up" data-delay="0.08">
+              Share your channel or brand, the type of video you create, and where the current edit
+              feels weak.
+            </p>
+            <WhatsAppCta
+              className="mt-6"
+              message="Hi Aqib, I read your FAQ and want to discuss editing for my content."
+              data-animate="fade-up"
+              data-delay="0.12"
+            >
+              Chat on WhatsApp
+            </WhatsAppCta>
           </div>
         </div>
       </section>

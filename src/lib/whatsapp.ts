@@ -1,5 +1,5 @@
 const WHATSAPP_NUMBER = '923432142032';
-const DEFAULT_MESSAGE = 'Hi Aqib Ops, I just visited your website and want to discuss my project.';
+const DEFAULT_MESSAGE = 'Hi, I just visited your portfolio and want help editing my content.';
 
 export const whatsappDisplayNumber = '+92 343 2142032';
 

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { WhatsAppCta } from './WhatsAppCta';
 
 const navItems = [
   { label: 'Home', to: '/' },
-  { label: 'Solutions', to: '/solutions' },
-  { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Services', to: '/services' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ];
@@ -14,8 +15,8 @@ function navLinkClass(isActive: boolean) {
   return [
     'inline-flex items-center rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200',
     isActive
-      ? 'bg-white/[0.14] text-white'
-      : 'text-white/70 hover:bg-white/[0.08] hover:text-white',
+      ? 'bg-[#ffd95a] text-[#191200]'
+      : 'text-white/72 hover:bg-white/[0.08] hover:text-white',
   ].join(' ');
 }
 
@@ -35,8 +36,8 @@ export function SiteHeader() {
         <div
           className={`overflow-hidden rounded-b-[1.1rem] border-x border-b border-t-0 backdrop-blur-xl transition-all duration-300 sm:rounded-b-[1.35rem] ${
             isScrolled
-              ? 'border-white/16 bg-[rgba(4,8,10,0.92)] shadow-[0_12px_30px_rgba(0,0,0,0.22)]'
-              : 'border-white/10 bg-[rgba(5,8,10,0.72)] shadow-[0_6px_18px_rgba(0,0,0,0.16)]'
+              ? 'border-white/14 bg-[rgba(8,8,8,0.94)] shadow-[0_12px_30px_rgba(0,0,0,0.26)]'
+              : 'border-white/10 bg-[rgba(6,6,6,0.8)] shadow-[0_6px_18px_rgba(0,0,0,0.18)]'
           }`}
         >
           <div className="flex h-[4.5rem] items-center justify-between px-3 sm:h-20 sm:px-4 md:px-5">
@@ -47,8 +48,8 @@ export function SiteHeader() {
                 className="h-9 w-9 rounded-xl border border-white/[0.2] object-contain sm:h-10 sm:w-10"
               />
               <div className="min-w-0 leading-tight">
-                <span className="font-display text-[1.3rem] font-extrabold tracking-tight text-white sm:text-2xl">
-                  aqib <span className="text-[var(--mint)]">ops</span>
+                <span className="font-display text-[1.25rem] font-extrabold tracking-tight text-white sm:text-2xl">
+                  aqib <span className="text-[#ffd95a]">ops</span>
                 </span>
               </div>
             </Link>
@@ -63,11 +64,14 @@ export function SiteHeader() {
 
             <div className="hidden items-center gap-4 md:flex">
               <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/[0.58]">
-                Automation Execution Studio
+                YouTube + Short-Form Editing
               </span>
-              <Link to="/contact" className="btn-solid shadow-[0_8px_20px_rgba(0,228,194,0.24)]">
-                Book Automation Audit
-              </Link>
+              <WhatsAppCta
+                className="shadow-[0_10px_24px_rgba(245,196,62,0.22)]"
+                message="Hi Aqib, I want to discuss editing for my content."
+              >
+                Chat on WhatsApp
+              </WhatsAppCta>
             </div>
 
             <button
@@ -82,7 +86,7 @@ export function SiteHeader() {
           </div>
 
           {mobileOpen && (
-            <div className="border-t border-white/10 bg-[rgba(5,8,10,0.96)] px-3.5 pb-5 pt-3 md:hidden">
+            <div className="border-t border-white/10 bg-[rgba(8,8,8,0.97)] px-3.5 pb-5 pt-3 md:hidden">
               <div className="flex flex-col gap-3">
                 {navItems.map((item) => (
                   <NavLink
@@ -94,15 +98,18 @@ export function SiteHeader() {
                     {({ isActive }) => <span className={navLinkClass(isActive)}>{item.label}</span>}
                   </NavLink>
                 ))}
-                <Link to="/contact" className="btn-solid mt-2 justify-center" onClick={() => setMobileOpen(false)}>
-                  Book Automation Audit
-                </Link>
+                <WhatsAppCta
+                  className="mt-2"
+                  message="Hi Aqib, I want to discuss editing for my content."
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Chat on WhatsApp
+                </WhatsAppCta>
               </div>
             </div>
           )}
         </div>
       </div>
-
     </header>
   );
 }

@@ -4,10 +4,10 @@ import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
 import { buildWhatsAppLink, whatsappDisplayNumber } from '../lib/whatsapp';
 
-const N8N_WEBHOOK_URL =
+const CONTACT_WEBHOOK_URL =
   import.meta.env.VITE_N8N_WEBHOOK_URL ||
   'https://n8n-dniislmq.ap-southeast-1.clawcloudrun.com/webhook/d7d34c3a-4e3c-41a3-9bd3-21e0141dea8c';
-const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi Aqib Ops, I want to discuss my project.');
+const CONTACT_WHATSAPP_LINK = buildWhatsAppLink('Hi, I want help editing my content.');
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactPage() {
@@ -16,14 +16,14 @@ export function ContactPage() {
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   usePageMeta(
-    'Contact Aqib Ops | Workflow Automation Consultant',
-    'Tell Aqib Ops what is slowing your team down and get a simple automation plan with a clear next step.',
+    'Contact | Aqib Ops',
+    'Get in touch about YouTube and short-form video editing for your channel, brand, or content team.',
     {
       keywords: [
-        'contact workflow automation consultant',
+        'contact video editor',
+        'youtube video editor contact',
+        'short form editor contact',
         'aqib ops contact',
-        'n8n automation expert contact',
-        'make.com workflow consultant',
       ],
       path: '/contact',
       image: '/contact-workspace.jpg',
@@ -57,7 +57,7 @@ export function ContactPage() {
     if (!name || !email || !message) {
       setSubmitStatus({
         type: 'error',
-        message: 'Please complete name, email, WhatsApp number, and message before submitting.',
+        message: 'Please complete name, email, WhatsApp number, and project details before submitting.',
       });
       return;
     }
@@ -73,7 +73,7 @@ export function ContactPage() {
     if (!EMAIL_PATTERN.test(email)) {
       setSubmitStatus({
         type: 'error',
-        message: 'Please enter a valid business email address.',
+        message: 'Please enter a valid email address.',
       });
       return;
     }
@@ -82,7 +82,7 @@ export function ContactPage() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch(N8N_WEBHOOK_URL, {
+      const response = await fetch(CONTACT_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export function ContactPage() {
           message,
           details: message,
           submittedAt: new Date().toISOString(),
-          source: 'aqib-ops-contact-page',
+          source: 'aqib-edits-contact-page',
         }),
       });
 
@@ -124,13 +124,15 @@ export function ContactPage() {
     <div ref={pageRef}>
       <section className="section-dark -mt-20 border-b border-white/10 pt-20">
         <div className="container-site py-20 md:py-28">
-          <p className="eyebrow" data-animate="fade-up">Contact</p>
-          <h1 className="display-title mt-4 max-w-3xl text-white" data-animate="fade-up">
-            Let&apos;s Fix What&apos;s Slowing You Down
+          <p className="eyebrow text-white/[0.58]" data-animate="fade-up">
+            Contact
+          </p>
+          <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
+            Let&apos;s make your content more engaging.
           </h1>
-          <p className="mt-5 max-w-2xl text-base text-white/[0.72] sm:text-lg" data-animate="fade-up" data-delay="0.08">
-            Tell us where things are breaking &mdash; we&apos;ll map a simple automation plan for
-            you.
+          <p className="mt-5 max-w-3xl text-base text-white/[0.72] sm:text-lg" data-animate="fade-up" data-delay="0.08">
+            Send your channel or brand link, tell me what you create, and explain where the current
+            edit feels weak.
           </p>
         </div>
       </section>
@@ -145,7 +147,7 @@ export function ContactPage() {
                   href="mailto:AqibOpscontact@gmail.com"
                   className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85] break-all sm:break-normal"
                 >
-                  <Mail className="h-5 w-5 text-[var(--mint-deep)]" />
+                  <Mail className="h-5 w-5 text-[#b37b00]" />
                   AqibOpscontact@gmail.com
                 </a>
                 <a
@@ -154,12 +156,12 @@ export function ContactPage() {
                   rel="noreferrer"
                   className="flex items-center gap-3 rounded-xl border border-black/10 bg-white p-4 text-black/[0.85]"
                 >
-                  <MessageCircle className="h-5 w-5 text-[var(--mint-deep)]" />
+                  <MessageCircle className="h-5 w-5 text-[#b37b00]" />
                   WhatsApp: {whatsappDisplayNumber}
                 </a>
               </div>
               <p className="mt-6 text-sm leading-7 text-black/[0.68]">
-                Quick replies on WhatsApp for faster clarification.
+                Fast replies for scoping, turnaround questions, and sample-link requests.
               </p>
             </aside>
 
@@ -167,23 +169,11 @@ export function ContactPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="space-y-2">
                   <span className="text-sm font-semibold text-black/[0.75]">Name</span>
-                  <input
-                    name="name"
-                    type="text"
-                    className="contact-input"
-                    placeholder="Your name"
-                    required
-                  />
+                  <input name="name" type="text" className="contact-input" placeholder="Your name" required />
                 </label>
                 <label className="space-y-2">
                   <span className="text-sm font-semibold text-black/[0.75]">Email</span>
-                  <input
-                    name="email"
-                    type="email"
-                    className="contact-input"
-                    placeholder="you@company.com"
-                    required
-                  />
+                  <input name="email" type="email" className="contact-input" placeholder="you@company.com" required />
                 </label>
               </div>
 
@@ -201,23 +191,18 @@ export function ContactPage() {
                   />
                 </label>
                 <label className="space-y-2">
-                  <span className="text-sm font-semibold text-black/[0.75]">Website (optional)</span>
-                  <input
-                    name="website"
-                    type="text"
-                    className="contact-input"
-                    placeholder="company.com"
-                  />
+                  <span className="text-sm font-semibold text-black/[0.75]">Channel / brand link (optional)</span>
+                  <input name="website" type="text" className="contact-input" placeholder="youtube.com/@yourchannel" />
                 </label>
               </div>
 
               <label className="mt-4 block space-y-2">
-                <span className="text-sm font-semibold text-black/[0.75]">Message</span>
+                <span className="text-sm font-semibold text-black/[0.75]">Project details</span>
                 <textarea
                   name="message"
                   rows={6}
                   className="contact-input min-h-[140px] resize-y"
-                  placeholder="Where are you losing time, leads, or opportunities?"
+                  placeholder="Tell me what you create, which platform it is for, and what you want the edit to improve."
                   required
                 />
               </label>
@@ -236,13 +221,13 @@ export function ContactPage() {
                 disabled={isSubmitting}
                 className="btn-solid mt-6 w-full justify-center disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                {isSubmitting ? 'Sending...' : 'Get My Automation Plan'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
               <p className="mt-3 text-sm text-black/[0.62]">
-                We usually respond within 24 hours with a clear next step.
+                Most replies go out within 24 hours with a clear next step.
               </p>
               {submitStatus && (
-                <p className={`mt-4 text-sm ${submitStatus.type === 'success' ? 'text-[var(--mint-deep)]' : 'text-red-600'}`}>
+                <p className={`mt-4 text-sm ${submitStatus.type === 'success' ? 'text-[#b37b00]' : 'text-red-600'}`}>
                   {submitStatus.message}
                 </p>
               )}

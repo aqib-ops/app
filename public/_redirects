@@ -1,5 +1,11 @@
 / /index.html 200
 /home /index.html 200
+/portfolio /index.html 200
+/services /index.html 200
+/faq /index.html 200
+/contact /index.html 200
+/privacy-policy /index.html 200
+/terms-and-conditions /index.html 200
 /solutions /index.html 200
 /pricing /index.html 200
 /case-studies /index.html 200
@@ -10,12 +16,7 @@
 /crm-automation /index.html 200
 /support-automation /index.html 200
 /ai-agent-ops /index.html 200
-/insights /index.html 200
-/insights/automate-lead-follow-up-with-n8n /index.html 200
-/insights/support-triage-automation-playbook /index.html 200
-/insights/shopify-ops-automation-checklist /index.html 200
 /workflow-audit-checklist /index.html 200
-/faq /index.html 200
 /compare-alternatives /index.html 200
 /compare-alternatives/aqib-ops /index.html 200
 /compare-alternatives/hiring-in-house /index.html 200
@@ -23,8 +24,5 @@
 /industry/healthcare-automation /index.html 200
 /industry/ecommerce-automation /index.html 200
 /industry/saas-automation /index.html 200
-/contact /index.html 200
-/terms-and-conditions /index.html 200
-/privacy-policy /index.html 200
 /404 /404.html 404
 /* /404.html 404
