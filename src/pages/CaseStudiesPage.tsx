@@ -54,9 +54,7 @@ export function CaseStudiesPage() {
               <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
                 {showreelContent.summary}
               </h2>
-              <p className="mt-3 text-sm font-medium text-black/[0.48]">
-                Paste a YouTube link or a direct MP4 and this section will handle the right player.
-              </p>
+              <p className="mt-3 text-sm font-medium text-black/[0.48]">Drop in a reel link and this section handles the polished player automatically.</p>
             </div>
             <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
           </div>

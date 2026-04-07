@@ -5,10 +5,10 @@ export interface ShowreelContent {
 }
 
 export const showreelContent: ShowreelContent = {
-  title: 'Showreel',
+  title: 'Featured Showreel',
   summary:
-    'A single highlight reel for YouTube and short-form editing, kept clean and visual-first.',
-  mediaUrl: '',
+    'A curated highlight reel showing the editing style, pacing, motion, and finish across creator formats.',
+  mediaUrl: 'https://youtu.be/ixlcWkuXec8',
 };
 
 export interface ServiceItem {

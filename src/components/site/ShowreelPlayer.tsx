@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
+import { Play } from 'lucide-react';
+
 interface ShowreelPlayerProps {
   url?: string;
   title?: string;
 }
 
-function getYouTubeEmbedUrl(url: string): string | null {
+function getYouTubeVideoId(url: string): string | null {
   try {
     const parsedUrl = new URL(url);
     const hostname = parsedUrl.hostname.replace(/^www\./, '');
@@ -22,47 +25,85 @@ function getYouTubeEmbedUrl(url: string): string | null {
       }
     }
 
-    return videoId
-      ? `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`
-      : null;
+    return videoId || null;
   } catch {
     return null;
   }
 }
 
+function getYouTubeEmbedUrl(videoId: string, autoplay = false): string {
+  const params = new URLSearchParams({
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+  });
+
+  if (autoplay) {
+    params.set('autoplay', '1');
+  }
+
+  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+}
+
 export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps) {
   const mediaUrl = url?.trim() ?? '';
-  const youtubeEmbedUrl = mediaUrl ? getYouTubeEmbedUrl(mediaUrl) : null;
+  const youtubeVideoId = mediaUrl ? getYouTubeVideoId(mediaUrl) : null;
+  const youtubePreviewUrl = youtubeVideoId ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg` : null;
+  const [isActivated, setIsActivated] = useState(false);
+
+  useEffect(() => {
+    setIsActivated(false);
+  }, [mediaUrl]);
 
   return (
     <div className="showreel-shell group">
       <div className="showreel-meta">
         <div>
           <p className="showreel-kicker">{title}</p>
-          <p className="showreel-caption">
-            {youtubeEmbedUrl
-              ? 'Embedded from YouTube'
-              : mediaUrl
-                ? 'Direct playback'
-                : 'YouTube or MP4 ready'}
-          </p>
+          <p className="showreel-caption">{mediaUrl ? 'Curated in a premium reel surface' : 'Premium reel slot ready'}</p>
         </div>
-        <span className="showreel-badge">{youtubeEmbedUrl ? 'YouTube' : mediaUrl ? 'Video' : 'Ready'}</span>
+        <span className="showreel-badge">{mediaUrl ? 'Featured Reel' : 'Ready'}</span>
       </div>
 
       <div className="showreel-frame">
         <span className="showreel-ambient showreel-ambient-left" aria-hidden="true" />
         <span className="showreel-ambient showreel-ambient-right" aria-hidden="true" />
 
-        {youtubeEmbedUrl ? (
-          <iframe
-            src={youtubeEmbedUrl}
-            title={title}
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="showreel-media"
-          />
+        {youtubeVideoId ? (
+          isActivated ? (
+            <iframe
+              src={getYouTubeEmbedUrl(youtubeVideoId, true)}
+              title={title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="showreel-media"
+            />
+          ) : (
+            <button type="button" className="showreel-launch" onClick={() => setIsActivated(true)} aria-label={`Play ${title}`}>
+              {youtubePreviewUrl ? <img src={youtubePreviewUrl} alt="" className="showreel-cover-image" /> : null}
+              <span className="showreel-cover-overlay" aria-hidden="true" />
+              <span className="showreel-cover-grid" aria-hidden="true" />
+
+              <span className="showreel-launch-top">
+                <span className="showreel-launch-pill">Featured Edit</span>
+                <span className="showreel-launch-note">Press play</span>
+              </span>
+
+              <span className="showreel-launch-body">
+                <span className="showreel-play-button" aria-hidden="true">
+                  <Play className="h-6 w-6 fill-current" />
+                </span>
+
+                <span className="showreel-launch-copy">
+                  <span className="showreel-launch-title">{title}</span>
+                  <span className="showreel-launch-subtitle">
+                    Retention-focused pacing, hooks, subtitles, and motion that feels clean on first glance.
+                  </span>
+                </span>
+              </span>
+            </button>
+          )
         ) : mediaUrl ? (
           <video
             controls
@@ -81,7 +122,7 @@ export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps)
                 Single showreel slot ready.
               </p>
               <p className="mt-3 text-sm text-white/65 sm:text-base">
-                Paste one YouTube or MP4 link and it will appear here with the right player.
+                Paste one reel link and it will appear here in the premium player surface.
               </p>
               <p className="mt-4 text-xs uppercase tracking-[0.16em] text-white/42">
                 Best result: 45 to 90 seconds with the strongest work first

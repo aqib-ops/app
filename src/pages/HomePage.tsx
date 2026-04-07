@@ -137,9 +137,7 @@ export function HomePage() {
                 One clean showreel. Simple, minimal, and visual-first.
               </h2>
               <p className="mt-4 max-w-2xl text-black/[0.66]">{showreelContent.summary}</p>
-              <p className="mt-3 text-sm font-medium text-black/[0.48]">
-                One YouTube or MP4 link is enough. The player supports both.
-              </p>
+              <p className="mt-3 text-sm font-medium text-black/[0.48]">One reel link is enough. The section handles the presentation cleanly.</p>
             </div>
             <Link to="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.68]">
               Open portfolio <ArrowRight className="h-4 w-4" />
