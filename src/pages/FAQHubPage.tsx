@@ -36,7 +36,7 @@ export function FAQHubPage() {
         'video editing revisions',
       ],
       path: '/faq',
-      image: '/hero-portrait.jpg',
+      image: '/aqib.png',
       structuredData: faqSchema,
     }
   );

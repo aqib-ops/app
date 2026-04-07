@@ -4,14 +4,14 @@ import { ShowreelPlayer } from '../components/site/ShowreelPlayer';
 import { WhatsAppCta } from '../components/site/WhatsAppCta';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
-import { showreelContent } from '../data/videoContent';
+import { portfolioCollections, showreelContent } from '../data/videoContent';
 
 export function CaseStudiesPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
     'Portfolio | Aqib Ops',
-    'A clean video editing portfolio page with one showreel for YouTube and short-form content.',
+    'A growing video editing portfolio with a current highlight reel and more edits being added over time.',
     {
       keywords: [
         'video editing portfolio',
@@ -20,7 +20,7 @@ export function CaseStudiesPage() {
         'short form editing portfolio',
       ],
       path: '/portfolio',
-      image: '/hero-portrait.jpg',
+      image: '/aqib.png',
     }
   );
 
@@ -34,14 +34,15 @@ export function CaseStudiesPage() {
             Portfolio
           </p>
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
-            One showreel. Clean presentation. Nothing extra.
+            Selected edits, with more on the way.
           </h1>
           <p
             className="mt-5 max-w-3xl text-base text-white/[0.72] sm:text-lg"
             data-animate="fade-up"
             data-delay="0.08"
           >
-            A minimal portfolio section built to show the work clearly without clutter.
+            The portfolio starts with the current highlight reel and expands as more client and
+            creator work is added.
           </p>
         </div>
       </section>
@@ -54,9 +55,18 @@ export function CaseStudiesPage() {
               <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
                 {showreelContent.summary}
               </h2>
-              <p className="mt-3 text-sm font-medium text-black/[0.48]">Drop in a reel link and this section handles the polished player automatically.</p>
             </div>
             <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
+
+            <div className="portfolio-preview-grid mt-12" data-animate="stagger">
+              {portfolioCollections.map((item) => (
+                <article key={item.title} className="portfolio-preview-slot" data-animate-child>
+                  <p className="portfolio-preview-status">Adding Soon</p>
+                  <h3 className="portfolio-preview-title">{item.title}</h3>
+                  <p className="portfolio-preview-detail">{item.detail}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -30,7 +30,7 @@ export function SolutionsPage() {
         'high retention editing',
       ],
       path: '/services',
-      image: '/hero-portrait.jpg',
+      image: '/aqib.png',
     }
   );
 

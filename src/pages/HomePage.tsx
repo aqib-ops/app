@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties } from 'react';
+import { useRef } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ShowreelPlayer } from '../components/site/ShowreelPlayer';
@@ -7,32 +7,28 @@ import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
 import { processSteps, serviceItems, showreelContent } from '../data/videoContent';
 
-type HeroParticleStyle = CSSProperties & {
-  '--x': string;
-  '--y': string;
-  '--size': string;
-  '--z': string;
-  '--duration': string;
-  '--delay': string;
-};
-
-const heroMarqueeItems = [
-  'Long-form YouTube edits',
-  'Short-form clips',
-  'Hook shaping',
-  'Motion text',
-  'Subtitles',
-  'Fast delivery',
-];
 const heroTitle = 'Editing That Keeps People Watching';
-const heroParticles: HeroParticleStyle[] = [
-  { '--x': '14%', '--y': '22%', '--size': '0.5rem', '--z': '0px', '--duration': '7.8s', '--delay': '0s' },
-  { '--x': '24%', '--y': '68%', '--size': '0.38rem', '--z': '0px', '--duration': '9.2s', '--delay': '-1.8s' },
-  { '--x': '48%', '--y': '18%', '--size': '0.62rem', '--z': '0px', '--duration': '8.4s', '--delay': '-0.8s' },
-  { '--x': '64%', '--y': '74%', '--size': '0.46rem', '--z': '0px', '--duration': '10.2s', '--delay': '-3.1s' },
-  { '--x': '82%', '--y': '28%', '--size': '0.56rem', '--z': '0px', '--duration': '8.8s', '--delay': '-2.2s' },
-];
 const aboutHighlights = ['Stronger hooks', 'Cleaner pacing', 'Fast workflow'];
+const heroProofItems = [
+  {
+    label: 'Long-form YouTube',
+    detail: 'Cuts built to hold attention through the full video.',
+  },
+  {
+    label: 'Short-form clips',
+    detail: 'Reels, Shorts, and repurposed assets from one recording.',
+  },
+  {
+    label: 'Fast revisions',
+    detail: 'Clear notes, clean exports, and a smoother review cycle.',
+  },
+] as const;
+const heroEditFocus = [
+  { label: 'Hook design', span: '00-08s' },
+  { label: 'Pace shaping', span: '08-24s' },
+  { label: 'Subtitles + motion', span: '24-36s' },
+  { label: 'Final polish', span: '36-45s' },
+] as const;
 
 export function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -50,7 +46,7 @@ export function HomePage() {
         'video editing portfolio',
       ],
       path: '/',
-      image: '/hero-portrait.jpg',
+      image: '/aqib.png',
     }
   );
 
@@ -62,41 +58,29 @@ export function HomePage() {
         <div className="hero-aurora hero-aurora-left" />
         <div className="hero-aurora hero-aurora-right" />
         <div className="hero-center-glow" />
-        <div className="hero-particles" aria-hidden="true">
-          {heroParticles.map((style, index) => (
-            <span key={`${style['--x']}-${index}`} className="hero-particle" style={style} />
-          ))}
+        <div className="hero-backdrop-word" aria-hidden="true">
+          aqib ops
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_14%,rgba(245,196,62,0.18),transparent_32%),radial-gradient(circle_at_88%_18%,rgba(245,196,62,0.14),transparent_28%),linear-gradient(180deg,rgba(255,214,76,0.05),transparent_32%)]" />
-        <div className="container-site flex min-h-[calc(100svh-88px)] items-center justify-center py-16 md:min-h-[calc(100svh-96px)] md:py-20">
-          <div className="mx-auto max-w-6xl text-center">
+        <div className="hero-backdrop-grid" aria-hidden="true" />
+
+        <div className="container-site hero-shell">
+          <div className="hero-copy-column">
             <p className="eyebrow text-white/[0.62]" data-animate="fade-up">
-              YouTube + Short-Form Video Editing
+              Aqib Ops | Premium Video Editing
             </p>
-            <h1 className="hero-display-title mx-auto mt-5 max-w-[10.2ch] text-white sm:max-w-[11.2ch] md:max-w-[11.6ch]">
-              <span className="title-wrap">
-                <span
-                  className="hero-title-line"
-                  style={
-                    {
-                      '--type-delay': '0.08s',
-                      '--type-duration': '0.98s',
-                    } as CSSProperties
-                  }
-                >
-                  {heroTitle}
-                </span>
-              </span>
+            <h1 className="hero-display-title mt-6 max-w-[8.8ch] text-white" data-animate="fade-up" data-delay="0.04">
+              {heroTitle}
             </h1>
             <p
-              className="mx-auto mt-5 max-w-3xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
+              className="mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
               data-animate="fade-up"
-              data-delay="0.22"
+              data-delay="0.14"
             >
-              High-retention video editing for YouTube &amp; short-form content.
+              Premium editing for creators and brands that want sharper hooks, cleaner pacing, and
+              a workflow that stays fast after the first draft.
             </p>
 
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.22">
               <Link to="/portfolio" className="btn-solid w-full justify-center sm:w-auto">
                 View Portfolio
               </Link>
@@ -109,20 +93,27 @@ export function HomePage() {
               </WhatsAppCta>
             </div>
 
-            <div className="mt-8" data-animate="fade-up" data-delay="0.36">
-              <div className="hero-marquee">
-                <div className="hero-marquee-track">
-                  {[0, 1].map((setIndex) => (
-                    <div key={setIndex} className="hero-marquee-set">
-                      {heroMarqueeItems.map((tag) => (
-                        <span key={`${setIndex}-${tag}`} className="hero-marquee-item">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ))}
+            <div className="hero-proof-grid" data-animate="stagger" data-delay="0.3">
+              {heroProofItems.map((item) => (
+                <div key={item.label} className="hero-proof-item" data-animate-child>
+                  <p className="hero-proof-label">{item.label}</p>
+                  <p className="hero-proof-detail">{item.detail}</p>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hero-editorial-column" data-animate="fade-up" data-delay="0.18">
+            <p className="hero-editorial-kicker">Edit Focus</p>
+            <div className="hero-editorial-word">RETENTION</div>
+            <div className="hero-editorial-list">
+              {heroEditFocus.map((item, index) => (
+                <div key={item.label} className="hero-editorial-row">
+                  <span className="hero-editorial-index">{`0${index + 1}`}</span>
+                  <span className="hero-editorial-label">{item.label}</span>
+                  <span className="hero-editorial-span">{item.span}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -134,10 +125,9 @@ export function HomePage() {
             <div>
               <p className="eyebrow text-black/[0.5]">Portfolio</p>
               <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
-                One clean showreel. Simple, minimal, and visual-first.
+                Current featured edit.
               </h2>
               <p className="mt-4 max-w-2xl text-black/[0.66]">{showreelContent.summary}</p>
-              <p className="mt-3 text-sm font-medium text-black/[0.48]">One reel link is enough. The section handles the presentation cleanly.</p>
             </div>
             <Link to="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.68]">
               Open portfolio <ArrowRight className="h-4 w-4" />
@@ -152,30 +142,45 @@ export function HomePage() {
 
       <section className="section-paper border-b border-black/[0.08]">
         <div className="container-site py-16 md:py-24">
-          <div className="max-w-3xl" data-animate="fade-up">
-            <p className="eyebrow text-black/[0.5]">Services</p>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
-              Editing support built around the formats creators actually publish.
-            </h2>
-          </div>
+          <div className="service-editorial-shell">
+            <div className="service-editorial-intro" data-animate="fade-up">
+              <p className="eyebrow text-black/[0.5]">Services</p>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+                Editing support built around the formats creators actually publish.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-black/[0.66] sm:text-lg">
+                The work is structured for channels and brands that need a strong main edit,
+                short-form cutdowns, or a system that turns one recording into multiple assets.
+              </p>
+            </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2" data-animate="stagger">
-            {serviceItems.map((service) => (
-              <article key={service.title} className="paper-card p-5 sm:p-6" data-animate-child>
-                <h3 className="font-display text-2xl font-semibold text-black">{service.title}</h3>
-                <p className="mt-3 text-black/[0.66]">{service.summary}</p>
-                <ul className="mt-5 space-y-2 text-sm text-black/[0.76]">
-                  {service.deliverables.map((item) => (
-                    <li key={item} className="flex items-center gap-3">
-                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#151515] text-[#ffd95a]">
-                        <Check className="h-4 w-4" />
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+            <div className="service-editorial-list" data-animate="stagger">
+              {serviceItems.map((service, index) => (
+                <article key={service.title} className="service-editorial-row-shell" data-animate-child>
+                  <div className="service-editorial-number">{`0${index + 1}`}</div>
+                  <div className="service-editorial-content">
+                    <div className="service-editorial-head">
+                      <div>
+                        <p className="service-editorial-result">{service.result}</p>
+                        <h3 className="service-editorial-title">{service.title}</h3>
+                      </div>
+                      {service.fit ? <p className="service-editorial-fit">{service.fit}</p> : null}
+                    </div>
+
+                    <p className="service-editorial-summary">{service.summary}</p>
+
+                    <ul className="service-editorial-tags">
+                      {service.deliverables.map((item) => (
+                        <li key={item} className="service-editorial-tag">
+                          <Check className="h-4 w-4" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -3,13 +3,13 @@ import { expect, test, type Page } from '@playwright/test';
 test.describe('Route smoke checks', () => {
   const routes: Array<{ path: string; heading: RegExp }> = [
     { path: '/', heading: /Editing That Keeps People Watching/i },
-    { path: '/portfolio', heading: /One showreel\. Clean presentation\. Nothing extra\./i },
+    { path: '/portfolio', heading: /Selected edits, with more on the way\./i },
     { path: '/services', heading: /Editing services built for creators who publish consistently/i },
     { path: '/faq', heading: /Clear answers before you hand off the footage/i },
     { path: '/contact', heading: /Let's make your content more engaging/i },
     { path: '/terms-and-conditions', heading: /Terms and Conditions/i },
     { path: '/privacy-policy', heading: /Privacy Policy/i },
-    { path: '/case-studies', heading: /One showreel\. Clean presentation\. Nothing extra\./i },
+    { path: '/case-studies', heading: /Selected edits, with more on the way\./i },
     { path: '/solutions', heading: /Editing services built for creators who publish consistently/i },
     { path: '/does-not-exist', heading: /This page does not exist/i },
   ];
@@ -25,7 +25,7 @@ test.describe('Route smoke checks', () => {
 test.describe('Mobile layout checks', () => {
   const routes: Array<{ path: string; heading: RegExp }> = [
     { path: '/', heading: /Editing That Keeps People Watching/i },
-    { path: '/portfolio', heading: /One showreel\. Clean presentation\. Nothing extra\./i },
+    { path: '/portfolio', heading: /Selected edits, with more on the way\./i },
     { path: '/services', heading: /Editing services built for creators who publish consistently/i },
     { path: '/faq', heading: /Clear answers before you hand off the footage/i },
     { path: '/contact', heading: /Let's make your content more engaging/i },

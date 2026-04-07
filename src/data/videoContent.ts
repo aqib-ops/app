@@ -5,9 +5,9 @@ export interface ShowreelContent {
 }
 
 export const showreelContent: ShowreelContent = {
-  title: 'Featured Showreel',
+  title: 'Current Highlight',
   summary:
-    'A curated highlight reel showing the editing style, pacing, motion, and finish across creator formats.',
+    'A current portfolio highlight, with more edits and client work being added over time.',
   mediaUrl: 'https://youtu.be/ixlcWkuXec8',
 };
 
@@ -15,6 +15,8 @@ export interface ServiceItem {
   title: string;
   summary: string;
   deliverables: string[];
+  fit?: string;
+  result?: string;
 }
 
 export const serviceItems: ServiceItem[] = [
@@ -22,23 +24,46 @@ export const serviceItems: ServiceItem[] = [
     title: 'Basic Editing',
     summary: 'Clean cuts, music balancing, audio cleanup, and delivery-ready exports.',
     deliverables: ['A-roll cleanup', 'Music and audio balancing', 'Simple transitions and export'],
+    fit: 'Channels that need consistent weekly delivery',
+    result: 'Reliable clean edits',
   },
   {
     title: 'High-Retention Editing',
     summary: 'Hook shaping, pacing work, subtitles, and edit decisions built to hold attention.',
     deliverables: ['Stronger intros', 'Retention-focused pacing', 'Subtitles, zooms, and visual emphasis'],
+    fit: 'Creators pushing for stronger watch time',
+    result: 'Sharper hooks and pacing',
   },
   {
     title: 'Short-Form Content',
     summary: 'Reels, Shorts, and social clips cut for speed, clarity, and platform-native viewing.',
     deliverables: ['Vertical formatting', 'Caption-led clips', 'Short-form delivery packs'],
+    fit: 'Founders, brands, and repurposed content teams',
+    result: 'Platform-native short cuts',
   },
   {
     title: 'Content Repurposing',
     summary: 'Turn one recording into multiple usable assets across YouTube and short-form platforms.',
     deliverables: ['Clip selection', 'Multi-format exports', 'Organized fast workflow'],
+    fit: 'One recording turned into multiple outputs',
+    result: 'Long-form plus social outputs',
   },
 ];
+
+export const portfolioCollections = [
+  {
+    title: 'Long-form YouTube edits',
+    detail: 'Full episodes, talking-head pieces, and retention-led pacing passes.',
+  },
+  {
+    title: 'Short-form clip packs',
+    detail: 'Reels, Shorts, and vertical cutdowns from larger recordings.',
+  },
+  {
+    title: 'Client highlight work',
+    detail: 'More polished edit samples are being added as the portfolio expands.',
+  },
+] as const;
 
 export const processSteps = [
   {

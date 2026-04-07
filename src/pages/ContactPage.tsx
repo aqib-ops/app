@@ -26,7 +26,7 @@ export function ContactPage() {
         'aqib ops contact',
       ],
       path: '/contact',
-      image: '/contact-workspace.jpg',
+      image: '/aqib.png',
     }
   );
   usePageReveal(pageRef);

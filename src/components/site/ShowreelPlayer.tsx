@@ -57,18 +57,7 @@ export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps)
 
   return (
     <div className="showreel-shell group">
-      <div className="showreel-meta">
-        <div>
-          <p className="showreel-kicker">{title}</p>
-          <p className="showreel-caption">{mediaUrl ? 'Curated in a premium reel surface' : 'Premium reel slot ready'}</p>
-        </div>
-        <span className="showreel-badge">{mediaUrl ? 'Featured Reel' : 'Ready'}</span>
-      </div>
-
       <div className="showreel-frame">
-        <span className="showreel-ambient showreel-ambient-left" aria-hidden="true" />
-        <span className="showreel-ambient showreel-ambient-right" aria-hidden="true" />
-
         {youtubeVideoId ? (
           isActivated ? (
             <iframe
@@ -83,49 +72,32 @@ export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps)
             <button type="button" className="showreel-launch" onClick={() => setIsActivated(true)} aria-label={`Play ${title}`}>
               {youtubePreviewUrl ? <img src={youtubePreviewUrl} alt="" className="showreel-cover-image" /> : null}
               <span className="showreel-cover-overlay" aria-hidden="true" />
-              <span className="showreel-cover-grid" aria-hidden="true" />
-
-              <span className="showreel-launch-top">
-                <span className="showreel-launch-pill">Featured Edit</span>
-                <span className="showreel-launch-note">Press play</span>
-              </span>
-
-              <span className="showreel-launch-body">
-                <span className="showreel-play-button" aria-hidden="true">
+              <span className="showreel-play-center" aria-hidden="true">
+                <span className="showreel-play-button">
                   <Play className="h-6 w-6 fill-current" />
-                </span>
-
-                <span className="showreel-launch-copy">
-                  <span className="showreel-launch-title">{title}</span>
-                  <span className="showreel-launch-subtitle">
-                    Retention-focused pacing, hooks, subtitles, and motion that feels clean on first glance.
-                  </span>
                 </span>
               </span>
             </button>
           )
         ) : mediaUrl ? (
-          <video
-            controls
-            playsInline
-            preload="metadata"
-            poster="/hero-portrait.jpg"
-            className="showreel-media bg-black object-cover"
-          >
-            <source src={mediaUrl} />
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              poster="/aqib.png"
+              className="showreel-media bg-black object-cover"
+            >
+              <source src={mediaUrl} />
           </video>
         ) : (
           <div className="flex aspect-[16/9] items-center justify-center px-6 text-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#ffd95a]">{title}</p>
               <p className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">
-                Single showreel slot ready.
+                Showreel slot ready.
               </p>
               <p className="mt-3 text-sm text-white/65 sm:text-base">
-                Paste one reel link and it will appear here in the premium player surface.
-              </p>
-              <p className="mt-4 text-xs uppercase tracking-[0.16em] text-white/42">
-                Best result: 45 to 90 seconds with the strongest work first
+                Add the next reel link and it will appear here.
               </p>
             </div>
           </div>
