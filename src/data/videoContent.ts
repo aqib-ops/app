@@ -1,14 +1,14 @@
 export interface ShowreelContent {
   title: string;
   summary: string;
-  cloudinaryUrl: string;
+  mediaUrl: string;
 }
 
 export const showreelContent: ShowreelContent = {
   title: 'Showreel',
   summary:
     'A single highlight reel for YouTube and short-form editing, kept clean and visual-first.',
-  cloudinaryUrl: '',
+  mediaUrl: '',
 };
 
 export interface ServiceItem {

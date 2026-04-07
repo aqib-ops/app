@@ -16,7 +16,14 @@ type HeroParticleStyle = CSSProperties & {
   '--delay': string;
 };
 
-const heroTags = ['YouTube edits', 'Short-form clips', 'Fast workflow'];
+const heroMarqueeItems = [
+  'Long-form YouTube edits',
+  'Short-form clips',
+  'Hook shaping',
+  'Motion text',
+  'Subtitles',
+  'Fast delivery',
+];
 const heroTitle = 'Editing That Keeps People Watching';
 const heroParticles: HeroParticleStyle[] = [
   { '--x': '14%', '--y': '22%', '--size': '0.5rem', '--z': '0px', '--duration': '7.8s', '--delay': '0s' },
@@ -102,16 +109,20 @@ export function HomePage() {
               </WhatsAppCta>
             </div>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5" data-animate="stagger" data-delay="0.36">
-              {heroTags.map((tag) => (
-                <span
-                  key={tag}
-                  className="hero-tag rounded-full border border-white/12 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-white/[0.84] sm:text-sm"
-                  data-animate-child
-                >
-                  {tag}
-                </span>
-              ))}
+            <div className="mt-8" data-animate="fade-up" data-delay="0.36">
+              <div className="hero-marquee">
+                <div className="hero-marquee-track">
+                  {[0, 1].map((setIndex) => (
+                    <div key={setIndex} className="hero-marquee-set">
+                      {heroMarqueeItems.map((tag) => (
+                        <span key={`${setIndex}-${tag}`} className="hero-marquee-item">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +137,9 @@ export function HomePage() {
                 One clean showreel. Simple, minimal, and visual-first.
               </h2>
               <p className="mt-4 max-w-2xl text-black/[0.66]">{showreelContent.summary}</p>
+              <p className="mt-3 text-sm font-medium text-black/[0.48]">
+                One YouTube or MP4 link is enough. The player supports both.
+              </p>
             </div>
             <Link to="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/[0.68]">
               Open portfolio <ArrowRight className="h-4 w-4" />
@@ -133,7 +147,7 @@ export function HomePage() {
           </div>
 
           <div className="mx-auto mt-10 max-w-5xl" data-animate="fade-up" data-delay="0.08">
-            <ShowreelPlayer url={showreelContent.cloudinaryUrl} title={showreelContent.title} />
+            <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
           </div>
         </div>
       </section>
