@@ -23,12 +23,6 @@ const heroProofItems = [
     detail: 'Clear notes, clean exports, and a smoother review cycle.',
   },
 ] as const;
-const heroEditFocus = [
-  { label: 'Hook design', span: '00-08s' },
-  { label: 'Pace shaping', span: '08-24s' },
-  { label: 'Subtitles + motion', span: '24-36s' },
-  { label: 'Final polish', span: '36-45s' },
-] as const;
 
 export function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -68,11 +62,11 @@ export function HomePage() {
             <p className="eyebrow text-white/[0.62]" data-animate="fade-up">
               Aqib Ops | Premium Video Editing
             </p>
-            <h1 className="hero-display-title mt-6 max-w-[8.8ch] text-white" data-animate="fade-up" data-delay="0.04">
+            <h1 className="hero-display-title mx-auto mt-6 max-w-[8.8ch] text-white" data-animate="fade-up" data-delay="0.04">
               {heroTitle}
             </h1>
             <p
-              className="mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
+              className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
               data-animate="fade-up"
               data-delay="0.14"
             >
@@ -80,7 +74,7 @@ export function HomePage() {
               a workflow that stays fast after the first draft.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.22">
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.22">
               <Link to="/portfolio" className="btn-solid w-full justify-center sm:w-auto">
                 View Portfolio
               </Link>
@@ -98,20 +92,6 @@ export function HomePage() {
                 <div key={item.label} className="hero-proof-item" data-animate-child>
                   <p className="hero-proof-label">{item.label}</p>
                   <p className="hero-proof-detail">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="hero-editorial-column" data-animate="fade-up" data-delay="0.18">
-            <p className="hero-editorial-kicker">Edit Focus</p>
-            <div className="hero-editorial-word">RETENTION</div>
-            <div className="hero-editorial-list">
-              {heroEditFocus.map((item, index) => (
-                <div key={item.label} className="hero-editorial-row">
-                  <span className="hero-editorial-index">{`0${index + 1}`}</span>
-                  <span className="hero-editorial-label">{item.label}</span>
-                  <span className="hero-editorial-span">{item.span}</span>
                 </div>
               ))}
             </div>
