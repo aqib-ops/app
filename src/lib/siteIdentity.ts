@@ -4,7 +4,7 @@ export const siteIdentity = {
   fullName: 'Aqib Ops',
   seoName: 'Aqib Ops',
   defaultUrl: 'https://aqibops.xyz',
-  logoPath: '/aqib.png',
+  logoPath: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775662677/aqib_etvmzr.png',
   email: 'AqibOpscontact@gmail.com',
   xProfile: 'https://x.com/AqibOps',
   linkedinProfile: 'https://www.linkedin.com/in/aqibops',

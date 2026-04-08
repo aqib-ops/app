@@ -8,7 +8,6 @@ const footerLinks = {
     { label: 'Portfolio', to: '/portfolio' },
     { label: 'Services', to: '/services' },
     { label: 'FAQ', to: '/faq' },
-    { label: 'Contact', to: '/contact' },
   ],
   legal: [
     { label: 'Privacy Policy', to: '/privacy-policy' },

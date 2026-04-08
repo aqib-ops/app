@@ -4,7 +4,6 @@ import { SiteLayout } from './components/site/SiteLayout';
 import { HomePage } from './pages/HomePage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { CaseStudiesPage } from './pages/CaseStudiesPage';
-import { ContactPage } from './pages/ContactPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsAndConditionsPage } from './pages/TermsAndConditionsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -20,7 +19,7 @@ const serviceRedirects = [
   '/ai-agent-ops',
 ];
 
-const contactRedirects = ['/pricing', '/workflow-audit-checklist'];
+const contactRedirects = ['/contact', '/pricing', '/workflow-audit-checklist'];
 
 const portfolioRedirects = ['/case-studies', '/compare-alternatives'];
 
@@ -35,7 +34,6 @@ function App() {
           <Route path="/portfolio" element={<CaseStudiesPage />} />
           <Route path="/services" element={<SolutionsPage />} />
           <Route path="/faq" element={<FAQHubPage />} />
-          <Route path="/contact" element={<ContactPage />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/404" element={<NotFoundPage />} />
@@ -44,7 +42,7 @@ function App() {
             <Route key={path} path={path} element={<Navigate to="/services" replace />} />
           ))}
           {contactRedirects.map((path) => (
-            <Route key={path} path={path} element={<Navigate to="/contact" replace />} />
+            <Route key={path} path={path} element={<Navigate to="/" replace />} />
           ))}
           {portfolioRedirects.map((path) => (
             <Route key={path} path={path} element={<Navigate to="/portfolio" replace />} />

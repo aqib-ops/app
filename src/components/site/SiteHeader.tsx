@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { WhatsAppCta } from './WhatsAppCta';
+import { siteIdentity } from '../../lib/siteIdentity';
 
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Portfolio', to: '/portfolio' },
   { label: 'Services', to: '/services' },
   { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
 ];
 
 function navLinkClass(isActive: boolean) {
@@ -40,15 +40,19 @@ export function SiteHeader() {
               : 'border-white/10 bg-[rgba(6,6,6,0.8)] shadow-[0_6px_18px_rgba(0,0,0,0.18)]'
           }`}
         >
-          <div className="flex h-[4.5rem] items-center justify-between px-3 sm:h-20 sm:px-4 md:px-5">
-            <Link to="/" className="group inline-flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setMobileOpen(false)}>
+          <div className="flex h-[4.5rem] items-center justify-between gap-3 px-3 sm:h-20 sm:px-4 md:px-5">
+            <Link
+              to="/"
+              className="group inline-flex min-w-0 shrink-0 items-center gap-3 sm:gap-3.5"
+              onClick={() => setMobileOpen(false)}
+            >
               <img
-                src="/Aqib.svg"
+                src={siteIdentity.logoPath}
                 alt="Aqib Ops logo"
-                className="h-9 w-9 rounded-xl border border-white/[0.2] object-contain sm:h-10 sm:w-10"
+                className="h-9 w-9 shrink-0 rounded-[0.95rem] border border-white/[0.16] bg-white/[0.03] object-contain p-0.5 shadow-[0_10px_24px_rgba(0,0,0,0.18)] sm:h-10 sm:w-10"
               />
-              <div className="min-w-0 leading-tight">
-                <span className="font-display text-[1.25rem] font-extrabold tracking-tight text-white sm:text-2xl">
+              <div className="min-w-0 leading-none">
+                <span className="font-display text-[1.24rem] font-extrabold tracking-[-0.03em] text-white sm:text-[1.9rem]">
                   aqib <span className="text-[#ffd95a]">ops</span>
                 </span>
               </div>
@@ -62,8 +66,8 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-4 md:flex">
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/[0.58]">
+            <div className="hidden items-center gap-3 lg:flex xl:gap-4">
+              <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] text-white/[0.58] xl:block">
                 YouTube + Short-Form Editing
               </span>
               <WhatsAppCta

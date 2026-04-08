@@ -5,6 +5,7 @@ import { WhatsAppCta } from '../components/site/WhatsAppCta';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
 import { creatorFit, serviceItems } from '../data/videoContent';
+import { siteIdentity } from '../lib/siteIdentity';
 
 const serviceIcons = [Scissors, Clapperboard, Subtitles, Repeat2];
 
@@ -20,7 +21,7 @@ export function SolutionsPage() {
 
   usePageMeta(
     'Video Editing Services | Aqib Ops',
-    'Video editing services for YouTube and short-form content including basic editing, high-retention edits, short clips, and content repurposing.',
+    'Video editing services for long-form YouTube, retention polish, short clips, and content repurposing.',
     {
       keywords: [
         'video editing services',
@@ -30,7 +31,7 @@ export function SolutionsPage() {
         'high retention editing',
       ],
       path: '/services',
-      image: '/aqib.png',
+      image: siteIdentity.logoPath,
     }
   );
 
@@ -44,15 +45,15 @@ export function SolutionsPage() {
             Services
           </p>
           <h1 className="display-title mt-4 max-w-4xl text-white" data-animate="fade-up">
-            Editing services built for creators who publish consistently.
+            Editing services built for creators who need clean output and better retention.
           </h1>
           <p
             className="mt-5 max-w-3xl text-base text-white/[0.72] sm:text-lg"
             data-animate="fade-up"
             data-delay="0.08"
           >
-            Long-form YouTube edits, short-form clips, and content repurposing delivered through a
-            clean, reliable post-production workflow.
+            Long-form YouTube edits, retention upgrades, short-form clips, and repurposing handled
+            through a clean, reliable workflow.
           </p>
         </div>
       </section>
@@ -62,7 +63,7 @@ export function SolutionsPage() {
           <div className="max-w-3xl" data-animate="fade-up">
             <p className="eyebrow text-black/[0.5]">Core Offers</p>
             <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
-              Choose the editing support that fits your content flow.
+              Choose the edit style that fits your content flow.
             </h2>
           </div>
 

@@ -1,28 +1,41 @@
-import { useRef } from 'react';
-import { ArrowRight, Check } from 'lucide-react';
+import { type CSSProperties, useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ShowreelPlayer } from '../components/site/ShowreelPlayer';
 import { WhatsAppCta } from '../components/site/WhatsAppCta';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
-import { processSteps, serviceItems, showreelContent } from '../data/videoContent';
+import { siteIdentity } from '../lib/siteIdentity';
+import { processSteps, showreelContent } from '../data/videoContent';
 
 const heroTitle = 'Editing That Keeps People Watching';
-const aboutHighlights = ['Stronger hooks', 'Cleaner pacing', 'Fast workflow'];
-const heroProofItems = [
+const heroToolIcons = [
   {
-    label: 'Long-form YouTube',
-    detail: 'Cuts built to hold attention through the full video.',
+    name: 'Adobe Premiere Pro',
+    imageUrl: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775660449/premiere-pro_ublol3.png',
+    className: 'hero-tool-premiere',
+    delay: '0s',
   },
   {
-    label: 'Short-form clips',
-    detail: 'Reels, Shorts, and repurposed assets from one recording.',
+    name: 'Adobe Photoshop',
+    imageUrl: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775660446/photoshop_owex5e.png',
+    className: 'hero-tool-photoshop',
+    delay: '-1.4s',
   },
   {
-    label: 'Fast revisions',
-    detail: 'Clear notes, clean exports, and a smoother review cycle.',
+    name: 'Adobe After Effects',
+    imageUrl: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775660447/after-effects_vdphpm.png',
+    className: 'hero-tool-after-effects',
+    delay: '-2.8s',
+  },
+  {
+    name: 'Adobe Illustrator',
+    imageUrl: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775662419/illustrator_jndtgi.png',
+    className: 'hero-tool-illustrator',
+    delay: '-4.2s',
   },
 ] as const;
+const aboutHighlights = ['Stronger hooks', 'Cleaner pacing', 'Fast workflow'];
 
 export function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -40,7 +53,7 @@ export function HomePage() {
         'video editing portfolio',
       ],
       path: '/',
-      image: '/aqib.png',
+      image: siteIdentity.logoPath,
     }
   );
 
@@ -59,41 +72,49 @@ export function HomePage() {
 
         <div className="container-site hero-shell">
           <div className="hero-copy-column">
-            <p className="eyebrow text-white/[0.62]" data-animate="fade-up">
-              Aqib Ops | Premium Video Editing
-            </p>
-            <h1 className="hero-display-title mx-auto mt-6 max-w-[8.8ch] text-white" data-animate="fade-up" data-delay="0.04">
-              {heroTitle}
-            </h1>
-            <p
-              className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
-              data-animate="fade-up"
-              data-delay="0.14"
-            >
-              Premium editing for creators and brands that want sharper hooks, cleaner pacing, and
-              a workflow that stays fast after the first draft.
-            </p>
-
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.22">
-              <Link to="/portfolio" className="btn-solid w-full justify-center sm:w-auto">
-                View Portfolio
-              </Link>
-              <WhatsAppCta
-                variant="ghost"
-                className="w-full sm:w-auto"
-                message="Hi Aqib, I saw your site and want help editing my content."
-              >
-                Start on WhatsApp
-              </WhatsAppCta>
-            </div>
-
-            <div className="hero-proof-grid" data-animate="stagger" data-delay="0.3">
-              {heroProofItems.map((item) => (
-                <div key={item.label} className="hero-proof-item" data-animate-child>
-                  <p className="hero-proof-label">{item.label}</p>
-                  <p className="hero-proof-detail">{item.detail}</p>
+            <div className="hero-tool-cloud" aria-hidden="true">
+              {heroToolIcons.map((icon) => (
+                <div
+                  key={icon.name}
+                  className={`hero-tool-badge ${icon.className}`}
+                  style={{ '--badge-delay': icon.delay } as CSSProperties}
+                >
+                  <img src={icon.imageUrl} alt="" className="hero-tool-icon" decoding="async" loading="eager" />
                 </div>
               ))}
+            </div>
+
+            <div className="hero-copy-content">
+              <p className="eyebrow text-white/[0.62]" data-animate="fade-up">
+                Aqib Ops | Premium Video Editing
+              </p>
+              <h1 className="hero-display-title hero-headline mx-auto mt-6 text-white" data-animate="fade-up" data-delay="0.04" aria-label={heroTitle}>
+                <span className="block whitespace-nowrap sm:hidden">Editing That Keeps</span>
+                <span className="block whitespace-nowrap sm:hidden">People Watching</span>
+                <span className="hidden whitespace-nowrap sm:block">Editing That</span>
+                <span className="hidden whitespace-nowrap sm:block">Keeps People Watching</span>
+              </h1>
+              <p
+                className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
+                data-animate="fade-up"
+                data-delay="0.14"
+              >
+                Premium editing for creators and brands that want stronger hooks, great pacing,
+                clean subtitles, and a workflow that stays fast after the first draft.
+              </p>
+
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-animate="fade-up" data-delay="0.22">
+                <Link to="/portfolio" className="btn-solid w-full justify-center sm:w-auto">
+                  View Portfolio
+                </Link>
+                <WhatsAppCta
+                  variant="ghost"
+                  className="w-full sm:w-auto"
+                  message="Hi Aqib, I saw your site and want help editing my content."
+                >
+                  Start on WhatsApp
+                </WhatsAppCta>
+              </div>
             </div>
           </div>
         </div>
@@ -116,51 +137,6 @@ export function HomePage() {
 
           <div className="mx-auto mt-10 max-w-5xl" data-animate="fade-up" data-delay="0.08">
             <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
-          </div>
-        </div>
-      </section>
-
-      <section className="section-paper border-b border-black/[0.08]">
-        <div className="container-site py-16 md:py-24">
-          <div className="service-editorial-shell">
-            <div className="service-editorial-intro" data-animate="fade-up">
-              <p className="eyebrow text-black/[0.5]">Services</p>
-              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
-                Editing support built around the formats creators actually publish.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-black/[0.66] sm:text-lg">
-                The work is structured for channels and brands that need a strong main edit,
-                short-form cutdowns, or a system that turns one recording into multiple assets.
-              </p>
-            </div>
-
-            <div className="service-editorial-list" data-animate="stagger">
-              {serviceItems.map((service, index) => (
-                <article key={service.title} className="service-editorial-row-shell" data-animate-child>
-                  <div className="service-editorial-number">{`0${index + 1}`}</div>
-                  <div className="service-editorial-content">
-                    <div className="service-editorial-head">
-                      <div>
-                        <p className="service-editorial-result">{service.result}</p>
-                        <h3 className="service-editorial-title">{service.title}</h3>
-                      </div>
-                      {service.fit ? <p className="service-editorial-fit">{service.fit}</p> : null}
-                    </div>
-
-                    <p className="service-editorial-summary">{service.summary}</p>
-
-                    <ul className="service-editorial-tags">
-                      {service.deliverables.map((item) => (
-                        <li key={item} className="service-editorial-tag">
-                          <Check className="h-4 w-4" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
-            </div>
           </div>
         </div>
       </section>

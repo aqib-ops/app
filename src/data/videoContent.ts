@@ -21,32 +21,28 @@ export interface ServiceItem {
 
 export const serviceItems: ServiceItem[] = [
   {
-    title: 'Basic Editing',
-    summary: 'Clean cuts, music balancing, audio cleanup, and delivery-ready exports.',
-    deliverables: ['A-roll cleanup', 'Music and audio balancing', 'Simple transitions and export'],
-    fit: 'Channels that need consistent weekly delivery',
-    result: 'Reliable clean edits',
+    title: 'YouTube Cuts',
+    summary: 'Long-form edits built to stay clean, focused, and easy to keep watching.',
+    deliverables: ['Hook shaping', 'Pacing + cleanup', 'Final export'],
+    fit: 'Main uploads',
   },
   {
-    title: 'High-Retention Editing',
-    summary: 'Hook shaping, pacing work, subtitles, and edit decisions built to hold attention.',
-    deliverables: ['Stronger intros', 'Retention-focused pacing', 'Subtitles, zooms, and visual emphasis'],
-    fit: 'Creators pushing for stronger watch time',
-    result: 'Sharper hooks and pacing',
+    title: 'Retention Polish',
+    summary: 'Sharper intros, tighter pacing, and visual emphasis built to hold attention longer.',
+    deliverables: ['Intro tightening', 'Subtitles + punch-ins', 'Watch-time polish'],
+    fit: 'Retention boost',
   },
   {
-    title: 'Short-Form Content',
-    summary: 'Reels, Shorts, and social clips cut for speed, clarity, and platform-native viewing.',
-    deliverables: ['Vertical formatting', 'Caption-led clips', 'Short-form delivery packs'],
-    fit: 'Founders, brands, and repurposed content teams',
-    result: 'Platform-native short cuts',
+    title: 'Short Clips',
+    summary: 'Vertical edits made for Reels, Shorts, and fast social posting.',
+    deliverables: ['Captions + punch-ins', 'Tight trimming', 'Platform-ready versions'],
+    fit: 'Reels + Shorts',
   },
   {
-    title: 'Content Repurposing',
-    summary: 'Turn one recording into multiple usable assets across YouTube and short-form platforms.',
-    deliverables: ['Clip selection', 'Multi-format exports', 'Organized fast workflow'],
-    fit: 'One recording turned into multiple outputs',
-    result: 'Long-form plus social outputs',
+    title: 'Repurpose Workflow',
+    summary: 'One recording turned into a full video and extra assets without extra chaos.',
+    deliverables: ['Main edit + clips', 'Organized exports', 'Simple revisions'],
+    fit: 'One shoot, many assets',
   },
 ];
 

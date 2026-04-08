@@ -85,7 +85,7 @@ export function usePageMeta(title: string, description: string, options: PageMet
   const {
     keywords = [],
     path,
-    image = '/aqib.png',
+    image = siteIdentity.logoPath,
     noindex = false,
     type = 'website',
     structuredData,
@@ -122,7 +122,8 @@ export function usePageMeta(title: string, description: string, options: PageMet
     }
     canonical.setAttribute('href', canonicalUrl);
 
-    const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+    const toAssetUrl = (asset: string) => (asset.startsWith('http') ? asset : `${baseUrl}${asset}`);
+    const imageUrl = toAssetUrl(image);
 
     const ogTitle = getOrCreateMeta('meta[property="og:title"]', 'property', 'og:title');
     ogTitle.setAttribute('content', brandedTitle);
@@ -184,7 +185,7 @@ export function usePageMeta(title: string, description: string, options: PageMet
         name: siteIdentity.fullName,
         ...(alternateNames ? { alternateName: alternateNames } : {}),
         url: baseUrl,
-        logo: `${baseUrl}${siteIdentity.logoPath}`,
+        logo: toAssetUrl(siteIdentity.logoPath),
         email: siteIdentity.email,
         sameAs: [siteIdentity.linkedinProfile, siteIdentity.xProfile, siteIdentity.whatsappProfile],
       });
