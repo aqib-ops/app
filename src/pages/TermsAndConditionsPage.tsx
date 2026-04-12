@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
-import { siteIdentity } from '../lib/siteIdentity';
 
 const updatedOn = 'April 4, 2026';
 
@@ -32,7 +31,7 @@ const summaryItems = [
   {
     label: 'No outcome guarantee',
     value:
-      'Aqib Ops does not guarantee views, retention metrics, subscriber growth, virality, or platform approval.',
+      'Aqib Mehmood does not guarantee views, retention metrics, subscriber growth, virality, or platform approval.',
   },
 ] as const;
 
@@ -40,16 +39,16 @@ const termsSections: LegalSection[] = [
   {
     title: 'Acceptance and Website Use',
     paragraphs: [
-      'By using this website, sending an inquiry, requesting a quote, or engaging Aqib Ops for editing services, you agree to these Terms and Conditions.',
+      'By using this website, sending an inquiry, requesting a quote, or engaging Aqib Mehmood for editing services, you agree to these Terms and Conditions.',
       'You may use the website only for lawful informational or business purposes. You must not misuse the website, interfere with its operation, try to gain unauthorized access, scrape content in an abusive way, or use the contact channels for spam, fraud, or unlawful activity.',
     ],
   },
   {
     title: 'Services and Project Scope',
     intro:
-      'Aqib Ops provides video editing and related post-production services for creators, personal brands, and businesses.',
+      'Aqib Mehmood provides video editing and related post-production services for creators, personal brands, and businesses.',
     bullets: [
-      'Each project is governed by the written quote, proposal, invoice, scope note, or direct written approval between Aqib Ops and the client.',
+      'Each project is governed by the written quote, proposal, invoice, scope note, or direct written approval between Aqib Mehmood and the client.',
       'Those written terms control the deliverables, format, turnaround time, revision rounds, delivery method, pricing, and any add-on or rush work.',
       'Requests outside the approved scope may require an updated quote, a revised timeline, or both.',
       'Work may start only after the necessary brief, files, references, access, and any required upfront payment are received.',
@@ -61,7 +60,7 @@ const termsSections: LegalSection[] = [
       'You must provide accurate project information and reasonably complete materials needed to perform the work.',
       'You are responsible for having the legal right to use all footage, audio, music, images, fonts, scripts, thumbnails, trademarks, and brand assets you provide.',
       'You must make sure the materials you submit do not infringe third-party rights or violate applicable law or platform rules.',
-      'Aqib Ops may rely on the information, permissions, and instructions you provide without independently verifying ownership of every asset.',
+      'Aqib Mehmood may rely on the information, permissions, and instructions you provide without independently verifying ownership of every asset.',
     ],
   },
   {
@@ -69,7 +68,7 @@ const termsSections: LegalSection[] = [
     paragraphs: [
       'Editing is a collaborative service. Timelines depend on the quality of the brief, the condition of the source footage, and how quickly feedback and approvals are provided.',
       'Revision rounds are limited to what is included in the agreed scope. Changes in creative direction, new footage after work starts, repeated resets, or significant additions may be treated as extra work.',
-      'If feedback or approvals are delayed, delivery dates may shift. Aqib Ops is not responsible for delays caused by missing files, missing access, slow approvals, or third-party platform issues.',
+      'If feedback or approvals are delayed, delivery dates may shift. Aqib Mehmood is not responsible for delays caused by missing files, missing access, slow approvals, or third-party platform issues.',
     ],
   },
   {
@@ -84,7 +83,7 @@ const termsSections: LegalSection[] = [
   {
     title: 'Pauses, Cancellations, and Abandoned Projects',
     paragraphs: [
-      'If a project is paused, canceled, or abandoned after work has started, Aqib Ops may invoice for work already completed, time already reserved, and any approved third-party costs already incurred.',
+      'If a project is paused, canceled, or abandoned after work has started, Aqib Mehmood may invoice for work already completed, time already reserved, and any approved third-party costs already incurred.',
       'If the client becomes unresponsive or fails to provide required files or approvals for an extended period, the project may be rescheduled, repriced, or closed based on the stage of work already completed.',
     ],
   },
@@ -92,9 +91,9 @@ const termsSections: LegalSection[] = [
     title: 'Delivery, Storage, and Backups',
     bullets: [
       'Final delivery is made in the agreed format, resolution, and handoff method.',
-      'Unless archival storage is included in writing, Aqib Ops is not responsible for storing raw footage, project files, or final exports indefinitely.',
+      'Unless archival storage is included in writing, Aqib Mehmood is not responsible for storing raw footage, project files, or final exports indefinitely.',
       'Clients should keep their own backups of raw footage, assets, final exports, and any project files that matter to them.',
-      'Aqib Ops may delete older source files, project files, or exports when they are no longer reasonably needed for delivery, revisions, support, or recordkeeping.',
+      'Aqib Mehmood may delete older source files, project files, or exports when they are no longer reasonably needed for delivery, revisions, support, or recordkeeping.',
     ],
   },
   {
@@ -102,39 +101,39 @@ const termsSections: LegalSection[] = [
     paragraphs: [
       'You retain ownership of your pre-existing footage, brand assets, scripts, and other materials you provide.',
       'Unless a written agreement says otherwise, rights in the final approved deliverables transfer to you or are licensed to you for the intended use only after full payment has been received.',
-      'Aqib Ops retains ownership of its pre-existing workflows, editing systems, know-how, reusable templates, internal processes, and any third-party materials that are separately licensed or not exclusively created for your project.',
+      'Aqib Mehmood retains ownership of pre-existing workflows, editing systems, know-how, reusable templates, internal processes, and any third-party materials that are separately licensed or not exclusively created for your project.',
     ],
   },
   {
     title: 'Confidentiality, Credits, and Portfolio Use',
     paragraphs: [
-      'Aqib Ops will use non-public client materials only as reasonably needed to quote, edit, deliver, support, and protect the service.',
+      'Aqib Mehmood will use non-public client materials only as reasonably needed to quote, edit, deliver, support, and protect the service.',
       'If your project requires stricter confidentiality, embargoes, NDA terms, or no-portfolio restrictions, those terms should be agreed in writing before work starts.',
-      'Unless otherwise agreed in writing, Aqib Ops may identify the client name and display non-confidential, publicly released final work for portfolio, case-study, website, or social proof purposes.',
+      'Unless otherwise agreed in writing, Aqib Mehmood may identify the client name and display non-confidential, publicly released final work for portfolio, case-study, website, or social proof purposes.',
     ],
   },
   {
     title: 'Third-Party Platforms and Licensed Materials',
     paragraphs: [
-      'Editing services may depend on third-party platforms, hosting providers, payment services, cloud tools, communication tools, captioning tools, and social media or publishing platforms that are outside Aqib Ops control.',
-      'Aqib Ops is not responsible for strikes, claims, takedowns, demonetization, reduced reach, account issues, or policy enforcement caused by client-supplied materials, third-party rights issues, or platform rule changes.',
+      'Editing services may depend on third-party platforms, hosting providers, payment services, cloud tools, communication tools, captioning tools, and social media or publishing platforms that are outside Aqib Mehmood\'s control.',
+      'Aqib Mehmood is not responsible for strikes, claims, takedowns, demonetization, reduced reach, account issues, or policy enforcement caused by client-supplied materials, third-party rights issues, or platform rule changes.',
     ],
   },
   {
     title: 'Disclaimers and Limitation of Liability',
     paragraphs: [
-      'Aqib Ops will provide services with reasonable skill and care, but no guarantee is made about platform performance, audience response, watch time, subscriber growth, virality, monetization, sponsorship results, or business outcomes.',
-      'To the maximum extent permitted by law, Aqib Ops is not liable for indirect, incidental, consequential, special, punitive, or lost-profit damages, including lost revenue, lost opportunities, lost data, or lost platform performance.',
+      'Aqib Mehmood will provide services with reasonable skill and care, but no guarantee is made about platform performance, audience response, watch time, subscriber growth, virality, monetization, sponsorship results, or business outcomes.',
+      'To the maximum extent permitted by law, Aqib Mehmood is not liable for indirect, incidental, consequential, special, punitive, or lost-profit damages, including lost revenue, lost opportunities, lost data, or lost platform performance.',
       'Where liability cannot legally be excluded, any liability limits stated in the written project agreement will control first.',
     ],
   },
   {
     title: 'Suspension, Termination, and Order of Terms',
     paragraphs: [
-      'Aqib Ops may suspend or end work if there is non-payment, unlawful use, abusive conduct, repeated breach of scope, refusal to cooperate, or a material breach of these Terms or the written project agreement.',
+      'Aqib Mehmood may suspend or end work if there is non-payment, unlawful use, abusive conduct, repeated breach of scope, refusal to cooperate, or a material breach of these Terms or the written project agreement.',
       'If these website Terms conflict with a signed proposal, invoice, or project agreement, the signed or written project terms control for that project.',
       'These Terms may be updated from time to time for future use. The "Last updated" date reflects the latest revision.',
-      `For legal or contractual questions, contact ${siteIdentity.email}.`,
+      'For legal or contractual questions, use the WhatsApp contact option on this website.',
     ],
   },
 ];
@@ -143,13 +142,13 @@ export function TermsAndConditionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Terms and Conditions | Aqib Ops',
-    'Read the Aqib Ops terms and conditions for video editing services, including scope, revisions, payment, cancellations, file retention, rights, confidentiality, and liability limits.',
+    'Terms and Conditions | Aqib Mehmood',
+    'Read the Aqib Mehmood terms and conditions for video editing services, including scope, revisions, payment, cancellations, file retention, rights, confidentiality, and liability limits.',
     {
       keywords: [
         'video editing agency terms and conditions',
         'video editing service terms',
-        'aqib ops terms and conditions',
+        'aqib mehmood terms and conditions',
         'creative services contract terms',
       ],
       path: '/terms-and-conditions',
@@ -170,7 +169,7 @@ export function TermsAndConditionsPage() {
             Terms and Conditions
           </h1>
           <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
-            Commercial terms for Aqib Ops as a video editing agency, including scope, approvals,
+            Commercial terms for Aqib Mehmood as an independent video editor, including scope, approvals,
             revisions, payment, rights, storage, and project conduct.
           </p>
           <p className="mt-4 text-sm text-white/[0.6]" data-animate="fade-up" data-delay="0.12">

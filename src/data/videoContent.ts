@@ -2,13 +2,15 @@ export interface ShowreelContent {
   title: string;
   summary: string;
   mediaUrl: string;
+  posterUrl?: string;
 }
 
 export const showreelContent: ShowreelContent = {
-  title: 'Current Highlight',
+  title: 'Video Showreel',
   summary:
-    'A current portfolio highlight, with more edits and client work being added over time.',
-  mediaUrl: 'https://youtu.be/ixlcWkuXec8',
+    'A direct showreel cut that highlights pacing, polish, and the editing style behind the portfolio.',
+  mediaUrl: 'https://res.cloudinary.com/dw0pjpqsu/video/upload/v1775989574/Final_V_iyl2qj.mp4',
+  posterUrl: 'https://res.cloudinary.com/dw0pjpqsu/image/upload/v1775997653/remove_the__24_202604121740_m5mqkx.jpg',
 };
 
 export interface ServiceItem {

@@ -4,6 +4,7 @@ import { Play } from 'lucide-react';
 interface ShowreelPlayerProps {
   url?: string;
   title?: string;
+  posterUrl?: string;
 }
 
 function getYouTubeVideoId(url: string): string | null {
@@ -45,7 +46,7 @@ function getYouTubeEmbedUrl(videoId: string, autoplay = false): string {
   return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
 }
 
-export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps) {
+export function ShowreelPlayer({ url, title = 'Showreel', posterUrl }: ShowreelPlayerProps) {
   const mediaUrl = url?.trim() ?? '';
   const youtubeVideoId = mediaUrl ? getYouTubeVideoId(mediaUrl) : null;
   const youtubePreviewUrl = youtubeVideoId ? `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg` : null;
@@ -84,7 +85,7 @@ export function ShowreelPlayer({ url, title = 'Showreel' }: ShowreelPlayerProps)
               controls
               playsInline
               preload="metadata"
-              poster="/aqib.png"
+              poster={posterUrl || '/aqib.png'}
               className="showreel-media bg-black object-cover"
             >
               <source src={mediaUrl} />

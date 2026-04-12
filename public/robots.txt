@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aqibops.xyz/sitemap.xml
+Sitemap: https://aqib.eu.cc/sitemap.xml

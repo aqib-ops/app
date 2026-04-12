@@ -20,7 +20,7 @@ export function SolutionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Video Editing Services | Aqib Ops',
+    'Video Editing Services | Aqib Mehmood',
     'Video editing services for long-form YouTube, retention polish, short clips, and content repurposing.',
     {
       keywords: [

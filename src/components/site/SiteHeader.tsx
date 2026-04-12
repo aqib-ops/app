@@ -13,7 +13,7 @@ const navItems = [
 
 function navLinkClass(isActive: boolean) {
   return [
-    'inline-flex items-center rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200',
+    'inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200',
     isActive
       ? 'bg-[#ffd95a] text-[#191200]'
       : 'text-white/72 hover:bg-white/[0.08] hover:text-white',
@@ -34,31 +34,31 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50">
       <div className="container-site">
         <div
-          className={`overflow-hidden rounded-b-[1.1rem] border-x border-b border-t-0 backdrop-blur-xl transition-all duration-300 sm:rounded-b-[1.35rem] ${
+          className={`overflow-hidden rounded-b-[1rem] border-x border-b border-t-0 backdrop-blur-xl transition-all duration-300 sm:rounded-b-[1.2rem] ${
             isScrolled
               ? 'border-white/14 bg-[rgba(8,8,8,0.94)] shadow-[0_12px_30px_rgba(0,0,0,0.26)]'
               : 'border-white/10 bg-[rgba(6,6,6,0.8)] shadow-[0_6px_18px_rgba(0,0,0,0.18)]'
           }`}
         >
-          <div className="flex h-[4.5rem] items-center justify-between gap-3 px-3 sm:h-20 sm:px-4 md:px-5">
+          <div className="flex h-16 items-center justify-between gap-3 px-3 sm:h-[4.45rem] sm:px-4 md:px-5">
             <Link
               to="/"
-              className="group inline-flex min-w-0 shrink-0 items-center gap-3 sm:gap-3.5"
+              className="group inline-flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3"
               onClick={() => setMobileOpen(false)}
             >
               <img
                 src={siteIdentity.logoPath}
-                alt="Aqib Ops logo"
-                className="h-9 w-9 shrink-0 rounded-[0.95rem] border border-white/[0.16] bg-white/[0.03] object-contain p-0.5 shadow-[0_10px_24px_rgba(0,0,0,0.18)] sm:h-10 sm:w-10"
+                alt="Aqib Mehmood logo"
+                className="h-8 w-8 shrink-0 rounded-[0.85rem] border border-white/[0.16] bg-white/[0.03] object-contain p-0.5 shadow-[0_10px_24px_rgba(0,0,0,0.18)] sm:h-9 sm:w-9"
               />
               <div className="min-w-0 leading-none">
-                <span className="font-display text-[1.24rem] font-extrabold tracking-[-0.03em] text-white sm:text-[1.9rem]">
-                  aqib <span className="text-[#ffd95a]">ops</span>
+                <span className="font-display text-[1.1rem] font-extrabold tracking-[-0.03em] text-white sm:text-[1.45rem]">
+                  Aqib <span className="text-[#ffd95a]">Mehmood</span>
                 </span>
               </div>
             </Link>
 
-            <nav className="hidden items-center rounded-full border border-white/[0.12] bg-white/[0.03] p-1 md:flex">
+            <nav className="hidden items-center rounded-full border border-white/[0.12] bg-white/[0.03] p-[3px] md:flex">
               {navItems.map((item) => (
                 <NavLink key={item.to} to={item.to} end={item.to === '/'}>
                   {({ isActive }) => <span className={navLinkClass(isActive)}>{item.label}</span>}

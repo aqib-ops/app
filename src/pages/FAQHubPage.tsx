@@ -26,7 +26,7 @@ export function FAQHubPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'FAQ | Aqib Ops',
+    'FAQ | Aqib Mehmood',
     'Answers about YouTube and short-form video editing, revisions, workflow, and what is needed to start.',
     {
       keywords: [

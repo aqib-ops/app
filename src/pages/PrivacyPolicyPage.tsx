@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePageReveal } from '../hooks/usePageReveal';
-import { siteIdentity } from '../lib/siteIdentity';
 
 const updatedOn = 'April 4, 2026';
 
@@ -31,7 +30,7 @@ const summaryItems = [
   },
   {
     label: 'Privacy contact',
-    value: siteIdentity.email,
+    value: 'Reach out through the WhatsApp button on the site for privacy questions.',
   },
 ] as const;
 
@@ -39,7 +38,7 @@ const privacySections: LegalSection[] = [
   {
     title: 'Who This Policy Applies To',
     paragraphs: [
-      'This Privacy Policy applies to information collected through aqibops.xyz, the contact form, direct email, WhatsApp conversations, proposals, and project-related communication with Aqib Ops.',
+      'This Privacy Policy applies to information collected through aqib.eu.cc, the contact form, WhatsApp conversations, proposals, and project-related communication with Aqib Mehmood.',
       'It covers website visitors, leads, clients, and business contacts. It does not apply to third-party websites, payment providers, cloud storage tools, social platforms, or messaging services that have their own privacy policies.',
     ],
   },
@@ -77,7 +76,7 @@ const privacySections: LegalSection[] = [
   {
     title: 'How Information Is Shared',
     paragraphs: [
-      'Aqib Ops does not sell personal information and does not share personal information for cross-context behavioral advertising through this website.',
+      'Aqib Mehmood does not sell personal information and does not share personal information for cross-context behavioral advertising through this website.',
       'Information may be shared with service providers that help operate the business, such as website hosting, form-processing systems, cloud storage, email, messaging, invoicing, payments, file transfer, captioning, transcription, or project-delivery tools, but only where reasonably needed to provide the service.',
       'Information may also be shared if required by law, to protect rights or safety, to investigate abuse, or if you ask us to coordinate with another platform, editor, team member, or contractor involved in your project.',
     ],
@@ -85,7 +84,7 @@ const privacySections: LegalSection[] = [
   {
     title: 'International Transfers',
     paragraphs: [
-      'Because service providers may operate in different countries, your information may be processed or stored outside your home country. By contacting Aqib Ops or using the service, you understand that these transfers may happen.',
+      'Because service providers may operate in different countries, your information may be processed or stored outside your home country. By contacting Aqib Mehmood or using the service, you understand that these transfers may happen.',
     ],
   },
   {
@@ -124,7 +123,7 @@ const privacySections: LegalSection[] = [
       'Ask how your information has been used or disclosed where local law requires that information.',
     ],
     paragraphs: [
-      'California residents may have rights to know, delete, and correct personal information, as well as the right not to be discriminated against for exercising applicable privacy rights. Aqib Ops does not currently sell personal information or share it for targeted advertising through this website.',
+      'California residents may have rights to know, delete, and correct personal information, as well as the right not to be discriminated against for exercising applicable privacy rights. Aqib Mehmood does not currently sell personal information or share it for targeted advertising through this website.',
       'If you are in the UK, EEA, or another jurisdiction with regulator complaint rights, you may also complain to your local data protection authority.',
     ],
   },
@@ -138,7 +137,7 @@ const privacySections: LegalSection[] = [
     title: 'Changes and Contact',
     paragraphs: [
       'This Privacy Policy may be updated from time to time as the website, tools, service process, or legal requirements change. The "Last updated" date shows the latest revision.',
-      `For privacy questions or requests, email ${siteIdentity.email}.`,
+      'For privacy questions or requests, use the WhatsApp contact option on this website.',
     ],
   },
 ];
@@ -147,13 +146,13 @@ export function PrivacyPolicyPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Privacy Policy | Aqib Ops',
-    'Read the Aqib Ops privacy policy for video editing services, including what information is collected, how it is used, retention, file handling, and privacy rights.',
+    'Privacy Policy | Aqib Mehmood',
+    'Read the Aqib Mehmood privacy policy for video editing services, including what information is collected, how it is used, retention, file handling, and privacy rights.',
     {
       keywords: [
         'video editing agency privacy policy',
         'video editor privacy policy',
-        'aqib ops privacy policy',
+        'aqib mehmood privacy policy',
         'creative services privacy policy',
       ],
       path: '/privacy-policy',
@@ -174,7 +173,7 @@ export function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="mt-5 max-w-3xl text-lg text-white/[0.74]" data-animate="fade-up" data-delay="0.08">
-            Privacy information for Aqib Ops as a video editing agency, including what we collect,
+            Privacy information for Aqib Mehmood as an independent video editor, including what we collect,
             how we use it, how long we keep it, and what rights you may have.
           </p>
           <p className="mt-4 text-sm text-white/[0.6]" data-animate="fade-up" data-delay="0.12">

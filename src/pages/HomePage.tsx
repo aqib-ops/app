@@ -1,4 +1,4 @@
-import { type CSSProperties, useRef } from 'react';
+import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ShowreelPlayer } from '../components/site/ShowreelPlayer';
@@ -8,7 +8,11 @@ import { usePageReveal } from '../hooks/usePageReveal';
 import { siteIdentity } from '../lib/siteIdentity';
 import { processSteps, showreelContent } from '../data/videoContent';
 
-const heroTitle = 'Editing That Keeps People Watching';
+const heroHeadlinePrefix = 'Editing That Keeps People';
+const heroHeadlineWords = ['Watching', 'Hooked', 'Engaged', 'Glued', 'Addicted'] as const;
+const heroHeadlineRotationMs = 4600;
+const heroHeadlineTransitionMs = 820;
+const heroHeadlineWordBufferPx = 36;
 const heroToolIcons = [
   {
     name: 'Adobe Premiere Pro',
@@ -39,9 +43,79 @@ const aboutHighlights = ['Stronger hooks', 'Cleaner pacing', 'Fast workflow'];
 
 export function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const headlineMeasureRef = useRef<HTMLSpanElement>(null);
+  const wordTransitionTimeoutRef = useRef<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [isHeadlineTransitioning, setIsHeadlineTransitioning] = useState(false);
+  const [headlineWordWidth, setHeadlineWordWidth] = useState<number | null>(null);
+  const activeHeadlineWord = heroHeadlineWords[activeIndex];
+  const heroTitle = `${heroHeadlinePrefix} ${activeHeadlineWord}`;
+
+  useEffect(() => {
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotionQuery.matches) {
+      return;
+    }
+
+    const runWordSwap = () => {
+      setActiveIndex((current) => {
+        const nextIndex = (current + 1) % heroHeadlineWords.length;
+        setPreviousIndex(current);
+        return nextIndex;
+      });
+      setIsHeadlineTransitioning(true);
+
+      if (wordTransitionTimeoutRef.current) {
+        window.clearTimeout(wordTransitionTimeoutRef.current);
+      }
+
+      wordTransitionTimeoutRef.current = window.setTimeout(() => {
+        setPreviousIndex(null);
+        setIsHeadlineTransitioning(false);
+      }, heroHeadlineTransitionMs);
+    };
+
+    const intervalId = window.setInterval(() => {
+      runWordSwap();
+    }, heroHeadlineRotationMs);
+
+    return () => {
+      window.clearInterval(intervalId);
+
+      if (wordTransitionTimeoutRef.current) {
+        window.clearTimeout(wordTransitionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const updateHeadlineWidth = () => {
+      if (!headlineMeasureRef.current) {
+        return;
+      }
+
+      const widths = Array.from(
+        headlineMeasureRef.current.querySelectorAll<HTMLElement>('[data-headline-word-measure]')
+      ).map((element) => element.getBoundingClientRect().width);
+
+      if (!widths.length) {
+        return;
+      }
+
+      setHeadlineWordWidth(
+        Math.ceil(Math.max(...widths)) + heroHeadlineWordBufferPx
+      );
+    };
+
+    updateHeadlineWidth();
+    window.addEventListener('resize', updateHeadlineWidth);
+
+    return () => window.removeEventListener('resize', updateHeadlineWidth);
+  }, []);
 
   usePageMeta(
-    'Aqib Ops | High-Retention Video Editing for YouTube & Shorts',
+    'Aqib Mehmood | High-Retention Video Editing for YouTube & Shorts',
     'Editing That Keeps People Watching. High-retention video editing for YouTube and short-form content for creators, personal brands, and businesses.',
     {
       keywords: [
@@ -66,7 +140,7 @@ export function HomePage() {
         <div className="hero-aurora hero-aurora-right" />
         <div className="hero-center-glow" />
         <div className="hero-backdrop-word" aria-hidden="true">
-          aqib ops
+          aqib mehmood
         </div>
         <div className="hero-backdrop-grid" aria-hidden="true" />
 
@@ -86,13 +160,49 @@ export function HomePage() {
 
             <div className="hero-copy-content">
               <p className="eyebrow text-white/[0.62]" data-animate="fade-up">
-                Aqib Ops | Premium Video Editing
+                Aqib Mehmood | Premium Video Editing
               </p>
-              <h1 className="hero-display-title hero-headline mx-auto mt-6 text-white" data-animate="fade-up" data-delay="0.04" aria-label={heroTitle}>
-                <span className="block whitespace-nowrap sm:hidden">Editing That Keeps</span>
-                <span className="block whitespace-nowrap sm:hidden">People Watching</span>
-                <span className="hidden whitespace-nowrap sm:block">Editing That</span>
-                <span className="hidden whitespace-nowrap sm:block">Keeps People Watching</span>
+              <h1
+                className="hero-display-title hero-headline mx-auto mt-6 text-white"
+                data-animate="fade-up"
+                data-delay="0.04"
+                aria-label={heroTitle}
+              >
+                <span className="hero-headline-line" aria-hidden="true">
+                  Editing That Keeps
+                </span>
+                <span className="hero-headline-line hero-headline-line-animated" aria-hidden="true">
+                  <span className="hero-headline-people">People</span>
+                  <span
+                    className="hero-rotating-word-stage"
+                    style={{ width: headlineWordWidth ? `${headlineWordWidth}px` : undefined }}
+                  >
+                    <span ref={headlineMeasureRef} className="hero-rotating-word-measure">
+                      {heroHeadlineWords.map((word) => (
+                        <span key={word} className="hero-rotating-word-measure-item" data-headline-word-measure>
+                          {word}
+                        </span>
+                      ))}
+                    </span>
+                    {previousIndex !== null ? (
+                      <span
+                        key={`headline-out-${previousIndex}-${activeIndex}`}
+                        className="hero-rotating-word hero-rotating-word-exit"
+                        aria-hidden="true"
+                      >
+                        {heroHeadlineWords[previousIndex]}
+                      </span>
+                    ) : null}
+                    <span
+                      key={`headline-in-${activeIndex}`}
+                      className={`hero-rotating-word ${
+                        isHeadlineTransitioning ? 'hero-rotating-word-enter' : 'hero-rotating-word-current'
+                      }`.trim()}
+                    >
+                      {activeHeadlineWord}
+                    </span>
+                  </span>
+                </span>
               </h1>
               <p
                 className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/[0.74] sm:text-lg sm:leading-8"
@@ -136,7 +246,11 @@ export function HomePage() {
           </div>
 
           <div className="mx-auto mt-10 max-w-5xl" data-animate="fade-up" data-delay="0.08">
-            <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
+            <ShowreelPlayer
+              url={showreelContent.mediaUrl}
+              title={showreelContent.title}
+              posterUrl={showreelContent.posterUrl}
+            />
           </div>
         </div>
       </section>

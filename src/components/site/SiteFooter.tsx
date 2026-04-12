@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, MessageCircle, Twitter, type LucideIcon } from 'lucide-react';
 import { buildWhatsAppLink, whatsappDisplayNumber } from '../../lib/whatsapp';
+import { siteIdentity } from '../../lib/siteIdentity';
 
 const footerLinks = {
   pages: [
@@ -16,14 +17,14 @@ const footerLinks = {
 };
 
 const socialLinks: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aqibops', icon: Linkedin },
-  { label: 'X', href: 'https://x.com/AqibOps', icon: Twitter },
+  ...(siteIdentity.linkedinProfile ? [{ label: 'LinkedIn', href: siteIdentity.linkedinProfile, icon: Linkedin }] : []),
+  ...(siteIdentity.xProfile ? [{ label: 'X', href: siteIdentity.xProfile, icon: Twitter }] : []),
   {
     label: 'WhatsApp',
     href: buildWhatsAppLink('Hi, I want help editing my content.'),
     icon: MessageCircle,
   },
-  { label: 'Email', href: 'mailto:AqibOpscontact@gmail.com', icon: Mail },
+  ...(siteIdentity.email ? [{ label: 'Email', href: `mailto:${siteIdentity.email}`, icon: Mail }] : []),
 ];
 
 export function SiteFooter() {
@@ -34,7 +35,7 @@ export function SiteFooter() {
       <div className="container-site py-16 md:py-20">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <p className="eyebrow text-black/[0.5]">Aqib Ops</p>
+            <p className="eyebrow text-black/[0.5]">{siteIdentity.fullName}</p>
             <h2 className="mt-4 max-w-xl font-display text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
               Premium editing for creators who care about retention.
             </h2>
@@ -85,7 +86,7 @@ export function SiteFooter() {
             ))}
           </div>
           <div className="w-full text-sm text-black/[0.55] md:w-auto md:text-right">
-            <p>(c) {year} Aqib Ops. All rights reserved.</p>
+            <p>(c) {year} {siteIdentity.fullName}. All rights reserved.</p>
             <p className="mt-1">WhatsApp: {whatsappDisplayNumber}</p>
           </div>
         </div>
@@ -102,7 +103,7 @@ export function SiteFooter() {
                 WebkitBackgroundClip: 'text',
               }}
             >
-              aqibops
+              aqib mehmood
             </span>
             <span className="mt-1 block text-[clamp(0.85rem,4vw,1.9rem)] font-semibold uppercase tracking-[0.16em] text-white/[0.68]">
               retention-focused portfolio

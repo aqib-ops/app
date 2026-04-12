@@ -61,7 +61,7 @@ export function CaseStudiesPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   usePageMeta(
-    'Portfolio | Aqib Ops',
+    'Portfolio | Aqib Mehmood',
     'A growing video editing portfolio with a current highlight reel and more edits being added over time.',
     {
       keywords: [
@@ -107,7 +107,11 @@ export function CaseStudiesPage() {
                 {showreelContent.summary}
               </h2>
             </div>
-            <ShowreelPlayer url={showreelContent.mediaUrl} title={showreelContent.title} />
+            <ShowreelPlayer
+              url={showreelContent.mediaUrl}
+              title={showreelContent.title}
+              posterUrl={showreelContent.posterUrl}
+            />
 
             <div className="portfolio-preview-grid mt-12" data-animate="stagger">
               {portfolioCollections.map((item) => (

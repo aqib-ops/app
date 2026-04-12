@@ -180,14 +180,20 @@ export function usePageMeta(title: string, description: string, options: PageMet
     const alternateNames = siteIdentity.alias ? [siteIdentity.name, siteIdentity.alias] : undefined;
 
     if (includeDefaultSchemas) {
+      const sameAs = [
+        siteIdentity.linkedinProfile,
+        siteIdentity.xProfile,
+        siteIdentity.whatsappProfile,
+      ].filter(Boolean);
+
       schemaEntries.push({
         '@type': 'Organization',
         name: siteIdentity.fullName,
         ...(alternateNames ? { alternateName: alternateNames } : {}),
         url: baseUrl,
         logo: toAssetUrl(siteIdentity.logoPath),
-        email: siteIdentity.email,
-        sameAs: [siteIdentity.linkedinProfile, siteIdentity.xProfile, siteIdentity.whatsappProfile],
+        ...(siteIdentity.email ? { email: siteIdentity.email } : {}),
+        ...(sameAs.length ? { sameAs } : {}),
       });
 
       schemaEntries.push({
